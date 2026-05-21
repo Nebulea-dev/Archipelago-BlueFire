@@ -81,6 +81,7 @@ progression_items = {
 
     # Essential items
     "Sanctuary Stone": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
+    "Beira Vessel": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression),
 }
 
 # Useful items - helpful but not strictly necessary
@@ -101,7 +102,6 @@ useful_items = {
     "Rare Glasses": ItemData(BASE_ITEM_ID + 47, ItemClassification.useful),
     "Rare Snow": ItemData(BASE_ITEM_ID + 48, ItemClassification.useful),
     "Composer Letter": ItemData(BASE_ITEM_ID + 49, ItemClassification.useful),
-    "Beira Vessel": ItemData(BASE_ITEM_ID + 50, ItemClassification.useful),
     "Beira Shards": ItemData(BASE_ITEM_ID + 51, ItemClassification.useful),
     "Fire Essence Slot": ItemData(BASE_ITEM_ID + 52, ItemClassification.useful),
 
