@@ -3,24 +3,22 @@ from typing import NamedTuple, Optional
 from BaseClasses import Location, Item, ItemClassification
 
 # These 2 make it so that the generic Location and Item types are more specific for your game
-class APSkeletonLocation(Location):
-    game = "APSkeleton"
+class BluefireLocation(Location):
+    game = "Blue Fire"
 
-class APSkeletonItem(Item):
-    game = "APSkeleton"
+class BluefireItem(Item):
+    game = "Blue Fire"
 
-# I use these next 2 to convert the number you get from the options into a name
-# Mainly used in Items.py for starting chapter
-# Not important for a lot of games
-class ChapterType(IntEnum):
-    GreenHillZone = 1
-    Romania = 2
-    Sewer = 3
+# Starting location enum for player choice
+class StartingLocation(IntEnum):
+    Lab = 1
+    Crossroads = 2
+    FirekeepWest = 3
 
-chapter_type_to_name = {
-    ChapterType.GreenHillZone:  "Green Hill Zone",
-    ChapterType.Romania:        "Romania",
-    ChapterType.Sewer:          "The Sewer"
+starting_location_to_name = {
+    StartingLocation.Lab:        "Fire Keep - Lab",
+    StartingLocation.Crossroads: "Crossroads",
+    StartingLocation.FirekeepWest: "Fire Keep - Crates"
 }
 
 # Here is where all the stuff from the Items.py comes from

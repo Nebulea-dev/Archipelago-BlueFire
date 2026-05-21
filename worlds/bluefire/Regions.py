@@ -1,62 +1,51 @@
 from BaseClasses import Region
-from .Types import APSkeletonLocation
+from .Types import BluefireLocation
 from .Locations import location_table, is_valid_location
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from . import APSkeletonWorld
+    from . import BluefireWorld
 
-# This is where you will create your imaginary game world
-# IE: connect rooms and areas together
-# This is NOT where you'll add requirements for how to get to certain locations thats in Rules.py
-# This is also long and tediouos
-def create_regions(world: "APSkeletonWorld"):
-    # The functions that are being used here will be located at the bottom to view
-    # The important part is that if its not a dead end and connects to another place then name it
-    # Otherwise you can just create the connection. Not that naming it is bad
-
-    # You can technically name your connections whatever you want as well
-    # You'll use those connection names in Rules.py
+def create_regions(world: "BluefireWorld"):
+    # Create main menu region
     menu = create_region(world, "Menu")
-    greenhillzone = create_region_and_connect(world, "Green Hill Zone", "Menu -> Green Hill Zone", menu)
-    romania = create_region_and_connect(world, "Romania", "Menu -> Romania", menu)
-    sewer = create_region_and_connect(world, "The Sewer", "Menu -> The Sewer", menu)
 
-    # ---------------------------------- Green Hill Zone ----------------------------------
-    greenhillzone1 = create_region_and_connect(world, "Green Hill Zone - Act 1", "Green Hill Zone -> Green Hill Zone - Act 1", greenhillzone)
-    greenhillzone2 = create_region_and_connect(world, "Green Hill Zone - Act 2", "Green Hill Zone - Act 1 -> Green Hill Zone - Act 2", greenhillzone1)
-    create_region_and_connect(world, "Green Hill Zone - Act 3", "Green Hill Zone - Act 2 -> Green Hill Zone - Act 3", greenhillzone2)
+    # Create Blue Fire game regions - major areas
+    fire_keep = create_region_and_connect(world, "Fire Keep", "Menu -> Fire Keep", menu)
+    arcane_tunnels = create_region_and_connect(world, "Arcane Tunnels", "Menu -> Arcane Tunnels", menu)
+    crossroads = create_region_and_connect(world, "Crossroads", "Fire Keep -> Crossroads", fire_keep)
+    stoneheart_city = create_region_and_connect(world, "Stoneheart City", "Crossroads -> Stoneheart City", crossroads)
+    forest_temple = create_region_and_connect(world, "Forest Temple", "Stoneheart City -> Forest Temple", stoneheart_city)
+    temple_gardens = create_region_and_connect(world, "Temple Gardens", "Stoneheart City -> Temple Gardens", stoneheart_city)
+    abandoned_path = create_region_and_connect(world, "Abandoned Path", "Stoneheart City -> Abandoned Path", stoneheart_city)
+    uthas_temple = create_region_and_connect(world, "Uthas Temple", "Abandoned Path -> Uthas Temple", abandoned_path)
+    temple_of_gods = create_region_and_connect(world, "Temple of Gods", "Temple Gardens -> Temple of Gods", temple_gardens)
+    firefall_river = create_region_and_connect(world, "Firefall River", "Arcane Tunnels -> Firefall River", arcane_tunnels)
+    steam_house = create_region_and_connect(world, "Steam House", "Firefall River -> Steam House", firefall_river)
+    iron_caves = create_region_and_connect(world, "Iron Caves", "Steam House -> Iron Caves", steam_house)
+    waterway = create_region_and_connect(world, "Waterway", "Arcane Tunnels -> Waterway", arcane_tunnels)
+    void_challenges = create_region_and_connect(world, "Void Challenges", "Arcane Tunnels -> Void Challenges", arcane_tunnels)
 
-    # ---------------------------------- Romania ------------------------------------------
-    bucharest = create_region_and_connect(world, "Bucharest", "Romania -> Bucharest", romania)
-    sibiu = create_region_and_connect(world, "Sibiu", "Romania -> Sibiu", romania)
-    brașov = create_region_and_connect(world, "Brașov", "Romania -> Brașov", romania)
-    bucharest.connect(sibiu, "Bucharest -> Sibiu")
-    sibiu.connect(brașov, "Sibiu -> Brașov")
-    brașov.connect(bucharest, "Brașov, Bucharest")
+    # Create alternate connections for shortcuts/non-linear access
+    firefall_river.connect(iron_caves, "Firefall River -> Iron Caves (alternate)")
+    waterway.connect(firefall_river, "Waterway -> Firefall River")
 
-    # ---------------------------------- The Sewer ----------------------------------------
-    create_region_and_connect(world, "Big Hole in the Floor", "The Sewer -> Big Hole in the Floor", sewer)
-
-def create_region(world: "APSkeletonWorld", name: str) -> Region:
+def create_region(world: "BluefireWorld", name: str) -> Region:
     reg = Region(name, world.player, world.multiworld)
 
-    # When we create the region we go through all the locations we made and check if they are in that region
-    # If they are and are valid, we attach it to the region
+    # Add all locations belonging to this region
     for (key, data) in location_table.items():
         if data.region == name:
             if not is_valid_location(world, key):
                 continue
-            location = APSkeletonLocation(world.player, key, data.ap_code, reg)
+            location = BluefireLocation(world.player, key, data.ap_code, reg)
             reg.locations.append(location)
-    
+
     world.multiworld.regions.append(reg)
     return reg
 
-# This runs the create region function while also connecting to another region
-# Just simplifies process since you woill be connecting a lot of regions
-def create_region_and_connect(world: "APSkeletonWorld",
-                               name: str, entrancename: str, connected_region: Region) -> Region:
+def create_region_and_connect(world: "BluefireWorld",
+                               name: str, entrance_name: str, connected_region: Region) -> Region:
     reg: Region = create_region(world, name)
-    connected_region.connect(reg, entrancename)
+    connected_region.connect(reg, entrance_name)
     return reg

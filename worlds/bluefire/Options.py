@@ -3,49 +3,43 @@ from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
 from Options import Choice, OptionGroup, Toggle, Range
 
-# If youve ever gone to an options page and seen how sometimes options are grouped
-# This is that
 def create_option_groups() -> List[OptionGroup]:
     option_group_list: List[OptionGroup] = []
-    for name, options in ap_skeleton_option_groups.items():
+    for name, options in bluefire_option_groups.items():
         option_group_list.append(OptionGroup(name=name, options=options))
-
     return option_group_list
 
-class StartingChapter(Choice):
+class StartingLocation(Choice):
     """
-    Determines which chapter you'll start with.
-    When you grab choice you'll get the associated number.
-    IE: If the player chooses the sewer then when you go to call StartingChapter you'll get 3
-    When displaying the options names on the site, _ will become spaces and the word option will go away.
+    Determines where you'll start the game.
     """
-    display_name = "Starting Chapter"
-    option_green_hill_zone = 1
-    option_romania = 2
-    option_the_sewer = 3
+    display_name = "Starting Location"
+    option_fire_keep_lab = 1
+    option_crossroads = 2
+    option_fire_keep_west = 3
     default = 1
 
 class ExtraLocations(Toggle):
     """
-    This will enable the extra locations option. Toggle is just true or false.
+    Include void challenge locations in the seed.
+    These are optional end-game content.
     """
-    display_name = "Add Extra Locations"
+    display_name = "Include Void Challenges"
+    default = 1
 
 class TrapChance(Range):
     """
-    Determines the chance for any junk item to become a trap.
-    Set it to 0 for no traps.
-    Range is in fact a range. You can set the limits and its default.
+    Percentage chance for any filler item to become a trap.
+    Set to 0 for no traps.
     """
-    display_name = "Trap Chance"
+    display_name = "Trap Chance (%)"
     range_start = 0
     range_end = 100
     default = 0
 
 class SpeedChangeTrapWeight(Range):
     """
-    The weight of speed change traps in the trap pool.
-    Speed change traps change the game speed for x seconds.
+    Weight of speed change traps in the trap pool.
     """
     display_name = "Speed Change Trap Weight"
     range_start = 0
@@ -54,14 +48,12 @@ class SpeedChangeTrapWeight(Range):
 
 @dataclass
 class BluefireOptions(PerGameCommonOptions):
-    StartingChapter:            StartingChapter
+    StartingLocation:           StartingLocation
     ExtraLocations:             ExtraLocations
     TrapChance:                 TrapChance
     SpeedChangeTrapWeight:      SpeedChangeTrapWeight
 
-# This is where you organize your options
-# Its entirely up to you how you want to organize it
 bluefire_option_groups: Dict[str, List[Any]] = {
-    "General Options": [StartingChapter, ExtraLocations],
+    "General Options": [StartingLocation, ExtraLocations],
     "Trap Options": [TrapChance, SpeedChangeTrapWeight]
 }
