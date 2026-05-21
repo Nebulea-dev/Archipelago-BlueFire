@@ -8,40 +8,37 @@ def set_rules(world: "BluefireWorld"):
     player = world.player
     options = world.options
 
-    # Core region progression - basic traversal rules
-    # Fire Keep is accessible from start
-    add_rule(world.multiworld.get_entrance("Menu -> Fire Keep", player),
-             lambda state: True)
+    # ====== ENTRANCE RULES ======
+    # These control progression through regions
+    # Note: Entrance rules should only check for ITEMS, not locations (to avoid circular logic)
 
-    # Arcane Tunnels requires passing through Fire Keep
+    # Fire Keep is accessible from start - no rule needed
+
+    # Arcane Tunnels requires Old Key (Fire Keep progression)
     add_rule(world.multiworld.get_entrance("Menu -> Arcane Tunnels", player),
-             lambda state: state.has_visited("Fire Keep", player))
+             lambda state: state.count("Old Key", player) > 0)
 
-    # Crossroads requires Fire Keep progression
+    # Crossroads requires some Fire Keep items
     add_rule(world.multiworld.get_entrance("Fire Keep -> Crossroads", player),
-             lambda state: state.count("Old Key", player) > 0 or state.can_reach_region("Fire Keep", player))
+             lambda state: state.count("Old Key", player) > 0)
 
-    # Stoneheart City requires Arcane Tunnels access
-    add_rule(world.multiworld.get_entrance("Crossroads -> Stoneheart City", player),
-             lambda state: True)
-
-    # Forest Temple requires Stoneheart progression
+    # Forest Temple requires movement abilities
     add_rule(world.multiworld.get_entrance("Stoneheart City -> Forest Temple", player),
              lambda state: state.has("Wall Run", player) or state.count("Old Key", player) > 0)
 
-    # Temple Gardens requires keys
+    # Temple Gardens requires multiple keys
     add_rule(world.multiworld.get_entrance("Stoneheart City -> Temple Gardens", player),
              lambda state: state.has("Old Key", player) and state.has("Key Holy Master", player))
 
-    # Abandoned Path requires proper movement
+    # Abandoned Path requires movement
     add_rule(world.multiworld.get_entrance("Stoneheart City -> Abandoned Path", player),
              lambda state: state.has("Wall Run", player) or state.has("Double Jump", player))
 
-    # Uthas Temple requires temple access
+    # Uthas Temple requires temple key
     add_rule(world.multiworld.get_entrance("Abandoned Path -> Uthas Temple", player),
              lambda state: state.has("Key Uthas Temple", player))
 
-    # Temple of Gods requires significant progression
+    # Temple of Gods requires god key
     add_rule(world.multiworld.get_entrance("Temple Gardens -> Temple of Gods", player),
              lambda state: state.has("Key God Master", player))
 
@@ -53,17 +50,13 @@ def set_rules(world: "BluefireWorld"):
     add_rule(world.multiworld.get_entrance("Firefall River -> Steam House", player),
              lambda state: state.has("Double Jump", player) or state.has("Wall Run", player))
 
-    # Iron Caves requires steam house completion
+    # Iron Caves requires steam key
     add_rule(world.multiworld.get_entrance("Steam House -> Iron Caves", player),
              lambda state: state.has("Key Steam", player))
 
-    # Waterway access
-    add_rule(world.multiworld.get_entrance("Arcane Tunnels -> Waterway", player),
-             lambda state: True)
-
-    # Void Challenges require significant progression
+    # Void Challenges require movement abilities
     add_rule(world.multiworld.get_entrance("Arcane Tunnels -> Void Challenges", player),
-             lambda state: state.has_all(["Double Jump", "Wall Run", "Sprint"], player))
+             lambda state: state.has("Double Jump", player) and state.has("Wall Run", player) and state.has("Sprint", player))
 
     # ====== Location-specific rules ======
 
@@ -149,7 +142,7 @@ def set_rules(world: "BluefireWorld"):
              lambda state: state.has("Wall Run", player))
 
     add_rule(world.multiworld.get_location("Void - The Void", player),
-             lambda state: state.has_all(["Double Jump", "Wall Run", "Sprint"], player))
+             lambda state: state.has("Double Jump", player) and state.has("Wall Run", player) and state.has("Sprint", player))
 
     # ====== Prevent softlocks ======
 

@@ -39,9 +39,7 @@ class BluefireWorld(World):
         super().__init__(multiworld, player)
 
     def generate_early(self):
-        # Add starting location item to precollected items
-        starting_location = starting_location_to_name[StartingLocation(self.options.StartingLocation)]
-        self.multiworld.push_precollected(self.create_item(starting_location))
+        pass
 
     def create_regions(self):
         create_regions(self)
