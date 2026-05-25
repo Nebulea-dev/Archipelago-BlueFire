@@ -9,7 +9,8 @@ if TYPE_CHECKING:
 def create_itempool(world: "BluefireWorld") -> List[Item]:
     itempool: List[Item] = []
 
-    starting_location = starting_location_to_name[StartingLocation(world.options.StartingLocation)]
+    #starting_location = starting_location_to_name[StartingLocation(world.options.StartingLocation)]
+    starting_location = "Menu"
 
     # Add all items except the starting one
     for item_name, item_data in item_table.items():
@@ -20,10 +21,6 @@ def create_itempool(world: "BluefireWorld") -> List[Item]:
             continue
         for _ in range(item_data.count):
             itempool.append(create_item(world, item_name))
-
-    # Place victory item
-    victory = create_item(world, "Victory")
-    world.multiworld.get_location("Queen Chamber", world.player).place_locked_item(victory)
 
     # Fill remaining slots with junk
     itempool += create_junk_items(world, get_total_locations(world) - len(itempool) - 1)
@@ -58,62 +55,97 @@ def create_junk_items(world: "BluefireWorld", count: int) -> List[Item]:
     return junk_pool
 
 # Base ID for Blue Fire items
-BASE_ITEM_ID = 20050000
+BASE_ITEM_ID = 0xB70EF14E
 
 # Progression items - keys and essential abilities
 progression_items = {
     # Keys
     "Old Key": ItemData(BASE_ITEM_ID + 1, ItemClassification.progression),
-    "Key Holy Master": ItemData(BASE_ITEM_ID + 2, ItemClassification.progression),
-    "Key Fire Master": ItemData(BASE_ITEM_ID + 3, ItemClassification.progression),
-    "Key Steam": ItemData(BASE_ITEM_ID + 4, ItemClassification.progression),
-    "Key Graveyard Key": ItemData(BASE_ITEM_ID + 5, ItemClassification.progression),
-    "Key Uthas Temple": ItemData(BASE_ITEM_ID + 6, ItemClassification.progression),
-    "Key God Master": ItemData(BASE_ITEM_ID + 7, ItemClassification.progression),
+    "Key Holy Master": ItemData(BASE_ITEM_ID + 5, ItemClassification.progression),
+    #"Key Fire Master": ItemData(BASE_ITEM_ID + 3, ItemClassification.progression),
+    #"Key Steam": ItemData(BASE_ITEM_ID + 4, ItemClassification.progression),
+    #"Key Graveyard Key": ItemData(BASE_ITEM_ID + 5, ItemClassification.progression),
+    #"Key Uthas Temple": ItemData(BASE_ITEM_ID + 6, ItemClassification.progression),
+    #"Key God Master": ItemData(BASE_ITEM_ID + 7, ItemClassification.progression),
 
     # Core abilities
-    "Dash": ItemData(BASE_ITEM_ID + 10, ItemClassification.progression),
-    "Double Jump": ItemData(BASE_ITEM_ID + 11, ItemClassification.progression),
-    "Wall Run": ItemData(BASE_ITEM_ID + 12, ItemClassification.progression),
-    "Sprint": ItemData(BASE_ITEM_ID + 13, ItemClassification.progression),
-    "Shield": ItemData(BASE_ITEM_ID + 14, ItemClassification.progression),
-    "Spin Attack": ItemData(BASE_ITEM_ID + 15, ItemClassification.progression),
+    #"Double Jump": ItemData(BASE_ITEM_ID + 11, ItemClassification.progression),
+    "Nuos Claw": ItemData(BASE_ITEM_ID + 10, ItemClassification.progression),
+    #"Sprint": ItemData(BASE_ITEM_ID + 13, ItemClassification.progression),
+    #
+    #"Spin Attack": ItemData(BASE_ITEM_ID + 15, ItemClassification.progression),
 
     # Essential items
-    "Sanctuary Stone": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
-    "Beira Vessel": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression),
+    #"Sanctuary Stone": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
+    #"Beira Vessel": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression),
+    #"Fire Charm": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression), # Is it really essential ?
+
+    # Emotes
+    #"Aggressive": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
+    #"Applause": ItemData(BASE_ITEM_ID + 21, ItemClassification.progression),
+    "Celebration": ItemData(BASE_ITEM_ID + 22, ItemClassification.progression),
+    #"Empty": ItemData(BASE_ITEM_ID + 23, ItemClassification.progression),
+    #"Hat": ItemData(BASE_ITEM_ID + 24, ItemClassification.progression),
+    #"Hello2": ItemData(BASE_ITEM_ID + 25, ItemClassification.progression),
+    #"KungFu": ItemData(BASE_ITEM_ID + 26, ItemClassification.progression),
+    #"Levitation": ItemData(BASE_ITEM_ID + 27, ItemClassification.progression),
+    #"No": ItemData(BASE_ITEM_ID + 28, ItemClassification.progression),
+    #"Party": ItemData(BASE_ITEM_ID + 29, ItemClassification.progression),
+    #"Photo": ItemData(BASE_ITEM_ID + 30, ItemClassification.progression),
+    #"Techno": ItemData(BASE_ITEM_ID + 31, ItemClassification.progression),
+    #"Triceps": ItemData(BASE_ITEM_ID + 32, ItemClassification.progression),
+    #"Wave": ItemData(BASE_ITEM_ID + 33, ItemClassification.progression),
+    "Windmill": ItemData(BASE_ITEM_ID + 34, ItemClassification.progression),
 }
 
 # Useful items - helpful but not strictly necessary
 useful_items = {
     # Pouches
-    "Small Pouch": ItemData(BASE_ITEM_ID + 30, ItemClassification.useful),
-    "Large Pouch": ItemData(BASE_ITEM_ID + 31, ItemClassification.useful),
-    "Extra Large Pouch": ItemData(BASE_ITEM_ID + 32, ItemClassification.useful),
+    "Large Pouch": ItemData(BASE_ITEM_ID + 30, ItemClassification.useful),
+    "Extra Large Pouch": ItemData(BASE_ITEM_ID + 31, ItemClassification.useful),
 
     # Quest items
-    "Necklace": ItemData(BASE_ITEM_ID + 40, ItemClassification.useful),
-    "Book": ItemData(BASE_ITEM_ID + 41, ItemClassification.useful),
-    "Odd Rock": ItemData(BASE_ITEM_ID + 42, ItemClassification.useful),
-    "Bremur Picture": ItemData(BASE_ITEM_ID + 43, ItemClassification.useful),
-    "House Key": ItemData(BASE_ITEM_ID + 44, ItemClassification.useful),
-    "House Contract": ItemData(BASE_ITEM_ID + 45, ItemClassification.useful),
-    "Mandoline": ItemData(BASE_ITEM_ID + 46, ItemClassification.useful),
-    "Rare Glasses": ItemData(BASE_ITEM_ID + 47, ItemClassification.useful),
-    "Rare Snow": ItemData(BASE_ITEM_ID + 48, ItemClassification.useful),
-    "Composer Letter": ItemData(BASE_ITEM_ID + 49, ItemClassification.useful),
-    "Beira Shards": ItemData(BASE_ITEM_ID + 51, ItemClassification.useful),
-    "Fire Essence Slot": ItemData(BASE_ITEM_ID + 52, ItemClassification.useful),
+    #"Necklace": ItemData(BASE_ITEM_ID + 40, ItemClassification.useful),
+    #"Book": ItemData(BASE_ITEM_ID + 41, ItemClassification.useful),
+    #"Odd Rock": ItemData(BASE_ITEM_ID + 42, ItemClassification.useful),
+    #"Bremur Picture": ItemData(BASE_ITEM_ID + 43, ItemClassification.useful),
+    #"House Key": ItemData(BASE_ITEM_ID + 44, ItemClassification.useful),
+    #"House Contract": ItemData(BASE_ITEM_ID + 45, ItemClassification.useful),
+    #"Mandoline": ItemData(BASE_ITEM_ID + 46, ItemClassification.useful),
+    #"Rare Glasses": ItemData(BASE_ITEM_ID + 47, ItemClassification.useful),
+    #"Rare Snow": ItemData(BASE_ITEM_ID + 48, ItemClassification.useful),
+    #"Composer Letter": ItemData(BASE_ITEM_ID + 49, ItemClassification.useful),
+    #"Beira Shards": ItemData(BASE_ITEM_ID + 51, ItemClassification.useful),
+    #"Fire Essence Slot": ItemData(BASE_ITEM_ID + 52, ItemClassification.useful),
 
     # Equipment
-    "Fire Ball": ItemData(BASE_ITEM_ID + 60, ItemClassification.useful),
-    "Down Smash": ItemData(BASE_ITEM_ID + 61, ItemClassification.useful),
+    "Shield": ItemData(BASE_ITEM_ID + 60, ItemClassification.useful),
+    #"Fire Ball": ItemData(BASE_ITEM_ID + 60, ItemClassification.useful),
+    #"Down Smash": ItemData(BASE_ITEM_ID + 61, ItemClassification.useful),
+}
+
+emote_items = {
+
+		{ "Wave Emote", 0 },
+		{ "Applause Emote", 1 },
+		{ "Levitation Emote", 2 },
+		{ "Windmill Emote", 2 },
+
+		{ "Hat Kid Emote", 2 },
+		{ "Triceps Emote", 2 },
+
+		{ "Aggressive Emote", 2 },
+		{ "No Emote", 2 },
+
+		{ "Photo Emote", 2 },
+
+		{ "Celebration Emote", 2 },
+		{ "Levitation Emote", 2 },
 }
 
 # Equipment (weapons, tunics, spirits)
 equipment_items = {
     # Weapons
-    "Dual Blades": ItemData(BASE_ITEM_ID + 100, ItemClassification.useful),
     "Bloodstorm Blades": ItemData(BASE_ITEM_ID + 101, ItemClassification.useful),
     "Diamond Wings": ItemData(BASE_ITEM_ID + 102, ItemClassification.useful),
     "Shadow Casters": ItemData(BASE_ITEM_ID + 103, ItemClassification.useful),
@@ -157,16 +189,16 @@ equipment_items = {
     "Alpha Umbra": ItemData(BASE_ITEM_ID + 147, ItemClassification.useful),
 
     # Spirits - sample of major ones
-    "Faras Grace": ItemData(BASE_ITEM_ID + 160, ItemClassification.useful),
-    "Hammer King": ItemData(BASE_ITEM_ID + 161, ItemClassification.useful),
-    "Holy Centry": ItemData(BASE_ITEM_ID + 162, ItemClassification.useful),
-    "River Spirit": ItemData(BASE_ITEM_ID + 163, ItemClassification.useful),
-    "Angry Ambusher": ItemData(BASE_ITEM_ID + 164, ItemClassification.useful),
-    "Forest Guardian": ItemData(BASE_ITEM_ID + 165, ItemClassification.useful),
-    "Toxic Rat": ItemData(BASE_ITEM_ID + 166, ItemClassification.useful),
-    "Storm Centry": ItemData(BASE_ITEM_ID + 167, ItemClassification.useful),
-    "Blood Phantom": ItemData(BASE_ITEM_ID + 168, ItemClassification.useful),
-    "Frozen Soul": ItemData(BASE_ITEM_ID + 169, ItemClassification.useful),
+    #"Faras Grace": ItemData(BASE_ITEM_ID + 160, ItemClassification.useful),
+    #"Hammer King": ItemData(BASE_ITEM_ID + 161, ItemClassification.useful),
+    #"Holy Centry": ItemData(BASE_ITEM_ID + 162, ItemClassification.useful),
+    #"River Spirit": ItemData(BASE_ITEM_ID + 163, ItemClassification.useful),
+    #"Angry Ambusher": ItemData(BASE_ITEM_ID + 164, ItemClassification.useful),
+    #"Forest Guardian": ItemData(BASE_ITEM_ID + 165, ItemClassification.useful),
+    #"Toxic Rat": ItemData(BASE_ITEM_ID + 166, ItemClassification.useful),
+    #"Storm Centry": ItemData(BASE_ITEM_ID + 167, ItemClassification.useful),
+    #"Blood Phantom": ItemData(BASE_ITEM_ID + 168, ItemClassification.useful),
+    #"Frozen Soul": ItemData(BASE_ITEM_ID + 169, ItemClassification.useful),
 }
 
 # Filler items - common ore/consumables
@@ -178,28 +210,23 @@ filler_items = {
     "Void Ore": ItemData(BASE_ITEM_ID + 203, ItemClassification.filler, 0),
 
     # Consumables
-    "Fire Essence": ItemData(BASE_ITEM_ID + 210, ItemClassification.filler, 0),
-    "Apple": ItemData(BASE_ITEM_ID + 211, ItemClassification.filler, 0),
-    "Rotten Apple": ItemData(BASE_ITEM_ID + 212, ItemClassification.filler, 0),
-    "Rice": ItemData(BASE_ITEM_ID + 213, ItemClassification.filler, 0),
-    "Rare Cheese": ItemData(BASE_ITEM_ID + 214, ItemClassification.filler, 0),
-    "Seagul Soup": ItemData(BASE_ITEM_ID + 215, ItemClassification.filler, 0),
-    "Flesh Eater": ItemData(BASE_ITEM_ID + 216, ItemClassification.filler, 0),
-    "Ice Crystal": ItemData(BASE_ITEM_ID + 217, ItemClassification.filler, 0),
-    "Boot": ItemData(BASE_ITEM_ID + 218, ItemClassification.filler, 0),
-    "Sand Relic": ItemData(BASE_ITEM_ID + 219, ItemClassification.filler, 0),
-    "Dead Rat": ItemData(BASE_ITEM_ID + 220, ItemClassification.filler, 0),
+    #"Fire Essence": ItemData(BASE_ITEM_ID + 210, ItemClassification.filler, 0),
+    #"Apple": ItemData(BASE_ITEM_ID + 211, ItemClassification.filler, 0),
+    #"Rotten Apple": ItemData(BASE_ITEM_ID + 212, ItemClassification.filler, 0),
+    #"Rice": ItemData(BASE_ITEM_ID + 213, ItemClassification.filler, 0),
+    #"Rare Cheese": ItemData(BASE_ITEM_ID + 214, ItemClassification.filler, 0),
+    #"Seagul Soup": ItemData(BASE_ITEM_ID + 215, ItemClassification.filler, 0),
+    #"Flesh Eater": ItemData(BASE_ITEM_ID + 216, ItemClassification.filler, 0),
+    #"Ice Crystal": ItemData(BASE_ITEM_ID + 217, ItemClassification.filler, 0),
+    #"Boot": ItemData(BASE_ITEM_ID + 218, ItemClassification.filler, 0),
+    #"Sand Relic": ItemData(BASE_ITEM_ID + 219, ItemClassification.filler, 0),
+    #"Dead Rat": ItemData(BASE_ITEM_ID + 220, ItemClassification.filler, 0),
 
     # Money/currency
-    "Ore": ItemData(BASE_ITEM_ID + 230, ItemClassification.filler, 0),
+    #"Ore": ItemData(BASE_ITEM_ID + 230, ItemClassification.filler, 0),
 
     # Emotes and misc
-    "Duck": ItemData(BASE_ITEM_ID + 240, ItemClassification.filler, 0),
-}
-
-# Victory item
-victory_items = {
-    "Victory": ItemData(BASE_ITEM_ID + 250, ItemClassification.progression),
+    #"Duck": ItemData(BASE_ITEM_ID + 240, ItemClassification.filler, 0),
 }
 
 # Trap items
@@ -237,6 +264,5 @@ item_table = {
     **useful_items,
     **equipment_items,
     **filler_items,
-    **victory_items,
     **trap_items,
 }

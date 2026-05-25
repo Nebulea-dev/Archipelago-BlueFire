@@ -14,10 +14,24 @@ def set_rules(world: "BluefireWorld"):
 
     # Fire Keep is accessible from start - no rule needed
 
-    # Arcane Tunnels requires Old Key (Fire Keep progression)
-    add_rule(world.multiworld.get_entrance("Menu -> Arcane Tunnels", player),
-             lambda state: state.count("Old Key", player) > 0)
+    add_rule(world.multiworld.get_entrance("Fire Keep - Intro -> Fire Keep - Hub", player),
+             lambda state: state.has("key", player, 1))
 
+    add_rule(world.multiworld.get_entrance("Forest Temple - Water -> Forest Temple - Ambush 1", player),
+             lambda state: state.has("key", player, 2))
+
+    add_rule(world.multiworld.get_entrance("Forest Temple - Ambush 1 -> Forest Temple - Ambush 2", player),
+             lambda state: state.has("key", player, 3))
+
+    add_rule(world.multiworld.get_entrance("Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw", player),
+             lambda state: state.has("key", player, 4))
+
+    add_rule(world.multiworld.get_entrance("Forest Temple - Water -> Forest Temple - Center Tree", player),
+             lambda state: state.has("key", player, 5))
+
+
+
+    """
     # Crossroads requires some Fire Keep items
     add_rule(world.multiworld.get_entrance("Fire Keep -> Crossroads", player),
              lambda state: state.count("Old Key", player) > 0)
@@ -156,6 +170,7 @@ def set_rules(world: "BluefireWorld"):
             forbid_item(loc, "Double Jump", player)
             forbid_item(loc, "Wall Run", player)
             forbid_item(loc, "Sprint", player)
+    """
 
     # ====== Victory Condition ======
     world.multiworld.completion_condition[player] = lambda state: state.has("Victory", player)

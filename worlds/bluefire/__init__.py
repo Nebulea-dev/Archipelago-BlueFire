@@ -56,7 +56,6 @@ class BluefireWorld(World):
     def fill_slot_data(self) -> Dict[str, object]:
         slot_data: Dict[str, object] = {
             "options": {
-                "StartingLocation":        self.options.StartingLocation.value,
                 "ExtraLocations":          self.options.ExtraLocations.value,
                 "TrapChance":              self.options.TrapChance.value,
                 "SpeedChangeTrapWeight":   self.options.SpeedChangeTrapWeight.value
@@ -68,7 +67,14 @@ class BluefireWorld(World):
         return slot_data
 
     def collect(self, state: "CollectionState", item: "Item") -> bool:
-        return super().collect(state, item)
+        change = super().collect(state, item)
+        if change and "Old Key" in item.name:
+            state.prog_items[item.player]["key"] += 1
+        return change
+
 
     def remove(self, state: "CollectionState", item: "Item") -> bool:
-        return super().remove(state, item)
+        change = super().collect(state, item)
+        if change and "Old Key" in item.name:
+            state.prog_items[item.player]["key"] -= 1
+        return change

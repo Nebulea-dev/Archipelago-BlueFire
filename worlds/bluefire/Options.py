@@ -9,16 +9,6 @@ def create_option_groups() -> List[OptionGroup]:
         option_group_list.append(OptionGroup(name=name, options=options))
     return option_group_list
 
-class StartingLocation(Choice):
-    """
-    Determines where you'll start the game.
-    """
-    display_name = "Starting Location"
-    option_fire_keep_lab = 1
-    option_crossroads = 2
-    option_fire_keep_west = 3
-    default = 1
-
 class ExtraLocations(Toggle):
     """
     Include void challenge locations in the seed.
@@ -48,12 +38,11 @@ class SpeedChangeTrapWeight(Range):
 
 @dataclass
 class BluefireOptions(PerGameCommonOptions):
-    StartingLocation:           StartingLocation
     ExtraLocations:             ExtraLocations
     TrapChance:                 TrapChance
     SpeedChangeTrapWeight:      SpeedChangeTrapWeight
 
 bluefire_option_groups: Dict[str, List[Any]] = {
-    "General Options": [StartingLocation, ExtraLocations],
+    "General Options": [ExtraLocations],
     "Trap Options": [TrapChance, SpeedChangeTrapWeight]
 }
