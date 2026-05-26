@@ -4,8 +4,8 @@
 
 - A legally obtained copy of the game your are randomizing. Include the version if it needs to be specific (IE: NTSC/NA/Steam/Whatever else)
 - Anything else!
-    - You can use [this syntax to add hyperlinks to emulators or other web pages](https://www.ikea.com/us/en/p/blahaj-soft-toy-shark-90373590/)
-    - Be specific! Include versions! You'll still get asked why it's broken and it'll be a versioning issue but hey you can try
+  - You can use [this syntax to add hyperlinks to emulators or other web pages](https://www.ikea.com/us/en/p/blahaj-soft-toy-shark-90373590/)
+  - Be specific! Include versions! You'll still get asked why it's broken and it'll be a versioning issue but hey you can try
 - The built-in Archipelago client, which can be installed [here](https://github.com/ArchipelagoMW/Archipelago/releases)
 
 ## Configuring your YAML file
@@ -29,4 +29,4 @@ Another hyperlink to the options page. The %20 in the link is a space. Make sure
 1. Just describe how to get it connected
 
 2. Include any optional steps
-    - You can use this syntax to add sub steps
+   - You can use this syntax to add sub steps

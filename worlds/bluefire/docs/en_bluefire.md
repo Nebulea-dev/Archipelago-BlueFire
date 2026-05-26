@@ -1,4 +1,4 @@
-# This is where your game name would be!
+# Blue Fire
 
 ## Where is the options page?
 

@@ -1,268 +1,226 @@
-from BaseClasses import Item, ItemClassification
-from .Types import ItemData, StartingLocation, BluefireItem, starting_location_to_name
-from .Locations import get_total_locations
-from typing import List, Dict, TYPE_CHECKING
+from BaseClasses import ItemClassification
+from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from . import BluefireWorld
+    from .subclasses import ItemDict
 
-def create_itempool(world: "BluefireWorld") -> List[Item]:
-    itempool: List[Item] = []
+base_id = 0xB70EF14E
 
-    #starting_location = starting_location_to_name[StartingLocation(world.options.StartingLocation)]
-    starting_location = "Menu"
+useful_skip_balancing: ItemClassification = ItemClassification(
+    ItemClassification.useful + ItemClassification.skip_balancing
+)
+useful_progression: ItemClassification = ItemClassification(ItemClassification.progression + ItemClassification.useful)
 
-    # Add all items except the starting one
-    for item_name, item_data in item_table.items():
-        if item_data.count is None or item_data.count <= 0:
-            continue
-        # Skip starting location item
-        if item_name == starting_location:
-            continue
-        for _ in range(item_data.count):
-            itempool.append(create_item(world, item_name))
 
-    # Fill remaining slots with junk
-    itempool += create_junk_items(world, get_total_locations(world) - len(itempool) - 1)
+emote_items: List["ItemDict"] = [
+    {"name": "Wave Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Applause Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Levitation Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Windmill Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Hat Kid Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Triceps Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Aggressive Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "No Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Photo Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Celebration Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Kung Fu Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Techno Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Party Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Hello Emote", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Empty Emote", "count": 1, "classification": ItemClassification.progression}, # TODO : I don't think that's a real emote
+]
 
-    return itempool
 
-def create_item(world: "BluefireWorld", name: str) -> Item:
-    data = item_table[name]
-    return BluefireItem(name, data.classification, data.ap_code, world.player)
+weapon_items: List["ItemDict"] = [
+    None, # Skip the Dual Blades
+    {"name": "Bloodstorm Blades", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Ember Twins", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Ice Destroyers", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Peace Keepers", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Steel Shanks", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Breemur Family Swords", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Silver Blades", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Kina Defenders", "count": 1, "classification": ItemClassification.useful},
+]
 
-def create_junk_items(world: "BluefireWorld", count: int) -> List[Item]:
-    trap_chance = world.options.TrapChance.value
-    junk_pool: List[Item] = []
-    junk_list: Dict[str, int] = {}
-    trap_list: Dict[str, int] = {}
 
-    for name in item_table.keys():
-        ic = item_table[name].classification
-        if ic == ItemClassification.filler:
-            junk_list[name] = junk_weights.get(name, 1)
-        elif trap_chance > 0 and ic == ItemClassification.trap:
-            trap_list[name] = trap_weights.get(name, 1)
+tunic_items: List["ItemDict"] = [
+    None, # Skip the Shadow Cloack
+    {"name": "Fire Garment Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Onop Coat Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Performer Costume Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Merchants Robe Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Bunny Suit Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Forest Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Pure Shadow Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Silver Cloack Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Golden Robe Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Steam Worker Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Thiefs Cloack Tunic", "count": 1, "classification": ItemClassification.filler},
+    None, # Skip the empty Tunic
+    {"name": "Sect Member Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Pumpkin Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Galaxy Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Banana King Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Red Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Yellow Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Green Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Grey Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Violet Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Light Blue Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Rainbow Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Lila Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Royal Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Aqua Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Orange Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Void Master Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Duck Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Cursed Duck Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Alpha Umbra Tunic", "count": 1, "classification": ItemClassification.filler},
+    {"name": "Discord Winner Contest Tunic", "count": 1, "classification": ItemClassification.filler},
+]
 
-    for i in range(count):
-        if trap_chance > 0 and world.random.randint(1, 100) <= trap_chance and trap_list:
-            junk_pool.append(world.create_item(
-                world.random.choices(list(trap_list.keys()), weights=list(trap_list.values()), k=1)[0]))
-        elif junk_list:
-            junk_pool.append(world.create_item(
-                world.random.choices(list(junk_list.keys()), weights=list(junk_list.values()), k=1)[0]))
 
-    return junk_pool
+spirit_items: List["ItemDict"] = [
+    {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Hammer King Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "River Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Angry Ambusher Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Secret Fruit Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Mind Controller Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Frozen Soul Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Howling Tree Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Love Flower Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Possessed Book Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Forest Guardian Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Moi The Dreadful Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Stone Hunter Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Golden Lust Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Candle Onop Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Stone Warrior Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Toxic Rat Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Summoned God Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Summoning Hand Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Life Steal Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Shadow Demon Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Shadow Gru Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Flying Onop Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Toxic Water Spirit", "count": 1, "classification": ItemClassification.useful},
+]
 
-# Base ID for Blue Fire items
-BASE_ITEM_ID = 0xB70EF14E
 
-# Progression items - keys and essential abilities
-progression_items = {
-    # Keys
-    "Old Key": ItemData(BASE_ITEM_ID + 1, ItemClassification.progression),
-    "Key Holy Master": ItemData(BASE_ITEM_ID + 5, ItemClassification.progression),
-    #"Key Fire Master": ItemData(BASE_ITEM_ID + 3, ItemClassification.progression),
-    #"Key Steam": ItemData(BASE_ITEM_ID + 4, ItemClassification.progression),
-    #"Key Graveyard Key": ItemData(BASE_ITEM_ID + 5, ItemClassification.progression),
-    #"Key Uthas Temple": ItemData(BASE_ITEM_ID + 6, ItemClassification.progression),
-    #"Key God Master": ItemData(BASE_ITEM_ID + 7, ItemClassification.progression),
+ability_items: List["ItemDict"] = [
+    {"name": "Double Jump Ability", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip the Dash
+    None, # Skip the Attack
+    {"name": "Down Smash Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Wall Run Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Grind Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Sprint Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Spell Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Block Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Spin Attack Ability", "count": 1, "classification": ItemClassification.progression},
+]
 
-    # Core abilities
-    #"Double Jump": ItemData(BASE_ITEM_ID + 11, ItemClassification.progression),
-    "Nuos Claw": ItemData(BASE_ITEM_ID + 10, ItemClassification.progression),
-    #"Sprint": ItemData(BASE_ITEM_ID + 13, ItemClassification.progression),
-    #
-    #"Spin Attack": ItemData(BASE_ITEM_ID + 15, ItemClassification.progression),
 
-    # Essential items
-    #"Sanctuary Stone": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
-    #"Beira Vessel": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression),
-    #"Fire Charm": ItemData(BASE_ITEM_ID + 50, ItemClassification.progression), # Is it really essential ?
+regular_items: List["ItemDict"] = [
+    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip small pouch
+    {"name": "Old Key", "count": 5, "classification": ItemClassification.progression},
+    {"name": "Book", "count": 5, "classification": ItemClassification.progression},
+    {"name": "Rose", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip ----- separation
+    None, # Skip Boot
+    None, # Skip Kinbank Credit Card
+    None, # Skip Ice Crystal
+    {"name": "Sanctuary Stone", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Rare Key", "count": 5, "classification": ItemClassification.progression},
+    None, # Skip Pure Shadow Catcher
+    None, # Skip --------------- separation
+    {"name": "Ruby Ore", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Sapphire Ore", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Dead Rat
+    None, # Skip Bremur Picture
+    None, # Skip Odd Rock
+    None, # Skip Souls
+    None, # Skip Sand Relic
+    {"name": "Emerald Ore", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Shadow Fragment
+    None, # Skip Black Fire
+    None, # Skip Abyss Potion
+    None, # Skip Coin
+    None, # Skip Void Shards
+    None, # Skip Fire Essence
+    None, # Skip Shadow Potion
+    None, # Skip Holy Blessing
+    None, # Skip Rice
+    None, # Skip Carrot Potion
+    None, # Skip Apple
+    None, # Skip Rotten Apple
+    None, # Skip Medicine
+    None, # Skip Spirit Catcher
+    None, # Skip House Key
+    None, # Skip Life Elixir
+    None, # Skip Royal Elixir
+    None, # Skip Boulder Powder
+    None, # Skip Rare Cheese
+    None, # Skip Seagul Soup
+    None, # Skip Flesh Eater
+    None, # Skip Shard Cluster
+    None, # Skip Forest Bug
+    None, # Skip Poisoned Plant
+    None, # Skip --------------- separation
+    None, # Skip Dash
+    None, # Skip Double Jump
+    None, # Skip Spin Attack
+    None, # Skip Wall Run
+    None, # Skip Fire Ball
+    None, # Skip Down Smash
+    None, # Skip Shield
+    None, # Skip Spirit Slot
+    None, # Skip Void Key
+    None, # Skip Necklace
+    {"name": "Key Fire Master", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Holy Master", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Uthas Temple", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Steam", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key Graveyard Key", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip House Contract
+    None, # Skip Mandoline
+    None, # Skip Rare Glasses
+    None, # Skip Rare Snow
+    None, # Skip Composer Letter
+    None, # Skip Sprint
+    None, # Skip Beira Vessel
+    None, # Skip Beira Shards
+    None, # Skip Basic Pouch
+    None, # Skip Fire Essence Slot
+    {"name": "Void Ore", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Mana
+    None, # Skip Guardian Soul
+    None, # Skip Covenant Soul
+    None, # Skip Guardian Key
+    None, # Skip Duck
+    None, # Skip Robi Badge
+]
 
-    # Emotes
-    #"Aggressive": ItemData(BASE_ITEM_ID + 20, ItemClassification.progression),
-    #"Applause": ItemData(BASE_ITEM_ID + 21, ItemClassification.progression),
-    "Celebration": ItemData(BASE_ITEM_ID + 22, ItemClassification.progression),
-    #"Empty": ItemData(BASE_ITEM_ID + 23, ItemClassification.progression),
-    #"Hat": ItemData(BASE_ITEM_ID + 24, ItemClassification.progression),
-    #"Hello2": ItemData(BASE_ITEM_ID + 25, ItemClassification.progression),
-    #"KungFu": ItemData(BASE_ITEM_ID + 26, ItemClassification.progression),
-    #"Levitation": ItemData(BASE_ITEM_ID + 27, ItemClassification.progression),
-    #"No": ItemData(BASE_ITEM_ID + 28, ItemClassification.progression),
-    #"Party": ItemData(BASE_ITEM_ID + 29, ItemClassification.progression),
-    #"Photo": ItemData(BASE_ITEM_ID + 30, ItemClassification.progression),
-    #"Techno": ItemData(BASE_ITEM_ID + 31, ItemClassification.progression),
-    #"Triceps": ItemData(BASE_ITEM_ID + 32, ItemClassification.progression),
-    #"Wave": ItemData(BASE_ITEM_ID + 33, ItemClassification.progression),
-    "Windmill": ItemData(BASE_ITEM_ID + 34, ItemClassification.progression),
-}
 
-# Useful items - helpful but not strictly necessary
-useful_items = {
-    # Pouches
-    "Large Pouch": ItemData(BASE_ITEM_ID + 30, ItemClassification.useful),
-    "Extra Large Pouch": ItemData(BASE_ITEM_ID + 31, ItemClassification.useful),
-
-    # Quest items
-    #"Necklace": ItemData(BASE_ITEM_ID + 40, ItemClassification.useful),
-    #"Book": ItemData(BASE_ITEM_ID + 41, ItemClassification.useful),
-    #"Odd Rock": ItemData(BASE_ITEM_ID + 42, ItemClassification.useful),
-    #"Bremur Picture": ItemData(BASE_ITEM_ID + 43, ItemClassification.useful),
-    #"House Key": ItemData(BASE_ITEM_ID + 44, ItemClassification.useful),
-    #"House Contract": ItemData(BASE_ITEM_ID + 45, ItemClassification.useful),
-    #"Mandoline": ItemData(BASE_ITEM_ID + 46, ItemClassification.useful),
-    #"Rare Glasses": ItemData(BASE_ITEM_ID + 47, ItemClassification.useful),
-    #"Rare Snow": ItemData(BASE_ITEM_ID + 48, ItemClassification.useful),
-    #"Composer Letter": ItemData(BASE_ITEM_ID + 49, ItemClassification.useful),
-    #"Beira Shards": ItemData(BASE_ITEM_ID + 51, ItemClassification.useful),
-    #"Fire Essence Slot": ItemData(BASE_ITEM_ID + 52, ItemClassification.useful),
-
-    # Equipment
-    "Shield": ItemData(BASE_ITEM_ID + 60, ItemClassification.useful),
-    #"Fire Ball": ItemData(BASE_ITEM_ID + 60, ItemClassification.useful),
-    #"Down Smash": ItemData(BASE_ITEM_ID + 61, ItemClassification.useful),
-}
-
-emote_items = {
-
-		{ "Wave Emote", 0 },
-		{ "Applause Emote", 1 },
-		{ "Levitation Emote", 2 },
-		{ "Windmill Emote", 2 },
-
-		{ "Hat Kid Emote", 2 },
-		{ "Triceps Emote", 2 },
-
-		{ "Aggressive Emote", 2 },
-		{ "No Emote", 2 },
-
-		{ "Photo Emote", 2 },
-
-		{ "Celebration Emote", 2 },
-		{ "Levitation Emote", 2 },
-}
-
-# Equipment (weapons, tunics, spirits)
-equipment_items = {
-    # Weapons
-    "Bloodstorm Blades": ItemData(BASE_ITEM_ID + 101, ItemClassification.useful),
-    "Diamond Wings": ItemData(BASE_ITEM_ID + 102, ItemClassification.useful),
-    "Shadow Casters": ItemData(BASE_ITEM_ID + 103, ItemClassification.useful),
-    "Ember Twins": ItemData(BASE_ITEM_ID + 104, ItemClassification.useful),
-    "Iron Justice": ItemData(BASE_ITEM_ID + 105, ItemClassification.useful),
-    "Ice Destroyers": ItemData(BASE_ITEM_ID + 106, ItemClassification.useful),
-    "Peace Keepers": ItemData(BASE_ITEM_ID + 107, ItemClassification.useful),
-    "Steel Shanks": ItemData(BASE_ITEM_ID + 108, ItemClassification.useful),
-    "Bremur Family Swords": ItemData(BASE_ITEM_ID + 109, ItemClassification.useful),
-    "Silver Blades": ItemData(BASE_ITEM_ID + 110, ItemClassification.useful),
-    "Kina Defenders": ItemData(BASE_ITEM_ID + 111, ItemClassification.useful),
-
-    # Tunics
-    "Shadow Cloak": ItemData(BASE_ITEM_ID + 120, ItemClassification.useful),
-    "Fire Garment": ItemData(BASE_ITEM_ID + 121, ItemClassification.useful),
-    "Onop Coat": ItemData(BASE_ITEM_ID + 122, ItemClassification.useful),
-    "Performer Costume": ItemData(BASE_ITEM_ID + 123, ItemClassification.useful),
-    "Merchants Robe": ItemData(BASE_ITEM_ID + 124, ItemClassification.useful),
-    "Bunny Suit": ItemData(BASE_ITEM_ID + 125, ItemClassification.useful),
-    "Forest Tunic": ItemData(BASE_ITEM_ID + 126, ItemClassification.useful),
-    "Pure Shadow": ItemData(BASE_ITEM_ID + 127, ItemClassification.useful),
-    "Silver Cloak": ItemData(BASE_ITEM_ID + 128, ItemClassification.useful),
-    "Golden Robe": ItemData(BASE_ITEM_ID + 129, ItemClassification.useful),
-    "Steam Worker Tunic": ItemData(BASE_ITEM_ID + 130, ItemClassification.useful),
-    "Thiefs Cloak": ItemData(BASE_ITEM_ID + 131, ItemClassification.useful),
-    "Sect Member": ItemData(BASE_ITEM_ID + 132, ItemClassification.useful),
-    "Pumpkin": ItemData(BASE_ITEM_ID + 133, ItemClassification.useful),
-    "Galaxy": ItemData(BASE_ITEM_ID + 134, ItemClassification.useful),
-    "Banana King": ItemData(BASE_ITEM_ID + 135, ItemClassification.useful),
-    "Red": ItemData(BASE_ITEM_ID + 136, ItemClassification.useful),
-    "Yellow": ItemData(BASE_ITEM_ID + 137, ItemClassification.useful),
-    "Green": ItemData(BASE_ITEM_ID + 138, ItemClassification.useful),
-    "Grey": ItemData(BASE_ITEM_ID + 139, ItemClassification.useful),
-    "Violet": ItemData(BASE_ITEM_ID + 140, ItemClassification.useful),
-    "Light Blue": ItemData(BASE_ITEM_ID + 141, ItemClassification.useful),
-    "Rainbow": ItemData(BASE_ITEM_ID + 142, ItemClassification.useful),
-    "Lila": ItemData(BASE_ITEM_ID + 143, ItemClassification.useful),
-    "Royal": ItemData(BASE_ITEM_ID + 144, ItemClassification.useful),
-    "Aqua": ItemData(BASE_ITEM_ID + 145, ItemClassification.useful),
-    "Orange": ItemData(BASE_ITEM_ID + 146, ItemClassification.useful),
-    "Alpha Umbra": ItemData(BASE_ITEM_ID + 147, ItemClassification.useful),
-
-    # Spirits - sample of major ones
-    #"Faras Grace": ItemData(BASE_ITEM_ID + 160, ItemClassification.useful),
-    #"Hammer King": ItemData(BASE_ITEM_ID + 161, ItemClassification.useful),
-    #"Holy Centry": ItemData(BASE_ITEM_ID + 162, ItemClassification.useful),
-    #"River Spirit": ItemData(BASE_ITEM_ID + 163, ItemClassification.useful),
-    #"Angry Ambusher": ItemData(BASE_ITEM_ID + 164, ItemClassification.useful),
-    #"Forest Guardian": ItemData(BASE_ITEM_ID + 165, ItemClassification.useful),
-    #"Toxic Rat": ItemData(BASE_ITEM_ID + 166, ItemClassification.useful),
-    #"Storm Centry": ItemData(BASE_ITEM_ID + 167, ItemClassification.useful),
-    #"Blood Phantom": ItemData(BASE_ITEM_ID + 168, ItemClassification.useful),
-    #"Frozen Soul": ItemData(BASE_ITEM_ID + 169, ItemClassification.useful),
-}
-
-# Filler items - common ore/consumables
-filler_items = {
-    # Ores
-    "Ruby Ore": ItemData(BASE_ITEM_ID + 200, ItemClassification.filler, 0),
-    "Sapphire Ore": ItemData(BASE_ITEM_ID + 201, ItemClassification.filler, 0),
-    "Emerald Ore": ItemData(BASE_ITEM_ID + 202, ItemClassification.filler, 0),
-    "Void Ore": ItemData(BASE_ITEM_ID + 203, ItemClassification.filler, 0),
-
-    # Consumables
-    #"Fire Essence": ItemData(BASE_ITEM_ID + 210, ItemClassification.filler, 0),
-    #"Apple": ItemData(BASE_ITEM_ID + 211, ItemClassification.filler, 0),
-    #"Rotten Apple": ItemData(BASE_ITEM_ID + 212, ItemClassification.filler, 0),
-    #"Rice": ItemData(BASE_ITEM_ID + 213, ItemClassification.filler, 0),
-    #"Rare Cheese": ItemData(BASE_ITEM_ID + 214, ItemClassification.filler, 0),
-    #"Seagul Soup": ItemData(BASE_ITEM_ID + 215, ItemClassification.filler, 0),
-    #"Flesh Eater": ItemData(BASE_ITEM_ID + 216, ItemClassification.filler, 0),
-    #"Ice Crystal": ItemData(BASE_ITEM_ID + 217, ItemClassification.filler, 0),
-    #"Boot": ItemData(BASE_ITEM_ID + 218, ItemClassification.filler, 0),
-    #"Sand Relic": ItemData(BASE_ITEM_ID + 219, ItemClassification.filler, 0),
-    #"Dead Rat": ItemData(BASE_ITEM_ID + 220, ItemClassification.filler, 0),
-
-    # Money/currency
-    #"Ore": ItemData(BASE_ITEM_ID + 230, ItemClassification.filler, 0),
-
-    # Emotes and misc
-    #"Duck": ItemData(BASE_ITEM_ID + 240, ItemClassification.filler, 0),
-}
-
-# Trap items
-trap_items = {
-    "Speed Change Trap": ItemData(BASE_ITEM_ID + 260, ItemClassification.trap, 0),
-}
-
-# Junk weights for randomization
-junk_weights = {
-    "Ruby Ore": 15,
-    "Sapphire Ore": 20,
-    "Emerald Ore": 10,
-    "Fire Essence": 5,
-    "Apple": 8,
-    "Rice": 5,
-    "Rare Cheese": 3,
-    "Seagul Soup": 2,
-    "Flesh Eater": 2,
-    "Ice Crystal": 3,
-    "Boot": 2,
-    "Sand Relic": 5,
-    "Dead Rat": 3,
-    "Ore": 20,
-    "Duck": 10,
-    "Void Ore": 5,
-}
-
-trap_weights = {
-    "Speed Change Trap": 100,
-}
-
-# Combine all item dictionaries
-item_table = {
-    **progression_items,
-    **useful_items,
-    **equipment_items,
-    **filler_items,
-    **trap_items,
-}
+all_items: List["ItemDict"] = (
+    emote_items +
+    weapon_items +
+    tunic_items +
+    regular_items +
+    ability_items +
+    regular_items
+)

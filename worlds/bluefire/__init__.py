@@ -1,17 +1,27 @@
-from BaseClasses import MultiWorld, Item, Tutorial
+from BaseClasses import Tutorial, ItemClassification, Region
 from worlds.AutoWorld import World, CollectionState, WebWorld
-from typing import Dict
+from .connections import all_connections
+from .items import (
+    all_items,
+    base_id,
+    emote_items,
+    weapon_items,
+    tunic_items,
+    spirit_items,
+    ability_items,
+)
+from .locations import all_locations, forced_locations
+from .options import BluefireOptions
+from .regions import all_regions
+from .rules import BluefireRules
 
-from .Locations import get_location_names, get_total_locations
-from .Items import create_item, create_itempool, item_table
-from .Options import BluefireOptions
-from .Regions import create_regions
-from .Rules import set_rules
-from .Types import StartingLocation, starting_location_to_name
+from .subclasses import BluefireRegion, BluefireItem
 
 
 class BluefireWeb(WebWorld):
     theme = "Party"
+
+    bug_report_page = "https://github.com/Nebulea-dev/Archipelago-BlueFire/issues"
 
     tutorials = [Tutorial(
         "Multiworld Setup Guide",
@@ -19,7 +29,7 @@ class BluefireWeb(WebWorld):
         "English",
         "setup_en.md",
         "setup/en",
-        ["ArchipelagoTeam"]
+        ["Nebulea"]
     )]
 
 
@@ -30,51 +40,88 @@ class BluefireWorld(World):
     """
 
     game = "Blue Fire"
-    item_name_to_id = {name: data.ap_code for name, data in item_table.items()}
-    location_name_to_id = get_location_names()
-    options_dataclass = BluefireOptions
-    web = BluefireWeb()
+    options_dataclass = BluefireOptions  # options the player can set
+    options: BluefireOptions  # typing hints for option results
+    topology_present = True  # show path to required location checks in spoiler
 
-    def __init__(self, multiworld: "MultiWorld", player: int):
-        super().__init__(multiworld, player)
+    # The following two dicts are required for the generation to know which items exist.
+    # They can be generated with arbitrary code during world load, but keep in mind that
+    # anything expensive (e.g. parsing non-python data files) will delay world loading.
+    # They can include events, but don't have to since events will be placed manually.
 
-    def generate_early(self):
-        pass
+    # TODO : Fix this to align with how Blue Fire IDs work
+    item_name_to_id = {item["name"]: i + base_id for i, item in enumerate(all_items) if item is not None}
 
-    def create_regions(self):
-        create_regions(self)
-
-    def create_items(self):
-        self.multiworld.itempool += create_itempool(self)
-
-    def create_item(self, name: str) -> Item:
-        return create_item(self, name)
-
-    def set_rules(self):
-        set_rules(self)
-
-    def fill_slot_data(self) -> Dict[str, object]:
-        slot_data: Dict[str, object] = {
-            "options": {
-                "ExtraLocations":          self.options.ExtraLocations.value,
-                "TrapChance":              self.options.TrapChance.value,
-                "SpeedChangeTrapWeight":   self.options.SpeedChangeTrapWeight.value
-            },
-            "Seed": self.multiworld.seed_name,
-            "Slot": self.multiworld.player_name[self.player],
-            "TotalLocations": get_total_locations(self)
-        }
-        return slot_data
-
-    def collect(self, state: "CollectionState", item: "Item") -> bool:
-        change = super().collect(state, item)
-        if change and "Old Key" in item.name:
-            state.prog_items[item.player]["key"] += 1
-        return change
+    location_name_to_id = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
 
 
-    def remove(self, state: "CollectionState", item: "Item") -> bool:
-        change = super().collect(state, item)
-        if change and "Old Key" in item.name:
-            state.prog_items[item.player]["key"] -= 1
-        return change
+    # Items can be grouped using their names to allow easy checking if any item
+    # from that group has been collected. Group names can also be used for !hint
+    item_name_groups = {
+        "emotes": {item["name"] for item in emote_items if item is not None},
+        "weapons": {item["name"] for item in weapon_items if item is not None},
+        "tunics": {item["name"] for item in tunic_items if item is not None},
+        "spirits": {item["name"] for item in spirit_items if item is not None},
+        "abilities": {item["name"] for item in ability_items if item is not None},
+    }
+
+
+    def create_item(self, name: str) -> BluefireItem:
+        item_id = self.item_name_to_id[name]
+        item_data = all_items[item_id - base_id]
+        return BluefireItem(name, item_data["classification"], item_id, self.player)
+
+    def create_items(self) -> None:
+        nb_items_added = 0
+        useful_items = all_items.copy()
+        fillers_items = all_items.copy()
+
+        useful_items = [item for item in useful_items if item is not None and item["classification"] != ItemClassification.filler]
+        fillers_items = [item for item in fillers_items if item is not None and item["classification"] == ItemClassification.filler]
+
+        for item in useful_items:
+            for _ in range(item["count"]):
+                new_item = self.create_item(item["name"])
+                self.multiworld.itempool.append(new_item)
+                nb_items_added += 1
+
+        filler_count = len(all_locations)
+        filler_count -= len(forced_locations)
+        filler_count -= nb_items_added
+
+        for i in range(filler_count):
+            index = i % len(fillers_items)
+            filler_item = fillers_items[index]
+            new_item = self.create_item(filler_item["name"])
+            self.multiworld.itempool.append(new_item)
+
+    def create_regions(self) -> None:
+        list_regions = [
+            BluefireRegion(f"{parent} - {subregion}", self, parent)
+            for parent, sub_regions in all_regions.items()
+            if len(sub_regions) > 0
+            for subregion in sub_regions
+        ] + [
+            BluefireRegion(f"{parent}", self)
+            for parent, sub_regions in all_regions.items()
+            if len(sub_regions) == 0
+        ]
+
+
+        for region in list_regions:
+            if region.parent is not None:
+                region_name = region.name.removeprefix(f"{region.parent} - ")
+                connection_data = all_connections[region.parent][region_name]
+                for exit_region in connection_data:
+                    region.connect(self.get_region(exit_region))
+
+            else:
+                connection_data = all_connections[region.name]
+                for exit_region in connection_data:
+                    region.connect(self.get_region(exit_region))
+
+        menu_region = BluefireRegion("Menu", self)
+        menu_region.add_exits({"Fire Keep - Intro": "Start game"})
+
+    def set_rules(self) -> None:
+        BluefireRules(self).set_bluefire_rules()
