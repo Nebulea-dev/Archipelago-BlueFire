@@ -9,6 +9,7 @@ from .items import (
     tunic_items,
     spirit_items,
     ability_items,
+    regular_items,
 )
 from .locations import all_locations, forced_locations
 from .options import BluefireOptions
@@ -50,7 +51,21 @@ class BluefireWorld(World):
     # They can include events, but don't have to since events will be placed manually.
 
     # TODO : Fix this to align with how Blue Fire IDs work
-    item_name_to_id = {item["name"]: i + base_id for i, item in enumerate(all_items) if item is not None}
+    emote_item_name_to_id = {item["name"]: i for i, item in enumerate(emote_items, base_id + 0) if item is not None}
+    weapon_item_name_to_id = {item["name"]: i for i, item in enumerate(weapon_items, base_id + 100) if item is not None}
+    tunic_item_name_to_id = {item["name"]: i for i, item in enumerate(tunic_items, base_id + 200) if item is not None}
+    spirit_item_name_to_id = {item["name"]: i for i, item in enumerate(spirit_items, base_id + 300) if item is not None}
+    ability_item_name_to_id = {item["name"]: i for i, item in enumerate(ability_items, base_id + 400) if item is not None}
+    regular_item_name_to_id = {item["name"]: i for i, item in enumerate(regular_items, base_id + 500) if item is not None}
+
+    item_name_to_id = {
+        **emote_item_name_to_id,
+        **weapon_item_name_to_id,
+        **tunic_item_name_to_id,
+        **spirit_item_name_to_id,
+        **ability_item_name_to_id,
+        **regular_item_name_to_id,
+    }
 
     location_name_to_id = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
 
@@ -67,8 +82,24 @@ class BluefireWorld(World):
 
 
     def create_item(self, name: str) -> BluefireItem:
-        item_id = self.item_name_to_id[name]
-        item_data = all_items[item_id - base_id]
+        item_id = self.item_name_to_id[name] - base_id
+        item_category = item_id - (item_id % 100)
+        item_data = {}
+
+        match item_category:
+            case 0:
+                item_data = emote_items[item_id - item_category]
+            case 100:
+                item_data = weapon_items[item_id - item_category]
+            case 200:
+                item_data = tunic_items[item_id - item_category]
+            case 300:
+                item_data = spirit_items[item_id - item_category]
+            case 400:
+                item_data = ability_items[item_id - item_category]
+            case 500:
+                item_data = regular_items[item_id - item_category]
+
         return BluefireItem(name, item_data["classification"], item_id, self.player)
 
     def create_items(self) -> None:

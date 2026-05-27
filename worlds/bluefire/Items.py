@@ -4,7 +4,7 @@ from typing import List, TYPE_CHECKING
 if TYPE_CHECKING:
     from .subclasses import ItemDict
 
-base_id = 0xB70EF14E
+base_id = 437000
 
 useful_skip_balancing: ItemClassification = ItemClassification(
     ItemClassification.useful + ItemClassification.skip_balancing
