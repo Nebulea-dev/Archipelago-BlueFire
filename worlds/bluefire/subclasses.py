@@ -1,6 +1,6 @@
 from typing import Dict, List, TypedDict, TYPE_CHECKING
 from BaseClasses import Region, Location, Item, ItemClassification
-from .locations import regions_to_locations, forced_locations, forced_locations_items
+from .Locations import regions_to_locations, forced_locations, forced_locations_items
 
 if TYPE_CHECKING:
     from . import BluefireWorld

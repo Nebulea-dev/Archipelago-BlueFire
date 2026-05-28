@@ -1,94 +1,56 @@
 from typing import Dict, List, TYPE_CHECKING
+import json
+import os
 
-regions_to_locations: Dict[str, Dict[str, List[str]] | List[str]] = {
-    "Menu": [],
+# Load locations from the unified JSON file
+def _load_locations_json():
+    json_path = os.path.join(os.path.dirname(__file__), "locations.json")
+    with open(json_path, 'r') as f:
+        return json.load(f)
 
-    "Fire Keep": {
-        "Intro": [
-            "Ambush chest 1",
-            "Ambush chest 2"
-        ],
-        "Hub": [
-            "Spin attack",
-            "Loot chest 1",
-            "Loot chest 2",
-            "Loot chest 3",
-            "Diamond Wing Chest",
-        ],
-    },
+_locations_data = _load_locations_json()
 
-    "Arcane Tunnels": [
-        "North loot chest 1",
-        "North loot chest 2",
-        "North loot chest 3",
-        "East loot chest 1",
-        "East loot chest 4",
-        "East loot chest 5",
-        "Bloodstorm chest",
-        "Arcane chest",
-        "South key chest 2",
-        "East loot chest 2",
-        "East loot chest 3",
-        "South loot chest",
-        "South key chest 1",
-    ],
+# Generate location IDs incrementally and build location name to ID mapping
+_location_id_counter = 0
+_location_name_to_id: Dict[str, int] = {}
 
-    "Crossroads": [
-        "Well Loot Chest 3",
-        "Loot Chest 1",
-        "Loot chest 2",
-        "Loot Chest 3",
-    ],
+# Convert JSON to the original format for backward compatibility
+regions_to_locations: Dict[str, Dict[str, List[str]] | List[str]] = {}
 
-    "Stoneheart City": [
-        "Pure Shadow chest",
-        "Stoneheart chest 3",
-        "Stoneheart chest 1",
-        "Stoneheart chest 2",
-        "Stoneheart chest 4",
-        "Merchants Robe chest",
-        "Graveyard key chest 1",
-        "Graveyard key chest 2",
-    ],
+for region in _locations_data["regions"]:
+    region_name = region["name"]
 
-    "Forest Temple": {
-        "Water": [
-            "Loot chest 1",
-            "Loot chest 2",
-            "Key chest",
-        ],
-        "Ambush 1": [
-            "Key chest",
-        ],
-        "Ambush 2": [
-            "Key chest",
-        ],
-        "Nuos Claw": [
-            "Nuos Claw chest",
-        ],
-        "Center Tree": [
-            "Loot chest 1",
-            "Loot chest 2",
-            "Loot chest 3",
-            "Void chest",
-            "Silverblades chest",
-            "Key chest",
-        ],
-        "Center Tree Trunk": [
-            "Loot chest 1",
-        ],
-    },
-
-    "Victory": [
-		"Victory"
-	],
-}
+    if region["subregions"]:
+        # Region has subregions
+        regions_to_locations[region_name] = {}
+        for subregion in region["subregions"]:
+            subregion_name = subregion["name"]
+            locations = []
+            for loc in subregion["locations"]:
+                loc_name = loc["name"]
+                locations.append(loc_name)
+                # Store the full location path and its ID
+                full_path = f"{region_name} - {subregion_name} - {loc_name}"
+                _location_name_to_id[full_path] = _location_id_counter
+                _location_id_counter += 1
+            regions_to_locations[region_name][subregion_name] = locations
+    else:
+        # Region has no subregions
+        locations = []
+        for loc in region["locations"]:
+            loc_name = loc["name"]
+            locations.append(loc_name)
+            # Store the full location path and its ID
+            full_path = f"{region_name} - {loc_name}"
+            _location_name_to_id[full_path] = _location_id_counter
+            _location_id_counter += 1
+        regions_to_locations[region_name] = locations
 
 
 regions_with_subregions = [
     f"{region} - {subregion} - {location}"
     for region, subregions in regions_to_locations.items()
-	if isinstance(subregions, dict)
+    if isinstance(subregions, dict)
     for subregion, locations in subregions.items()
     for location in locations
 ]
@@ -96,14 +58,14 @@ regions_with_subregions = [
 regions_without_subregions = [
     f"{region} - {location}"
     for region, locations in regions_to_locations.items()
-	if isinstance(locations, list)
+    if isinstance(locations, list)
     for location in locations
 ]
 
 
 all_locations : List[str] = (
     regions_with_subregions
-	+ regions_without_subregions
+    + regions_without_subregions
 )
 
 
@@ -112,3 +74,16 @@ forced_locations_items: Dict[str, str] = {
 }
 
 forced_locations = [location for location, item in forced_locations_items.items()]
+
+
+def get_location_id(location_name: str) -> int:
+    """
+    Get the location ID for a given location name.
+
+    Args:
+        location_name: Full location path (e.g., "Fire Keep - Hub - Loot chest 1")
+
+    Returns:
+        The location ID (0-based index)
+    """
+    return _location_name_to_id.get(location_name, -1)

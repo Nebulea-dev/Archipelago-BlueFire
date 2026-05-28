@@ -1,7 +1,7 @@
 from BaseClasses import Tutorial, ItemClassification, Region
 from worlds.AutoWorld import World, CollectionState, WebWorld
 from .connections import all_connections
-from .items import (
+from .Items import (
     all_items,
     base_id,
     emote_items,
@@ -11,10 +11,10 @@ from .items import (
     ability_items,
     regular_items,
 )
-from .locations import all_locations, forced_locations
-from .options import BluefireOptions
-from .regions import all_regions
-from .rules import BluefireRules
+from .Locations import all_locations, forced_locations
+from .Options import BluefireOptions
+from .Regions import all_regions
+from .Rules import BluefireRules
 
 from .subclasses import BluefireRegion, BluefireItem
 

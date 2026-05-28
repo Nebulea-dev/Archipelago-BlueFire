@@ -220,7 +220,7 @@ all_items: List["ItemDict"] = (
     emote_items +
     weapon_items +
     tunic_items +
-    regular_items +
+    spirit_items +
     ability_items +
     regular_items
 )
