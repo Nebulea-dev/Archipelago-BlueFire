@@ -117,14 +117,14 @@ spirit_items: List["ItemDict"] = [
 
 
 ability_items: List["ItemDict"] = [
-    {"name": "Double Jump Ability", "count": 1, "classification": ItemClassification.progression},
-    None, # Skip the Dash
     None, # Skip the Attack
-    {"name": "Down Smash Ability", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip the Dash
+    {"name": "Double Jump Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Wall Run Ability", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Grind Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Sprint Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Down Smash Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Spell Ability", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Grind Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Block Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Spin Attack Ability", "count": 1, "classification": ItemClassification.progression},
 ]
