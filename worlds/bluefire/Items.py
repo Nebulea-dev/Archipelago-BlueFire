@@ -131,88 +131,88 @@ ability_items: List["ItemDict"] = [
 
 
 regular_items: List["ItemDict"] = [
-    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},
-    None, # Skip small pouch
-    {"name": "Old Key", "count": 5, "classification": ItemClassification.progression},
-    {"name": "Book", "count": 5, "classification": ItemClassification.progression},
-    {"name": "Rose", "count": 1, "classification": ItemClassification.useful},
-    None, # Skip ----- separation
-    None, # Skip Boot
-    None, # Skip Kinbank Credit Card
-    None, # Skip Ice Crystal
-    {"name": "Sanctuary Stone", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Rare Key", "count": 5, "classification": ItemClassification.progression},
-    None, # Skip Pure Shadow Catcher
-    None, # Skip --------------- separation
-    {"name": "Ruby Ore", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Sapphire Ore", "count": 1, "classification": ItemClassification.useful},
-    None, # Skip Dead Rat
-    None, # Skip Bremur Picture
-    None, # Skip Odd Rock
-    None, # Skip Souls
-    None, # Skip Sand Relic
-    {"name": "Emerald Ore", "count": 1, "classification": ItemClassification.useful},
-    None, # Skip Shadow Fragment
-    None, # Skip Black Fire
-    None, # Skip Abyss Potion
-    None, # Skip Coin
-    None, # Skip Void Shards
-    None, # Skip Fire Essence
-    None, # Skip Shadow Potion
-    None, # Skip Holy Blessing
-    None, # Skip Rice
-    None, # Skip Carrot Potion
-    None, # Skip Apple
-    None, # Skip Rotten Apple
-    None, # Skip Medicine
-    None, # Skip Spirit Catcher
-    None, # Skip House Key
-    None, # Skip Life Elixir
-    None, # Skip Royal Elixir
-    None, # Skip Boulder Powder
-    None, # Skip Rare Cheese
-    None, # Skip Seagul Soup
-    None, # Skip Flesh Eater
-    None, # Skip Shard Cluster
-    None, # Skip Forest Bug
-    None, # Skip Poisoned Plant
-    None, # Skip --------------- separation
-    None, # Skip Dash
-    None, # Skip Double Jump
-    None, # Skip Spin Attack
-    None, # Skip Wall Run
-    None, # Skip Fire Ball
-    None, # Skip Down Smash
-    None, # Skip Shield
-    None, # Skip Spirit Slot
-    None, # Skip Void Key
-    None, # Skip Necklace
-    {"name": "Key Fire Master", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Holy Master", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Uthas Temple", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Steam", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Key Graveyard Key", "count": 1, "classification": ItemClassification.progression},
-    None, # Skip House Contract
-    None, # Skip Mandoline
-    None, # Skip Rare Glasses
-    None, # Skip Rare Snow
-    None, # Skip Composer Letter
-    None, # Skip Sprint
-    None, # Skip Beira Vessel
-    None, # Skip Beira Shards
-    None, # Skip Basic Pouch
-    None, # Skip Fire Essence Slot
-    {"name": "Void Ore", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},
-    None, # Skip Mana
-    None, # Skip Guardian Soul
-    None, # Skip Covenant Soul
-    None, # Skip Guardian Key
-    None, # Skip Duck
-    None, # Skip Robi Badge
+    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0
+    None,  # NewEnumerator1 (SmallPouch) = ID 1
+    {"name": "Old Key", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator6 = ID 2
+    None,  # NewEnumerator12 (----) = ID 3 - Padding separation
+    None,  # NewEnumerator15 (KinbankDebitCard) = ID 4 - Skip
+    {"name": "Sanctuary Stone", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator18 = ID 5
+    {"name": "Rare Key", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator19 = ID 6
+    None,  # NewEnumerator32 (ShadowFragment) = ID 7 - Skip
+    None,  # NewEnumerator22 (PureShadowCatcher) = ID 8 - Skip
+    None,  # NewEnumerator33 (BlackFire) = ID 9 - Skip
+    None,  # NewEnumerator35 (Coin) = ID 10 - Skip
+    None,  # NewEnumerator36 (VoidShards) = ID 11 - Skip
+    None,  # NewEnumerator41 (HolyBlessing) = ID 12 - Skip
+    None,  # NewEnumerator49 (SpiritCatcher) = ID 13 - Skip
+    None,  # NewEnumerator50 (HouseKey) = ID 14 - Skip
+    None,  # NewEnumerator23 (-------------) = ID 15 - Padding separation
+    None,  # NewEnumerator39 (FireEssence) = ID 16 - Skip
+    {"name": "Book", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator7 = ID 17
+    None,  # NewEnumerator14 (Boot) = ID 18 - Skip
+    None,  # NewEnumerator17 (IceCrystal) = ID 19 - Skip
+    {"name": "Ruby Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator24 = ID 20
+    {"name": "Sapphire Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator25 = ID 21
+    {"name": "Emerald Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator31 = ID 22
+    None,  # NewEnumerator27 (BremurPicture) = ID 23 - Skip
+    None,  # NewEnumerator28 (OddRock) = ID 24 - Skip
+    None,  # NewEnumerator29 (Souls) = ID 25 - Skip
+    None,  # NewEnumerator30 (SandRelic) = ID 26 - Skip
+    {"name": "Rose", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator9 = ID 27
+    None,  # NewEnumerator34 (AbyssPotion) = ID 28 - Skip
+    None,  # NewEnumerator40 (ShadowPotion) = ID 29 - Skip
+    None,  # NewEnumerator44 (CarrotPotion) = ID 30 - Skip
+    None,  # NewEnumerator42 (Rice) = ID 31 - Skip
+    None,  # NewEnumerator45 (Apple) = ID 32 - Skip
+    None,  # NewEnumerator46 (RottenApple) = ID 33 - Skip
+    None,  # NewEnumerator47 (Medicine) = ID 34 - Skip
+    None,  # NewEnumerator51 (LifeElixir) = ID 35 - Skip
+    None,  # NewEnumerator52 (RoyalElixir) = ID 36 - Skip
+    None,  # NewEnumerator53 (BoulderPowder) = ID 37 - Skip
+    None,  # NewEnumerator54 (RareCheese) = ID 38 - Skip
+    None,  # NewEnumerator55 (SeagulSoup) = ID 39 - Skip
+    None,  # NewEnumerator56 (FleshEater) = ID 40 - Skip
+    None,  # NewEnumerator57 (ShardCluster) = ID 41 - Skip
+    None,  # NewEnumerator58 (ForestBug) = ID 42 - Skip
+    None,  # NewEnumerator26 (DeadRat) = ID 43 - Skip
+    None,  # NewEnumerator59 (PoisonedPlant) = ID 44 - Skip
+    None,  # NewEnumerator60 (---------------) = ID 45 - Padding separation
+    None,  # NewEnumerator61 (Dash) = ID 46 - Skip
+    None,  # NewEnumerator62 (DoubleJump) = ID 47 - Skip
+    None,  # NewEnumerator63 (SpinAttack) = ID 48 - Skip
+    None,  # NewEnumerator64 (WallRun) = ID 49 - Skip
+    None,  # NewEnumerator65 (FireBall) = ID 50 - Skip
+    None,  # NewEnumerator66 (DownSmash) = ID 51 - Skip
+    None,  # NewEnumerator67 (Shield) = ID 52 - Skip
+    None,  # NewEnumerator68 (SpiritSlot) = ID 53 - Skip
+    None,  # NewEnumerator69 (VoidKey) = ID 54 - Skip
+    None,  # NewEnumerator70 (Necklace) = ID 55 - Skip
+    {"name": "Key Fire Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56
+    {"name": "Key Holy Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57
+    {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator73 = ID 58
+    {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator74 = ID 59
+    {"name": "Key Uthas Temple", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60
+    {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61
+    {"name": "Key Steam", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62
+    {"name": "Key Graveyard Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator78 = ID 63
+    None,  # NewEnumerator79 (HouseContract) = ID 64 - Skip
+    None,  # NewEnumerator80 (Mandoline) = ID 65 - Skip
+    None,  # NewEnumerator81 (RareGlasses) = ID 66 - Skip
+    None,  # NewEnumerator83 (RareSnow) = ID 67 - Skip
+    None,  # NewEnumerator84 (ComposerLetter) = ID 68 - Skip
+    None,  # NewEnumerator85 (Sprint) = ID 69 - Skip
+    None,  # NewEnumerator86 (BeiraVessel) = ID 70 - Skip
+    None,  # NewEnumerator87 (BeiraShards) = ID 71 - Skip
+    None,  # NewEnumerator88 (BasicPouch) = ID 72 - Skip
+    None,  # NewEnumerator89 (FireEssenceSlot) = ID 73 - Skip
+    {"name": "Void Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator90 = ID 74
+    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator91 = ID 75
+    None,  # NewEnumerator92 (Mana) = ID 76 - Skip
+    None,  # NewEnumerator93 (GuardianSoul) = ID 77 - Skip
+    None,  # NewEnumerator94 (CovenantSoul) = ID 78 - Skip
+    None,  # NewEnumerator95 (GuardianKey) = ID 79 - Skip
+    None,  # NewEnumerator96 (Duck) = ID 80 - Skip
+    None,  # NewEnumerator97 (RobiBadge) = ID 81 - Skip
 ]
 
 
