@@ -1,6 +1,6 @@
 from BaseClasses import Tutorial, ItemClassification, Region
 from worlds.AutoWorld import World, CollectionState, WebWorld
-from .connections import all_connections
+from .Connections import all_connections
 from .Items import (
     all_items,
     base_id,
@@ -16,7 +16,7 @@ from .Options import BluefireOptions
 from .Regions import all_regions
 from .Rules import BluefireRules
 
-from .subclasses import BluefireRegion, BluefireItem
+from .Subclasses import BluefireRegion, BluefireItem
 
 
 class BluefireWeb(WebWorld):
@@ -130,14 +130,8 @@ class BluefireWorld(World):
         list_regions = [
             BluefireRegion(f"{parent} - {subregion}", self, parent)
             for parent, sub_regions in all_regions.items()
-            if len(sub_regions) > 0
             for subregion in sub_regions
-        ] + [
-            BluefireRegion(f"{parent}", self)
-            for parent, sub_regions in all_regions.items()
-            if len(sub_regions) == 0
         ]
-
 
         for region in list_regions:
             if region.parent is not None:

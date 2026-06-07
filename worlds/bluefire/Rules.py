@@ -24,6 +24,7 @@ class BluefireRules:
             "Forest Temple - Ambush 1 -> Forest Temple - Ambush 2": lambda state: state.has("Old Key", self.player, 3),
             "Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw": lambda state: state.has("Old Key", self.player, 4),
             "Forest Temple - Water -> Forest Temple - Center Tree": lambda state: state.has("Old Key", self.player, 5),
+            "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Graveyard Key", self.player, 1) and state.has("Wall Run Ability", self.player, 1),
         }
 
     # Set all rules in the multiworld

@@ -37,7 +37,7 @@ weapon_items: List["ItemDict"] = [
     {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
     {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},
     {"name": "Ember Twins", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.progression}, # Needed to repair the boilers
     {"name": "Ice Destroyers", "count": 1, "classification": ItemClassification.useful},
     {"name": "Peace Keepers", "count": 1, "classification": ItemClassification.useful},
     {"name": "Steel Shanks", "count": 1, "classification": ItemClassification.useful},
@@ -83,17 +83,17 @@ tunic_items: List["ItemDict"] = [
     {"name": "Discord Winner Contest Tunic", "count": 1, "classification": ItemClassification.filler},
 ]
 
-
+# TODO : Many of them are not in the game anymore, remove them
 spirit_items: List["ItemDict"] = [
     {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Hammer King Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "River Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Angry Ambusher Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Secret Fruit Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Mind Controller Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Secret Fruit Spirit
+    # Skip Mind Controller Spirit
     {"name": "Frozen Soul Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Howling Tree Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Howling Tree Spirit
     {"name": "Love Flower Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.useful},
@@ -101,18 +101,18 @@ spirit_items: List["ItemDict"] = [
     {"name": "Forest Guardian Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Moi The Dreadful Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Stone Hunter Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Stone Hunter Spirit
     {"name": "Golden Lust Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Candle Onop Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Stone Warrior Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Candle Onop Spirit
+    # Skip Stone Warrior Spirit
     {"name": "Toxic Rat Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Summoned God Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Summoning Hand Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Summoned God Spirit
+    # Skip Summoning Hand Spirit
     {"name": "Life Steal Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Shadow Demon Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Shadow Demon Spirit
     {"name": "Shadow Gru Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Flying Onop Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Toxic Water Spirit", "count": 1, "classification": ItemClassification.useful},
+    # Skip Toxic Water Spirit
 ]
 
 
@@ -122,7 +122,7 @@ ability_items: List["ItemDict"] = [
     {"name": "Double Jump Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Wall Run Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Sprint Ability", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Down Smash Ability", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip the Down Smash
     {"name": "Spell Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Grind Ability", "count": 1, "classification": ItemClassification.progression},
     {"name": "Block Ability", "count": 1, "classification": ItemClassification.progression},
@@ -131,7 +131,7 @@ ability_items: List["ItemDict"] = [
 
 
 regular_items: List["ItemDict"] = [
-    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0
+    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0 | passive item
     None,  # NewEnumerator1 (SmallPouch) = ID 1
     {"name": "Old Key", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator6 = ID 2
     None,  # NewEnumerator12 (----) = ID 3 - Padding separation
@@ -148,12 +148,12 @@ regular_items: List["ItemDict"] = [
     None,  # NewEnumerator50 (HouseKey) = ID 14 - Skip
     None,  # NewEnumerator23 (-------------) = ID 15 - Padding separation
     None,  # NewEnumerator39 (FireEssence) = ID 16 - Skip
-    {"name": "Book", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator7 = ID 17
+    {"name": "Book", "count": 5, "classification": ItemClassification.progression},  # NewEnumerator7 = ID 17 | passive item
     None,  # NewEnumerator14 (Boot) = ID 18 - Skip
     None,  # NewEnumerator17 (IceCrystal) = ID 19 - Skip
-    {"name": "Ruby Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator24 = ID 20
-    {"name": "Sapphire Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator25 = ID 21
-    {"name": "Emerald Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator31 = ID 22
+    {"name": "Ruby Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator24 = ID 20 | active item
+    {"name": "Sapphire Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator25 = ID 21 | active item
+    {"name": "Emerald Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator31 = ID 22 | active item
     None,  # NewEnumerator27 (BremurPicture) = ID 23 - Skip
     None,  # NewEnumerator28 (OddRock) = ID 24 - Skip
     None,  # NewEnumerator29 (Souls) = ID 25 - Skip
@@ -187,14 +187,14 @@ regular_items: List["ItemDict"] = [
     None,  # NewEnumerator68 (SpiritSlot) = ID 53 - Skip
     None,  # NewEnumerator69 (VoidKey) = ID 54 - Skip
     None,  # NewEnumerator70 (Necklace) = ID 55 - Skip
-    {"name": "Key Fire Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56
-    {"name": "Key Holy Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57
-    {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator73 = ID 58
-    {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator74 = ID 59
-    {"name": "Key Uthas Temple", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60
-    {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61
-    {"name": "Key Steam", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62
-    {"name": "Key Graveyard Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator78 = ID 63
+    {"name": "Key Fire Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56 | passive item
+    {"name": "Key Holy Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57 | passive item
+    {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator73 = ID 58 | passive item
+    {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator74 = ID 59 | passive item
+    {"name": "Key Uthas Temple", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60 | passive item
+    {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61 | passive item
+    {"name": "Key Steam", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62 | passive item
+    {"name": "Key Graveyard Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator78 = ID 63 | passive item
     None,  # NewEnumerator79 (HouseContract) = ID 64 - Skip
     None,  # NewEnumerator80 (Mandoline) = ID 65 - Skip
     None,  # NewEnumerator81 (RareGlasses) = ID 66 - Skip
@@ -205,8 +205,8 @@ regular_items: List["ItemDict"] = [
     None,  # NewEnumerator87 (BeiraShards) = ID 71 - Skip
     None,  # NewEnumerator88 (BasicPouch) = ID 72 - Skip
     None,  # NewEnumerator89 (FireEssenceSlot) = ID 73 - Skip
-    {"name": "Void Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator90 = ID 74
-    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator91 = ID 75
+    {"name": "Void Ore", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator90 = ID 74 | active item
+    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator91 = ID 75 | passive item
     None,  # NewEnumerator92 (Mana) = ID 76 - Skip
     None,  # NewEnumerator93 (GuardianSoul) = ID 77 - Skip
     None,  # NewEnumerator94 (CovenantSoul) = ID 78 - Skip
