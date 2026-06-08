@@ -1,3 +1,5 @@
+from enum import IntEnum
+
 from BaseClasses import Tutorial, ItemClassification, Region
 from worlds.AutoWorld import World, CollectionState, WebWorld
 from .Connections import all_connections
@@ -17,6 +19,16 @@ from .Regions import all_regions
 from .Rules import BluefireRules
 
 from .Subclasses import BluefireRegion, BluefireItem
+
+
+class ItemCategory(IntEnum):
+    """Enum for organizing items into categories with consistent ID offsets."""
+    EMOTE = 0
+    WEAPON = 100
+    TUNIC = 200
+    SPIRIT = 300
+    ABILITY = 400
+    REGULAR = 500
 
 
 class BluefireWeb(WebWorld):
@@ -50,15 +62,14 @@ class BluefireWorld(World):
     # anything expensive (e.g. parsing non-python data files) will delay world loading.
     # They can include events, but don't have to since events will be placed manually.
 
-    # TODO : Fix this to align with how Blue Fire IDs work
-    emote_item_name_to_id = {item["name"]: i for i, item in enumerate(emote_items, base_id + 0) if item is not None}
-    weapon_item_name_to_id = {item["name"]: i for i, item in enumerate(weapon_items, base_id + 100) if item is not None}
-    tunic_item_name_to_id = {item["name"]: i for i, item in enumerate(tunic_items, base_id + 200) if item is not None}
-    spirit_item_name_to_id = {item["name"]: i for i, item in enumerate(spirit_items, base_id + 300) if item is not None}
-    ability_item_name_to_id = {item["name"]: i for i, item in enumerate(ability_items, base_id + 400) if item is not None}
-    regular_item_name_to_id = {item["name"]: i for i, item in enumerate(regular_items, base_id + 500) if item is not None}
+    emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
+    weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(weapon_items, base_id + ItemCategory.WEAPON) if item is not None}
+    tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
+    spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
+    ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
+    regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
 
-    item_name_to_id = {
+    item_name_to_id: dict[str, int] = {
         **emote_item_name_to_id,
         **weapon_item_name_to_id,
         **tunic_item_name_to_id,
@@ -67,12 +78,12 @@ class BluefireWorld(World):
         **regular_item_name_to_id,
     }
 
-    location_name_to_id = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
+    location_name_to_id: dict[str, int] = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
 
 
     # Items can be grouped using their names to allow easy checking if any item
     # from that group has been collected. Group names can also be used for !hint
-    item_name_groups = {
+    item_name_groups: dict[str, set[str]] = {
         "emotes": {item["name"] for item in emote_items if item is not None},
         "weapons": {item["name"] for item in weapon_items if item is not None},
         "tunics": {item["name"] for item in tunic_items if item is not None},
@@ -83,22 +94,25 @@ class BluefireWorld(World):
 
     def create_item(self, name: str) -> BluefireItem:
         item_id = self.item_name_to_id[name] - base_id
-        item_category = item_id - (item_id % 100)
+        item_category = ItemCategory(item_id - (item_id % 100))
         item_data = {}
 
         match item_category:
-            case 0:
+            case ItemCategory.EMOTE:
                 item_data = emote_items[item_id - item_category]
-            case 100:
+            case ItemCategory.WEAPON:
                 item_data = weapon_items[item_id - item_category]
-            case 200:
+            case ItemCategory.TUNIC:
                 item_data = tunic_items[item_id - item_category]
-            case 300:
+            case ItemCategory.SPIRIT:
                 item_data = spirit_items[item_id - item_category]
-            case 400:
+            case ItemCategory.ABILITY:
                 item_data = ability_items[item_id - item_category]
-            case 500:
+            case ItemCategory.REGULAR:
                 item_data = regular_items[item_id - item_category]
+
+        if not item_data:
+            raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")
 
         return BluefireItem(name, item_data["classification"], item_id, self.player)
 

@@ -27,17 +27,19 @@ emote_items: List["ItemDict"] = [
     {"name": "Techno Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Party Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Hello Emote", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Empty Emote", "count": 1, "classification": ItemClassification.progression}, # TODO : I don't think that's a real emote
+    # TODO: Verify if 'Empty Emote' exists in game; remove if not
+    {"name": "Empty Emote", "count": 1, "classification": ItemClassification.progression},
 ]
 
 
 weapon_items: List["ItemDict"] = [
-    None, # Skip the Dual Blades
+    None,  # Skip the Dual Blades
     {"name": "Bloodstorm Blades", "count": 1, "classification": ItemClassification.useful},
     {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
     {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},
     {"name": "Ember Twins", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.progression}, # Needed to repair the boilers
+    # Needed to repair the boilers
+    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.progression},
     {"name": "Ice Destroyers", "count": 1, "classification": ItemClassification.useful},
     {"name": "Peace Keepers", "count": 1, "classification": ItemClassification.useful},
     {"name": "Steel Shanks", "count": 1, "classification": ItemClassification.useful},
@@ -83,7 +85,7 @@ tunic_items: List["ItemDict"] = [
     {"name": "Discord Winner Contest Tunic", "count": 1, "classification": ItemClassification.filler},
 ]
 
-# TODO : Many of them are not in the game anymore, remove them
+# TODO: Review and remove spirit items that no longer exist in the current game version
 spirit_items: List["ItemDict"] = [
     {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Hammer King Spirit", "count": 1, "classification": ItemClassification.useful},

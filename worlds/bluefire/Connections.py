@@ -1,7 +1,5 @@
 from typing import Dict, List
 
-from typing import Dict, List
-
 
 all_connections: Dict[str, Dict[str, List[str]]] = {
     "Fire Keep": {
@@ -33,7 +31,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Forest Temple": {
-        "Water": ["Stoneheart City - Main Area" ,"Forest Temple - Ambush 1", "Forest Temple - Center Tree"],
+        "Water": ["Stoneheart City - Main Area", "Forest Temple - Ambush 1", "Forest Temple - Center Tree"],
         "Ambush 1": ["Forest Temple - Water", "Forest Temple - Ambush 2", "Forest Temple - Nuos Claw"],
         "Ambush 2": ["Forest Temple - Ambush 1"],
         "Nuos Claw": ["Forest Temple - Ambush 1"],
@@ -49,7 +47,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
 
     "Uthas Temple": {
         "Entrance": ["Abandoned Path - Entrance", "Uthas Temple - Main Room", "Uthas Temple - Top of Entrance"],
-		"Top of Entrance": ["Uthas Temple - Entrance"],
+        "Top of Entrance": ["Uthas Temple - Entrance"],
         "Main Room": ["Uthas Temple - Entrance", "Uthas Temple - Ambush Room", "Uthas Temple - Holy Tower Chest", "Uthas Temple - Main Room 2nd side"],
         "Ambush Room": ["Uthas Temple - Main Room"],
         "Holy Tower Chest": ["Uthas Temple - Main Room"],
@@ -70,6 +68,6 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Victory": {
-		"Victory": []
+        "Victory": []
     },
 }

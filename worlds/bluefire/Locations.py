@@ -1,23 +1,26 @@
-from typing import Dict, List, TYPE_CHECKING
+from typing import Dict, List, TYPE_CHECKING, Any, Tuple
 import json
 import os
 
 # Load locations from the unified JSON file
-def _load_locations_json():
+def _load_locations_json() -> Dict[str, Any]:
     json_path = os.path.join(os.path.dirname(__file__), "locations.json")
     with open(json_path, 'r') as f:
         return json.load(f)
 
-_locations_data = _load_locations_json()
+_locations_data: Dict[str, Any] = _load_locations_json()
 
 # Generate location IDs incrementally and build location name to ID mapping
-_location_id_counter = 0
+_location_id_counter: int = 0
 _location_name_to_id: Dict[str, int] = {}
 
 # Convert JSON to the original format for backward compatibility
-regions_to_locations: Dict[str, Dict[str, List[str]] | List[str]] = {}
+regions_to_locations: Dict[str, Dict[str, List[str]]] = {}
 
 location_types: List[str] = ["chests", "statues", "pickups", "void_gates"]
+
+# Map out the locations that need a dance as a rule
+dance_locations: Dict[str, str] = {}
 
 for location_type in location_types:
     for region in _locations_data[location_type]:
@@ -45,9 +48,6 @@ for location_type in location_types:
                 else:
                     regions_to_locations[region_name][subregion_name] += locations
 
-# Map out the locations that need a dance as a rule
-dance_locations: Dict[str, str] = {}
-
 for region in _locations_data["chests"]:
     if "subregions" not in region:
         continue
@@ -65,17 +65,15 @@ for region in _locations_data["chests"]:
             full_path = f"{region_name} - {subregion_name} - {loc_name}"
             dance_locations[full_path] = loc["dance"]
 
-print(dance_locations)
-
 
 
 forced_locations_items: Dict[str, str] = {
     "Victory - Victory - Victory": "Victory",
 }
-forced_locations = [location for location, _ in forced_locations_items.items()]
+forced_locations: List[str] = [location for location, _ in forced_locations_items.items()]
 
 
-all_locations = [
+all_locations: List[str] = [
     f"{region} - {subregion} - {location}"
     for region, subregions in regions_to_locations.items()
     if isinstance(subregions, dict)
@@ -84,4 +82,6 @@ all_locations = [
 ]
 
 def get_location_id(location_name: str) -> int:
-    return _location_name_to_id.get(location_name, -1)
+    if location_name not in _location_name_to_id:
+        raise ValueError(f"Location '{location_name}' not found in location mapping")
+    return _location_name_to_id[location_name]

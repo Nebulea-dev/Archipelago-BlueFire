@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class BluefireRegion(Region):
-    parent: str | None
+    parent: str | None = None
 
     def __init__(self, name: str, world: "BluefireWorld", parent: str | None = None) -> None:
         super().__init__(name, world.player, world.multiworld)

@@ -1,14 +1,15 @@
-from typing import Dict, TYPE_CHECKING
+from typing import Dict, List, Tuple, TYPE_CHECKING
 from worlds.generic.Rules import add_rule
 
 if TYPE_CHECKING:
     from . import BluefireWorld
+    from .Subclasses import BluefireLocation
 else:
     BluefireWorld = object
 
 from BaseClasses import CollectionState, CollectionRule
 
-chest_dance_rules = []
+chest_dance_rules: List[Tuple["BluefireLocation", str]] = []
 
 class BluefireRules:
     player: int
@@ -36,9 +37,7 @@ class BluefireRules:
             entrance = multiworld.get_entrance(entrance_name, self.player)
             add_rule(entrance, rule)
 
-        print(chest_dance_rules)
-
         for location, dance in chest_dance_rules:
-            add_rule(location, lambda state: state.has(f"{dance} Emote", self.player))
+            add_rule(location, lambda state, d=dance: state.has(f"{d} Emote", self.player))
 
         multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)

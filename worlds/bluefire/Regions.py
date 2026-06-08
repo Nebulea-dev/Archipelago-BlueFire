@@ -21,7 +21,7 @@ all_regions: Dict[str, List[str]] = {
         "Void Gate",
     ],
     "Water Ways": [
-		"Arcane Tunnels Entrance",
+        "Arcane Tunnels Entrance",
         "Main Area",
     ],
     "Forest Temple": [
@@ -39,7 +39,7 @@ all_regions: Dict[str, List[str]] = {
     ],
     "Uthas Temple": [
         "Entrance",
-		"Top of Entrance",
+        "Top of Entrance",
         "Main Room",
         "Ambush Room",
         "Holy Tower Chest",
@@ -56,6 +56,6 @@ all_regions: Dict[str, List[str]] = {
         "Main Area",
     ],
     "Victory": [
-		"Victory"
+        "Victory"
     ],
 }
