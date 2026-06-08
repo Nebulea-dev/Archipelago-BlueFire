@@ -10,7 +10,6 @@ all_regions: Dict[str, List[str]] = {
         "Main Room",
         "Pipes",
         "Center Top",
-        "Center Top Dance",
     ],
     "Crossroads": [
         "Main Area",
@@ -52,12 +51,9 @@ all_regions: Dict[str, List[str]] = {
     ],
     "Firefall River": [
         "Main Area",
-        "Party Dance",
     ],
     "Rust Village": [
         "Main Area",
-        "Aggressive Dance",
-        "No Dance",
     ],
     "Victory": [
 		"Victory"

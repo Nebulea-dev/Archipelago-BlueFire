@@ -8,6 +8,7 @@ else:
 
 from BaseClasses import CollectionState, CollectionRule
 
+chest_dance_rules = []
 
 class BluefireRules:
     player: int
@@ -34,5 +35,10 @@ class BluefireRules:
         for entrance_name, rule in self.connection_rules.items():
             entrance = multiworld.get_entrance(entrance_name, self.player)
             add_rule(entrance, rule)
+
+        print(chest_dance_rules)
+
+        for location, dance in chest_dance_rules:
+            add_rule(location, lambda state: state.has(f"{dance} Emote", self.player))
 
         multiworld.completion_condition[self.player] = lambda state: state.has("Victory", self.player)

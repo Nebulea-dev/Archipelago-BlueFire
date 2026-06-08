@@ -45,11 +45,34 @@ for location_type in location_types:
                 else:
                     regions_to_locations[region_name][subregion_name] += locations
 
+# Map out the locations that need a dance as a rule
+dance_locations: Dict[str, str] = {}
+
+for region in _locations_data["chests"]:
+    if "subregions" not in region:
+        continue
+
+    region_name = region["region"]
+
+    for subregion in region["subregions"]:
+        subregion_name = subregion["name"]
+
+        for loc in subregion["locations"]:
+            if not "dance" in loc:
+                continue
+
+            loc_name = loc["name"]
+            full_path = f"{region_name} - {subregion_name} - {loc_name}"
+            dance_locations[full_path] = loc["dance"]
+
+print(dance_locations)
+
+
 
 forced_locations_items: Dict[str, str] = {
     "Victory - Victory - Victory": "Victory",
 }
-forced_locations = [location for location, item in forced_locations_items.items()]
+forced_locations = [location for location, _ in forced_locations_items.items()]
 
 
 all_locations = [
@@ -60,15 +83,5 @@ all_locations = [
     for location in locations
 ]
 
-
 def get_location_id(location_name: str) -> int:
-    """
-    Get the location ID for a given location name.
-
-    Args:
-        location_name: Full location path (e.g., "Fire Keep - Hub - Loot chest 1")
-
-    Returns:
-        The location ID (0-based index)
-    """
     return _location_name_to_id.get(location_name, -1)
