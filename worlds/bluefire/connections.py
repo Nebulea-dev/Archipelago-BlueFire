@@ -9,7 +9,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Arcane Tunnels": {
-        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Water Ways - Arcane Tunnels Entrance"],
+        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Crossroads - Main Area"],
         "Pipes": ["Arcane Tunnels - Main Room"],
         "Center Top": ["Arcane Tunnels - Main Room"],
     },
@@ -20,14 +20,16 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Stoneheart City": {
-        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Void Gate", "Forest Temple - Water", "Abandoned Path - Entrance"],
+        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Void Gate", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - Water", "Abandoned Path - Entrance", "Water Ways - Stoneheart Entrance"],
         "Top": ["Stoneheart City - Main Area"],
         "Void Gate": ["Stoneheart City - Main Area"],
+		"Boy's Room": ["Stoneheart City - Main Area"],
+		"Bottom Corridor": ["Stoneheart City - Main Area"],
     },
 
     "Water Ways": {
-        "Arcane Tunnels Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area"],
-        "Main Area": ["Water Ways - Arcane Tunnels Entrance", "Arcane Tunnels - Pipes", "Abandoned Path - Entrance", "Firefall River - Main Area"],
+        "Stoneheart Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area"],
+        "Main Area": ["Water Ways - Stoneheart Entrance", "Arcane Tunnels - Pipes", "Abandoned Path - Entrance", "Firefall River - Main Area"],
     },
 
     "Forest Temple": {
@@ -40,8 +42,9 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Abandoned Path": {
-        "Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area", "Abandoned Path - Heights", "Abandoned Path - Beira's Room", "Uthas Temple - Entrance", "Temple Gardens - Entrance"],
+        "Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area", "Abandoned Path - Heights", "Abandoned Path - Main Room", "Abandoned Path - Beira's Room", "Uthas Temple - Entrance", "Temple Gardens - Entrance"],
         "Heights": ["Abandoned Path - Entrance"],
+        "Main Room": ["Abandoned Path - Entrance"],
         "Beira's Room": ["Abandoned Path - Entrance"],
     },
 

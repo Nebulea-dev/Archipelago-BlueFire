@@ -1,61 +1,20 @@
-from typing import Dict, List
+from typing import Dict, List, Any
+import json
+import os
 
-all_regions: Dict[str, List[str]] = {
-    "Fire Keep": [
-        "Intro",
-        "High Spot",
-        "Hub",
-    ],
-    "Arcane Tunnels": [
-        "Main Room",
-        "Pipes",
-        "Center Top",
-    ],
-    "Crossroads": [
-        "Main Area",
-        "Left Area",
-    ],
-    "Stoneheart City": [
-        "Main Area",
-        "Top",
-        "Void Gate",
-    ],
-    "Water Ways": [
-        "Arcane Tunnels Entrance",
-        "Main Area",
-    ],
-    "Forest Temple": [
-        "Water",
-        "Ambush 1",
-        "Ambush 2",
-        "Nuos Claw",
-        "Center Tree",
-        "Center Tree Trunk",
-    ],
-    "Abandoned Path": [
-        "Entrance",
-        "Heights",
-        "Beira's Room",
-    ],
-    "Uthas Temple": [
-        "Entrance",
-        "Top of Entrance",
-        "Main Room",
-        "Ambush Room",
-        "Holy Tower Chest",
-        "Main Room 2nd side",
-        "Final Floor",
-    ],
-    "Temple Gardens": [
-        "Entrance",
-    ],
-    "Firefall River": [
-        "Main Area",
-    ],
-    "Rust Village": [
-        "Main Area",
-    ],
-    "Victory": [
-        "Victory"
-    ],
-}
+# Load regions from the unified JSON file
+def _load_locations_json() -> Dict[str, Any]:
+    json_path = os.path.join(os.path.dirname(__file__), "locations.json")
+    with open(json_path, 'r') as f:
+        return json.load(f)
+
+_locations_data: Dict[str, Any] = _load_locations_json()
+
+# Dynamically generate all_regions from locations.json
+# Structure: regions[region_name] = [subregion_name, ...]
+all_regions: Dict[str, List[str]] = {}
+
+for region in _locations_data.get("regions", []):
+    region_name = region["name"]
+    subregion_names = [subregion["name"] for subregion in region.get("subregions", [])]
+    all_regions[region_name] = subregion_names

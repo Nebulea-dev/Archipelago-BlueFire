@@ -17,25 +17,43 @@ _location_name_to_id: Dict[str, int] = {}
 # Convert JSON to the original format for backward compatibility
 regions_to_locations: Dict[str, Dict[str, List[str]]] = {}
 
-location_types: List[str] = ["chests", "statues", "pickups", "void_gates"]
+location_types: List[str] = ["chests", "statues", "pickups", "void_gates", "shops"]
 
 # Map out the locations that need a dance as a rule
 dance_locations: Dict[str, str] = {}
 
-for location_type in location_types:
-    for region in _locations_data[location_type]:
-        region_name = region["region"]
+# NEW STRUCTURE: Region-first hierarchy
+# Iterate: regions -> subregions -> location_types -> locations
+for region in _locations_data.get("regions", []):
+    region_name = region["name"]
 
-        if region_name not in regions_to_locations:
-            regions_to_locations[region_name] = {}
+    if region_name not in regions_to_locations:
+        regions_to_locations[region_name] = {}
 
-        # Region has subregions
-        if "subregions" in region:
-            for subregion in region["subregions"]:
-                subregion_name = subregion["name"]
+    # Process each subregion
+    for subregion in region.get("subregions", []):
+        subregion_name = subregion["name"]
 
-                locations = []
-                for loc in subregion["locations"]:
+        locations = []
+
+        # Process each location type within the subregion
+        for location_type in location_types:
+            if location_type == "shops":
+                # For shops, each item in the shop creates a separate location
+                for shop in subregion.get("shops", []):
+                    shop_name = shop["name"]
+                    num_items = shop.get("items", 1)
+                    # Create a location for each shop item
+                    for item_idx in range(num_items):
+                        loc_name = f"{shop_name} - Item {item_idx + 1}"
+                        locations.append(loc_name)
+                        # Store the full location path and its ID
+                        full_path = f"{region_name} - {subregion_name} - {loc_name}"
+                        _location_name_to_id[full_path] = _location_id_counter
+                        _location_id_counter += 1
+            else:
+                # Regular location types
+                for loc in subregion.get(location_type, []):
                     loc_name = loc["name"]
                     locations.append(loc_name)
                     # Store the full location path and its ID
@@ -43,27 +61,14 @@ for location_type in location_types:
                     _location_name_to_id[full_path] = _location_id_counter
                     _location_id_counter += 1
 
-                if subregion_name not in regions_to_locations[region_name]:
-                    regions_to_locations[region_name][subregion_name] = locations
-                else:
-                    regions_to_locations[region_name][subregion_name] += locations
+                    # Check for dance property (only on chests)
+                    if location_type == "chests" and "dance" in loc:
+                        dance_locations[full_path] = loc["dance"]
 
-for region in _locations_data["chests"]:
-    if "subregions" not in region:
-        continue
-
-    region_name = region["region"]
-
-    for subregion in region["subregions"]:
-        subregion_name = subregion["name"]
-
-        for loc in subregion["locations"]:
-            if not "dance" in loc:
-                continue
-
-            loc_name = loc["name"]
-            full_path = f"{region_name} - {subregion_name} - {loc_name}"
-            dance_locations[full_path] = loc["dance"]
+        if subregion_name not in regions_to_locations[region_name]:
+            regions_to_locations[region_name][subregion_name] = locations
+        else:
+            regions_to_locations[region_name][subregion_name] += locations
 
 
 
