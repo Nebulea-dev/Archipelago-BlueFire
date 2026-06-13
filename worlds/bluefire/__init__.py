@@ -1,7 +1,7 @@
 from enum import IntEnum
 
-from BaseClasses import Tutorial, ItemClassification, Region
-from worlds.AutoWorld import World, CollectionState, WebWorld
+from BaseClasses import Tutorial, ItemClassification
+from worlds.AutoWorld import World, WebWorld
 from .Connections import all_connections
 from .Items import (
     all_items,
@@ -12,6 +12,7 @@ from .Items import (
     spirit_items,
     ability_items,
     regular_items,
+    key_items
 )
 from .Locations import all_locations, forced_locations
 from .Options import BluefireOptions
@@ -29,6 +30,7 @@ class ItemCategory(IntEnum):
     SPIRIT = 300
     ABILITY = 400
     REGULAR = 500
+    KEY = 600
 
 
 class BluefireWeb(WebWorld):
@@ -68,6 +70,7 @@ class BluefireWorld(World):
     spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
     ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
     regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
+    key_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(key_items, base_id + ItemCategory.KEY) if item is not None}
 
     item_name_to_id: dict[str, int] = {
         **emote_item_name_to_id,
@@ -76,6 +79,7 @@ class BluefireWorld(World):
         **spirit_item_name_to_id,
         **ability_item_name_to_id,
         **regular_item_name_to_id,
+        **key_item_name_to_id,
     }
 
     location_name_to_id: dict[str, int] = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
@@ -110,6 +114,8 @@ class BluefireWorld(World):
                 item_data = ability_items[item_id - item_category]
             case ItemCategory.REGULAR:
                 item_data = regular_items[item_id - item_category]
+            case ItemCategory.KEY:
+                item_data = key_items[item_id - item_category]
 
         if not item_data:
             raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")
@@ -119,10 +125,12 @@ class BluefireWorld(World):
     def create_items(self) -> None:
         nb_items_added = 0
         useful_items = all_items.copy()
-        fillers_items = all_items.copy()
+        unique_fillers_items = all_items.copy()
+        repeatable_fillers_items = all_items.copy()
 
         useful_items = [item for item in useful_items if item is not None and item["classification"] != ItemClassification.filler]
-        fillers_items = [item for item in fillers_items if item is not None and item["classification"] == ItemClassification.filler]
+        unique_fillers_items = [item for item in unique_fillers_items if item is not None and item["classification"] == ItemClassification.filler and "repeatable" not in item]
+        repeatable_fillers_items = [item for item in repeatable_fillers_items if item is not None and item["classification"] == ItemClassification.filler and "repeatable" in item]
 
         for item in useful_items:
             for _ in range(item["count"]):
@@ -130,13 +138,19 @@ class BluefireWorld(World):
                 self.multiworld.itempool.append(new_item)
                 nb_items_added += 1
 
-        filler_count = len(all_locations)
-        filler_count -= len(forced_locations)
-        filler_count -= nb_items_added
+        for item in unique_fillers_items:
+            for _ in range(item["count"]):
+                new_item = self.create_item(item["name"])
+                self.multiworld.itempool.append(new_item)
+                nb_items_added += 1
 
-        for i in range(filler_count):
-            index = i % len(fillers_items)
-            filler_item = fillers_items[index]
+        repeatable_filler_count = len(all_locations)
+        repeatable_filler_count -= len(forced_locations)
+        repeatable_filler_count -= nb_items_added
+
+        for i in range(repeatable_filler_count):
+            index = i % len(repeatable_fillers_items)
+            filler_item = repeatable_fillers_items[index]
             new_item = self.create_item(filler_item["name"])
             self.multiworld.itempool.append(new_item)
 

@@ -29,7 +29,6 @@ class BluefireRegion(Region):
 
         self.multiworld.regions.append(self)
 
-
 class BluefireItem(Item):
     name: str = "Blue Fire"
 
@@ -38,6 +37,7 @@ class ItemDict(TypedDict):
     name: str
     count: int
     classification: ItemClassification
+    repeatable: bool
 
 
 class BluefireLocation(Location):

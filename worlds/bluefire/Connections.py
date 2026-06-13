@@ -4,7 +4,7 @@ from typing import Dict, List
 all_connections: Dict[str, Dict[str, List[str]]] = {
     "Fire Keep": {
         "Intro": ["Fire Keep - Hub", "Fire Keep - High Spot"],
-        "High Spot": ["Fire Keep - Hub"],
+        "High Spot": ["Fire Keep - Intro"],
         "Hub": ["Fire Keep - Intro", "Arcane Tunnels - Main Room"],
     },
 
@@ -20,9 +20,8 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Stoneheart City": {
-        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Void Gate", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - Water", "Abandoned Path - Entrance", "Water Ways - Stoneheart Entrance"],
+        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - High Level", "Abandoned Path - Entrance", "Water Ways - Stoneheart Entrance"],
         "Top": ["Stoneheart City - Main Area"],
-        "Void Gate": ["Stoneheart City - Main Area"],
 		"Boy's Room": ["Stoneheart City - Main Area"],
 		"Bottom Corridor": ["Stoneheart City - Main Area"],
     },
@@ -33,19 +32,23 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Forest Temple": {
-        "Water": ["Stoneheart City - Main Area", "Forest Temple - Ambush 1", "Forest Temple - Center Tree"],
-        "Ambush 1": ["Forest Temple - Water", "Forest Temple - Ambush 2", "Forest Temple - Nuos Claw"],
+        "High Level": ["Stoneheart City - Main Area", "Forest Temple - Middle Level"],
+        "Middle Level": ["Forest Temple - High Level", "Forest Temple - Low Level", "Forest Temple - Ambush 1"],
+        "Low Level": ["Forest Temple - Middle Level", "Forest Temple - Center Room Trunk"],
+        "Ambush 1": ["Forest Temple - Middle Level", "Forest Temple - Ambush 2", "Forest Temple - Nuos Claw"],
         "Ambush 2": ["Forest Temple - Ambush 1"],
         "Nuos Claw": ["Forest Temple - Ambush 1"],
-        "Center Tree": ["Forest Temple - Water", "Forest Temple - Center Tree Trunk"],
-        "Center Tree Trunk": ["Forest Temple - Center Tree"],
+        "Center Room Trunk": ["Forest Temple - Low Level"],
     },
 
     "Abandoned Path": {
-        "Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area", "Abandoned Path - Heights", "Abandoned Path - Main Room", "Abandoned Path - Beira's Room", "Uthas Temple - Entrance", "Temple Gardens - Entrance"],
-        "Heights": ["Abandoned Path - Entrance"],
-        "Main Room": ["Abandoned Path - Entrance"],
-        "Beira's Room": ["Abandoned Path - Entrance"],
+		"Entrance": ["Stoneheart City - Main Area", "Abandoned Path - Main Room"],
+        "Main Room": ["Abandoned Path - Entrance", "Abandoned Path - Entrance Ravin", "Abandoned Path - Graveyard Balcony" ,"Abandoned Path - Heights", "Abandoned Path - End of Main Room", "Uthas Temple - Entrance"],
+		"Entrance Ravin": ["Abandoned Path - Main Room"],
+		"Graveyard Balcony": ["Abandoned Path - Main Room", "Water Ways - Main Area", "Temple Gardens - Entrance"],
+        "Heights": ["Abandoned Path - Main Room", "Abandoned Path - Beira's Room"],
+        "Beira's Room": ["Abandoned Path - Heights"],
+        "End of Main Room": ["Abandoned Path - Main Room"],
     },
 
     "Uthas Temple": {

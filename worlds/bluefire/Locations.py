@@ -71,7 +71,6 @@ for region in _locations_data.get("regions", []):
             regions_to_locations[region_name][subregion_name] += locations
 
 
-
 forced_locations_items: Dict[str, str] = {
     "Victory - Victory - Victory": "Victory",
 }
