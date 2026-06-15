@@ -14,7 +14,7 @@ from .Items import (
     regular_items,
     key_items
 )
-from .Locations import all_locations, forced_locations
+from .Locations import all_locations, forced_locations, forced_locations_items, get_events_data
 from .Options import BluefireOptions
 from .Regions import all_regions
 from .Rules import BluefireRules
@@ -175,6 +175,46 @@ class BluefireWorld(World):
 
         menu_region = BluefireRegion("Menu", self)
         menu_region.add_exits({"Fire Keep - Intro": "Start game"})
+
+        # Create event locations and items
+        self.create_events()
+
+    def create_events(self) -> None:
+        """Create event locations and items with id=None for all events in Locations.json."""
+        from BaseClasses import Location, ItemClassification
+        from .Subclasses import BluefireLocation, BluefireItem
+
+        events_data = get_events_data()
+
+        for region_name, subregions in events_data.items():
+            for subregion_name, event_names in subregions.items():
+                # Get the region object
+                full_region_name = f"{region_name} - {subregion_name}"
+                region = self.get_region(full_region_name)
+
+                # Create event locations and items
+                for event_name in event_names:
+                    # Create event location with id=None
+                    event_location = BluefireLocation(
+                        self.player,
+                        f"{region_name} - {subregion_name} - {event_name}",
+                        None,  # id=None for event locations
+                        region
+                    )
+
+                    # Create event item with id=None
+                    event_item = BluefireItem(
+                        event_name,
+                        ItemClassification.progression,
+                        None,  # id=None for event items
+                        self.player
+                    )
+
+                    # Place the event item on the event location
+                    event_location.place_locked_item(event_item)
+
+                    # Add the event location to the region
+                    region.locations.append(event_location)
 
     def set_rules(self) -> None:
         BluefireRules(self).set_bluefire_rules()

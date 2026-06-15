@@ -33,7 +33,9 @@ class BluefireRules:
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Pipes": self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack,
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Center Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Arcane Tunnels - Main Room -> Crossroads - Main Area": lambda state: True,
+            "Arcane Tunnels - Main Room -> Water Ways - Arcane Tunnels Main Entrance": lambda state: True,
             "Arcane Tunnels - Pipes -> Arcane Tunnels - Main Room": lambda state: True,
+            "Arcane Tunnels - Pipes -> Water Ways - Arcane Tunnels Pipes Entrance": lambda state: True,
             "Arcane Tunnels - Center Top -> Arcane Tunnels - Main Room": lambda state: True,
 
             # Crossroads
@@ -48,19 +50,27 @@ class BluefireRules:
             "Stoneheart City - Main Area -> Stoneheart City - Boy's Room": lambda state: state.has("Old Key", self.player, 1),
             "Stoneheart City - Main Area -> Stoneheart City - Bottom Corridor": self.hasWallClimb,
             "Stoneheart City - Main Area -> Forest Temple - High Level": lambda state: True, # TODO : add lever event
-            "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Graveyard Key", self.player, 1) and self.hasWallClimb,
-            "Stoneheart City - Main Area -> Water Ways - Stoneheart Entrance": lambda state: True,
+            "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Key Graveyard", self.player, 1),
+            "Stoneheart City - Main Area -> Temple Gardens - Middle Balcony": lambda state: True,
             "Stoneheart City - Top -> Stoneheart City - Main Area": lambda state: True,
             "Stoneheart City - Boy's Room -> Stoneheart City - Main Area": lambda state: True,
             "Stoneheart City - Bottom Corridor -> Stoneheart City - Main Area": lambda state: self.hasWallClimb,
 
             # Water Ways
-            "Water Ways - Stoneheart Entrance -> Stoneheart City - Main Area": lambda state: True,
-            "Water Ways - Stoneheart Entrance -> Water Ways - Main Area": lambda state: True,
-            "Water Ways - Main Area -> Water Ways - Stoneheart Entrance": lambda state: True,
-            "Water Ways - Main Area -> Arcane Tunnels - Pipes": lambda state: True,
-            "Water Ways - Main Area -> Abandoned Path - Entrance": lambda state: True,
-            "Water Ways - Main Area -> Firefall River - Main Area": lambda state: True,
+            "Water Ways - Arcane Tunnels Main Entrance -> Arcane Tunnels - Main Room": lambda state: True,
+            "Water Ways - Arcane Tunnels Main Entrance -> Water Ways - Main Area": lambda state: self.hasSanctuaryStone and state.has("Unlock Arcane Tunnels Main Gate", self.player),
+            "Water Ways - Arcane Tunnels Pipes Entrance -> Arcane Tunnels - Pipes": lambda state: True,
+            "Water Ways - Arcane Tunnels Pipes Entrance -> Water Ways - Main Area": lambda state: self.hasSanctuaryStone and state.has("Unlock Arcane Tunnels Pipes Gate", self.player),
+            "Water Ways - Abandoned Path Entrance -> Abandoned Path - Entrance": lambda state: True,
+            "Water Ways - Abandoned Path Entrance -> Water Ways - Main Area": lambda state: self.hasSanctuaryStone and state.has("Unlock Abandoned Path Gate", self.player),
+            "Water Ways - Firefall River Entrance -> Firefall River - Main Area": lambda state: True,
+            "Water Ways - Firefall River Entrance -> Water Ways - Main Area": lambda state: self.hasSanctuaryStone and state.has("Unlock Firefall River Gate", self.player),
+            "Water Ways - Main Area -> Water Ways - Arcane Tunnels Main Entrance": lambda state: self.hasSanctuaryStone and state.has("Unlock Arcane Tunnels Main Gate", self.player),
+            "Water Ways - Main Area -> Water Ways - Arcane Tunnels Pipes Entrance": lambda state: self.hasSanctuaryStone and state.has("Unlock Arcane Tunnels Pipes Gate", self.player),
+            "Water Ways - Main Area -> Water Ways - Abandoned Path Entrance": lambda state: self.hasSanctuaryStone and state.has("Unlock Abandoned Path Gate", self.player),
+            "Water Ways - Main Area -> Water Ways - Firefall River Entrance": lambda state: self.hasSanctuaryStone and state.has("Unlock Firefall River Gate", self.player),
+            "Water Ways - Main Area -> Water Ways - Samuel's Room": lambda state: state.has("Unlock Arcane Tunnels Main Gate", self.player) and state.has("Unlock Arcane Tunnels Pipes Gate", self.player) and state.has("Unlock Abandoned Path Gate", self.player) and state.has("Unlock Firefall River Gate", self.player),
+            "Water Ways - Samuel's Room -> Water Ways - Main Area": lambda state: True,
 
             # Forest Temple
             "Forest Temple - High Level -> Stoneheart City - Main Area": lambda state: True,
@@ -88,7 +98,7 @@ class BluefireRules:
             "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Key Uthas Temple", self.player, 1),
             "Abandoned Path - Entrance Ravin -> Abandoned Path - Main Room": lambda state: self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Graveyard Balcony -> Abandoned Path - Main Room": lambda state: self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
-            "Abandoned Path - Graveyard Balcony -> Water Ways - Main Area": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
+            "Abandoned Path - Graveyard Balcony -> Water Ways - Abandoned Path Entrance": lambda state: True,
             "Abandoned Path - Graveyard Balcony -> Temple Gardens - Entrance": lambda state: True,
             "Abandoned Path - Heights -> Abandoned Path - Main Room": lambda state: True,
             "Abandoned Path - Main Room -> Abandoned Path - End of Main Room": lambda state: True, # TODO : Need spirits to go here
@@ -111,13 +121,21 @@ class BluefireRules:
             "Uthas Temple - Final Floor -> Uthas Temple - Main Room 2nd side": lambda state: True,
 
             # Temple Gardens
-            "Temple Gardens - Entrance -> Water Ways - Main Area": lambda state: True,
             "Temple Gardens - Entrance -> Firefall River - Main Area": lambda state: True,
-            "Temple Gardens - Entrance -> Victory - Victory": lambda state: True,
+            "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods": lambda state: True,
+            "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": lambda state: self.hasDoubleJump or self.hasSpinAttack,
+            "Temple Gardens - Middle Balcony -> Temple Gardens - Entrance": lambda state: self.hasDoubleJump or self.hasSpinAttack,
+            "Temple Gardens - Temple of Gods -> Temple Gardens - Entrance": lambda state: True,
+            "Temple Gardens - Temple of Gods -> Victory - Victory": lambda state: state.has("Beat Fire Boss", self.player) and state.has("Beat Samuel", self.player),
+
 
             # Firefall River
-            "Firefall River - Main Area -> Water Ways - Main Area": lambda state: True,
-            "Firefall River - Main Area -> Rust Village - Main Area": lambda state: True,
+            "Firefall River - Main Area -> Water Ways - Firefall River Entrance": lambda state: True,
+            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: state.has("Iron Justice", self.player), # TODO : set this condition for the events not the Steam House
+            "Firefall River - Steam House -> Firefall River - Main Area": lambda state: True,
+            "Firefall River - Steam House -> Rust Village - Main Area": lambda state: self.allGeneratorsRepaired,
+            "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key Fire Master", self.player),
+            "Firefall River - Fire Boss Room -> Firefall River - Steam House": lambda state: True,
 
             # Rust Village
             "Rust Village - Main Area -> Firefall River - Main Area": lambda state: True,
@@ -131,6 +149,12 @@ class BluefireRules:
 
     def hasSpinAttack(self, state: CollectionState) -> bool:
         return state.has("Spin Attack Ability", self.player)
+
+    def hasSanctuaryStone(self, state: CollectionState) -> bool:
+        return state.has("Sanctuary Stone", self.player)
+
+    def allGeneratorsRepaired(self, state: CollectionState) -> bool:
+        return state.has("Repair Generator 1", self.player) and state.has("Repair Generator 2", self.player) and state.has("Repair Generator 3", self.player)
 
     # Set all rules in the multiworld
     def set_bluefire_rules(self) -> None:

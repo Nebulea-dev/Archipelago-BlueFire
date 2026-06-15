@@ -74,6 +74,23 @@ for region in _locations_data.get("regions", []):
 forced_locations_items: Dict[str, str] = {
     "Victory - Victory - Victory": "Victory",
 }
+
+# Parse events data structure for world generation (events have id=None, not regular IDs)
+def get_events_data() -> Dict[str, Dict[str, List[str]]]:
+    """
+    Returns a dict mapping region names to dicts mapping subregion names to lists of event names.
+    Events are NOT included in the regular location mapping and will be created with id=None.
+    """
+    events_data = {}
+    for region in _locations_data.get("regions", []):
+        region_name = region["name"]
+        events_data[region_name] = {}
+        for subregion in region.get("subregions", []):
+            subregion_name = subregion["name"]
+            events = subregion.get("events", [])
+            if events:
+                events_data[region_name][subregion_name] = events
+    return events_data
 forced_locations: List[str] = [location for location, _ in forced_locations_items.items()]
 
 

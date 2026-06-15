@@ -9,8 +9,8 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Arcane Tunnels": {
-        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Crossroads - Main Area"],
-        "Pipes": ["Arcane Tunnels - Main Room"],
+        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Crossroads - Main Area", "Water Ways - Arcane Tunnels Main Entrance"],
+        "Pipes": ["Arcane Tunnels - Main Room", "Water Ways - Arcane Tunnels Pipes Entrance"],
         "Center Top": ["Arcane Tunnels - Main Room"],
     },
 
@@ -20,15 +20,19 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Stoneheart City": {
-        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - High Level", "Abandoned Path - Entrance", "Water Ways - Stoneheart Entrance"],
+        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - High Level", "Abandoned Path - Entrance", "Temple Gardens - Middle Balcony"],
         "Top": ["Stoneheart City - Main Area"],
 		"Boy's Room": ["Stoneheart City - Main Area"],
 		"Bottom Corridor": ["Stoneheart City - Main Area"],
     },
 
     "Water Ways": {
-        "Stoneheart Entrance": ["Stoneheart City - Main Area", "Water Ways - Main Area"],
-        "Main Area": ["Water Ways - Stoneheart Entrance", "Arcane Tunnels - Pipes", "Abandoned Path - Entrance", "Firefall River - Main Area"],
+        "Arcane Tunnels Main Entrance": ["Arcane Tunnels - Main Room", "Water Ways - Main Area"],
+		"Arcane Tunnels Pipes Entrance": ["Arcane Tunnels - Pipes", "Water Ways - Main Area"],
+		"Abandoned Path Entrance": ["Abandoned Path - Entrance", "Water Ways - Main Area"],
+		"Firefall River Entrance": ["Firefall River - Main Area", "Water Ways - Main Area"],
+        "Main Area": ["Water Ways - Arcane Tunnels Main Entrance", "Water Ways - Arcane Tunnels Pipes Entrance", "Water Ways - Abandoned Path Entrance", "Water Ways - Firefall River Entrance", "Water Ways - Samuel's Room"],
+		"Samuel's Room": ["Water Ways - Main Area"],
     },
 
     "Forest Temple": {
@@ -45,7 +49,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
 		"Entrance": ["Stoneheart City - Main Area", "Abandoned Path - Main Room"],
         "Main Room": ["Abandoned Path - Entrance", "Abandoned Path - Entrance Ravin", "Abandoned Path - Graveyard Balcony" ,"Abandoned Path - Heights", "Abandoned Path - End of Main Room", "Uthas Temple - Entrance"],
 		"Entrance Ravin": ["Abandoned Path - Main Room"],
-		"Graveyard Balcony": ["Abandoned Path - Main Room", "Water Ways - Main Area", "Temple Gardens - Entrance"],
+		"Graveyard Balcony": ["Abandoned Path - Main Room", "Water Ways - Abandoned Path Entrance", "Temple Gardens - Entrance"],
         "Heights": ["Abandoned Path - Main Room", "Abandoned Path - Beira's Room"],
         "Beira's Room": ["Abandoned Path - Heights"],
         "End of Main Room": ["Abandoned Path - Main Room"],
@@ -62,11 +66,15 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Temple Gardens": {
-        "Entrance": ["Water Ways - Main Area", "Firefall River - Main Area", "Victory - Victory"],
+        "Entrance": ["Temple Gardens - Middle Balcony", "Temple Gardens - Temple of Gods", "Water Ways - Main Area", "Firefall River - Main Area"],
+		"Middle Balcony": ["Temple Gardens - Entrance", "Stoneheart City - Main Area"],
+		"Temple of Gods": ["Temple Gardens - Entrance", "Victory - Victory"]
     },
 
     "Firefall River": {
-        "Main Area": ["Water Ways - Main Area", "Rust Village - Main Area"],
+        "Main Area": ["Firefall River - Steam House", "Water Ways - Firefall River Entrance"],
+		"Steam House": ["Firefall River - Main Area", "Firefall River - Fire Boss Room", "Rust Village - Main Area"],
+		"Fire Boss Room": ["Firefall River - Steam House"]
     },
 
     "Rust Village": {
