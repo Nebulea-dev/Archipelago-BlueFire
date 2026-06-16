@@ -29,7 +29,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     "Water Ways": {
         "Arcane Tunnels Main Entrance": ["Arcane Tunnels - Main Room", "Water Ways - Main Area"],
 		"Arcane Tunnels Pipes Entrance": ["Arcane Tunnels - Pipes", "Water Ways - Main Area"],
-		"Abandoned Path Entrance": ["Abandoned Path - Entrance", "Water Ways - Main Area"],
+		"Abandoned Path Entrance": ["Abandoned Path - Graveyard Balcony", "Water Ways - Main Area"],
 		"Firefall River Entrance": ["Firefall River - Main Area", "Water Ways - Main Area"],
         "Main Area": ["Water Ways - Arcane Tunnels Main Entrance", "Water Ways - Arcane Tunnels Pipes Entrance", "Water Ways - Abandoned Path Entrance", "Water Ways - Firefall River Entrance", "Water Ways - Samuel's Room"],
 		"Samuel's Room": ["Water Ways - Main Area"],
@@ -66,7 +66,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Temple Gardens": {
-        "Entrance": ["Temple Gardens - Middle Balcony", "Temple Gardens - Temple of Gods", "Water Ways - Main Area", "Firefall River - Main Area"],
+        "Entrance": ["Temple Gardens - Middle Balcony", "Temple Gardens - Temple of Gods", "Firefall River - Main Area"],
 		"Middle Balcony": ["Temple Gardens - Entrance", "Stoneheart City - Main Area"],
 		"Temple of Gods": ["Temple Gardens - Entrance", "Victory - Victory"]
     },

@@ -76,9 +76,10 @@ forced_locations_items: Dict[str, str] = {
 }
 
 # Parse events data structure for world generation (events have id=None, not regular IDs)
-def get_events_data() -> Dict[str, Dict[str, List[str]]]:
+def get_events_data() -> Dict[str, Dict[str, List[Dict[str, Any]]]]:
     """
-    Returns a dict mapping region names to dicts mapping subregion names to lists of event names.
+    Returns a dict mapping region names to dicts mapping subregion names to lists of event objects.
+    Each event object contains 'name' and 'requiredItems' fields.
     Events are NOT included in the regular location mapping and will be created with id=None.
     """
     events_data = {}
@@ -87,9 +88,24 @@ def get_events_data() -> Dict[str, Dict[str, List[str]]]:
         events_data[region_name] = {}
         for subregion in region.get("subregions", []):
             subregion_name = subregion["name"]
-            events = subregion.get("events", [])
-            if events:
-                events_data[region_name][subregion_name] = events
+            raw_events = subregion.get("events", [])
+            if raw_events:
+                # Normalize events to always be objects with 'name' and 'requiredItems'
+                normalized_events = []
+                for event in raw_events:
+                    if isinstance(event, str):
+                        # Handle legacy string format for backward compatibility
+                        normalized_events.append({
+                            "name": event,
+                            "requiredItems": []
+                        })
+                    else:
+                        # Handle new object format
+                        normalized_events.append({
+                            "name": event.get("name", ""),
+                            "requiredItems": event.get("requiredItems", [])
+                        })
+                events_data[region_name][subregion_name] = normalized_events
     return events_data
 forced_locations: List[str] = [location for location, _ in forced_locations_items.items()]
 

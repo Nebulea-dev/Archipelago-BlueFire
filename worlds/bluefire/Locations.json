@@ -18,6 +18,12 @@
               "name": "Ambush chest 2",
               "objectName": "Chest_A02_Keep_Key_01"
             }
+          ],
+          "events": [
+            {
+              "name": "Capture Beira Shards 1",
+              "requiredItems": ["Beira Vessel"]
+            }
           ]
         },
         {
@@ -312,31 +318,46 @@
             }
           ],
           "events": [
-            "Unlock Arcane Tunnels Main Gate"
+            {
+              "name": "Unlock Arcane Tunnels Main Gate",
+              "requiredItems": ["Sanctuary Stone"]
+            }
           ]
         },
         {
           "name": "Arcane Tunnels Pipes Entrance",
           "events": [
-            "Unlock Arcane Tunnels Pipes Gate"
+            {
+              "name": "Unlock Arcane Tunnels Pipes Gate",
+              "requiredItems": ["Sanctuary Stone"]
+            }
           ]
         },
         {
           "name": "Abandoned Path Entrance",
           "events": [
-            "Unlock Abandoned Path Gate"
+            {
+              "name": "Unlock Abandoned Path Gate",
+              "requiredItems": ["Sanctuary Stone"]
+            }
           ]
         },
         {
           "name": "Firefall River Entrance",
           "events": [
-            "Unlock Firefall River Gate"
+            {
+              "name": "Unlock Firefall River Gate",
+              "requiredItems": ["Sanctuary Stone"]
+            }
           ]
         },
         {
           "name": "Samuel's Room",
           "events": [
-            "Beat Samuel"
+            {
+              "name": "Beat Samuel",
+              "requiredItems": []
+            }
           ]
         }
       ]
@@ -563,6 +584,12 @@
               "name": "Loot Low Pillar Chest 2",
               "objectName": "Chest_A01_Graveyard_Loot_02"
             }
+          ],
+          "events": [
+            {
+              "name": "Capture Beira Shards 2",
+              "requiredItems": ["Beira Vessel"]
+            }
           ]
         },
         {
@@ -577,6 +604,12 @@
             {
               "name": "Gerardo's Anger Void Gate",
               "objectName": "Void_Gate_Gerardo"
+            }
+          ],
+          "events": [
+            {
+              "name": "Beat Beira",
+              "requiredItems": []
             }
           ]
         },
@@ -753,6 +786,12 @@
               "name": "Julian's Song Void Gate",
               "objectName": "Void_Gate_Flauta"
             }
+          ],
+          "events": [
+            {
+              "name": "Capture Beira Shards 3",
+              "requiredItems": ["Beira Vessel"]
+            }
           ]
         },
         {
@@ -822,20 +861,38 @@
               "name": "Fury of Heraldo Void Gate",
               "objectName": "Void_Gate_Augustina"
             }
+          ],
+          "events": [
+            {
+              "name": "Capture Beira Shards 4",
+              "requiredItems": ["Beira Vessel"]
+            }
           ]
         },
         {
           "name": "Steam House",
           "events": [
-            "Repair Generator 1",
-            "Repair Generator 2",
-            "Repair Generator 3"
+            {
+              "name": "Repair Generator 1",
+              "requiredItems": ["Iron Justice"]
+            },
+            {
+              "name": "Repair Generator 2",
+              "requiredItems": ["Iron Justice"]
+            },
+            {
+              "name": "Repair Generator 3",
+              "requiredItems": ["Iron Justice"]
+            }
           ]
         },
         {
           "name": "Fire Boss Room",
           "events": [
-            "Beat Fire Boss"
+            {
+              "name": "Beat Fire Boss",
+              "requiredItems": []
+            }
           ]
         }
       ]

@@ -19,7 +19,7 @@ from .Options import BluefireOptions
 from .Regions import all_regions
 from .Rules import BluefireRules
 
-from .Subclasses import BluefireRegion, BluefireItem
+from .Subclasses import BluefireRegion, BluefireItem, BluefireLocation
 
 
 class ItemCategory(IntEnum):
@@ -181,19 +181,22 @@ class BluefireWorld(World):
 
     def create_events(self) -> None:
         """Create event locations and items with id=None for all events in Locations.json."""
-        from BaseClasses import Location, ItemClassification
+        from BaseClasses import Location, ItemClassification, CollectionRule
         from .Subclasses import BluefireLocation, BluefireItem
 
         events_data = get_events_data()
 
         for region_name, subregions in events_data.items():
-            for subregion_name, event_names in subregions.items():
+            for subregion_name, event_list in subregions.items():
                 # Get the region object
                 full_region_name = f"{region_name} - {subregion_name}"
                 region = self.get_region(full_region_name)
 
                 # Create event locations and items
-                for event_name in event_names:
+                for event_obj in event_list:
+                    event_name = event_obj["name"]
+                    required_items = event_obj.get("requiredItems", [])
+
                     # Create event location with id=None
                     event_location = BluefireLocation(
                         self.player,
@@ -215,6 +218,13 @@ class BluefireWorld(World):
 
                     # Add the event location to the region
                     region.locations.append(event_location)
+
+                    # If this event has required items, create a rule for it
+                    if required_items:
+                        # Import here to avoid circular imports
+                        from .Rules import event_requirement_rules
+                        # Store the rule with default parameter to capture required_items correctly
+                        event_requirement_rules.append((event_location, required_items))
 
     def set_rules(self) -> None:
         BluefireRules(self).set_bluefire_rules()
