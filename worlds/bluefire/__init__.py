@@ -14,7 +14,7 @@ from .Items import (
     regular_items,
     key_items
 )
-from .Locations import all_locations, forced_locations, forced_locations_items, get_events_data
+from .Locations import all_locations, forced_locations, get_events_data
 from .Options import BluefireOptions
 from .Regions import all_regions
 from .Rules import BluefireRules

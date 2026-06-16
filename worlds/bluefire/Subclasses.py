@@ -1,4 +1,4 @@
-from typing import Dict, List, TypedDict, TYPE_CHECKING
+from typing import TypedDict, TYPE_CHECKING
 from BaseClasses import Region, Location, Item, ItemClassification
 from .Locations import regions_to_locations, forced_locations, forced_locations_items, dance_locations
 from .Rules import chest_dance_rules

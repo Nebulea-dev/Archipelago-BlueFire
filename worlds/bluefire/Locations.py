@@ -1,14 +1,14 @@
-from typing import Dict, List, TYPE_CHECKING, Any, Tuple
-import json
+from typing import Dict, List, TYPE_CHECKING, Any
+import yaml
 import os
 
-# Load locations from the unified JSON file
-def _load_locations_json() -> Dict[str, Any]:
-    json_path = os.path.join(os.path.dirname(__file__), "locations.json")
-    with open(json_path, 'r') as f:
-        return json.load(f)
+# Load locations from the unified YAML file
+def _load_locations_yaml() -> Dict[str, Any]:
+    yaml_path = os.path.join(os.path.dirname(__file__), "Locations.yaml")
+    with open(yaml_path, 'r') as f:
+        return yaml.safe_load(f)
 
-_locations_data: Dict[str, Any] = _load_locations_json()
+_locations_data: Dict[str, Any] = _load_locations_yaml()
 
 # Generate location IDs incrementally and build location name to ID mapping
 _location_id_counter: int = 0
