@@ -120,7 +120,7 @@ class BluefireWorld(World):
         if not item_data:
             raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")
 
-        return BluefireItem(name, item_data["classification"], item_id, self.player)
+        return BluefireItem(name, item_data["classification"], item_id + base_id, self.player)
 
     def create_items(self) -> None:
         nb_items_added = 0
