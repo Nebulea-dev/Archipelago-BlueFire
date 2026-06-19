@@ -48,7 +48,7 @@ class BluefireRules:
             # Stoneheart City
             "Stoneheart City - Main Area -> Crossroads - Main Area": True,
             "Stoneheart City - Main Area -> Stoneheart City - Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
-            "Stoneheart City - Main Area -> Stoneheart City - Boy's Room": lambda state: state.has("Old Key", self.player, 1),
+            "Stoneheart City - Main Area -> Stoneheart City - Boy's Room": lambda state: True,
             "Stoneheart City - Main Area -> Stoneheart City - Bottom Corridor": self.hasWallClimb,
             "Stoneheart City - Main Area -> Forest Temple - High Level": lambda state: True, # TODO : add lever event
             "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Key Graveyard", self.player, 1),
@@ -108,17 +108,17 @@ class BluefireRules:
 
             # Uthas Temple
             "Uthas Temple - Entrance -> Abandoned Path - Entrance": lambda state: True,
-            "Uthas Temple - Entrance -> Uthas Temple - Main Room": lambda state: True,
-            "Uthas Temple - Entrance -> Uthas Temple - Top of Entrance": lambda state: True,
+            "Uthas Temple - Entrance -> Uthas Temple - Main Room": lambda state: state.has("Old Key", self.player, 4),
+            "Uthas Temple - Entrance -> Uthas Temple - Top of Entrance": lambda state: self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Uthas Temple - Top of Entrance -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Entrance": lambda state: True,
-            "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: True,
-            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: True,
-            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: True,
+            "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key", self.player, 5) and (self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack),
+            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Rare Key", self.player, 2), # Holy Key
+            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key", self.player, 6) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
             "Uthas Temple - Ambush Room -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Holy Tower Chest -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Main Room 2nd side -> Uthas Temple - Main Room": lambda state: True,
-            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: True,
+            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: state.has("Old Key", self.player, 7) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
             "Uthas Temple - Final Floor -> Uthas Temple - Main Room 2nd side": lambda state: True,
 
             # Temple Gardens
