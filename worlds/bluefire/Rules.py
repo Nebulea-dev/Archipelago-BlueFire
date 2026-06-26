@@ -30,7 +30,7 @@ class BluefireRules:
             "Fire Keep - Hub -> Arcane Tunnels - Main Room": lambda state: True,
 
             # Arcane Tunnels
-            "Arcane Tunnels - Main Room -> Fire Keep - Hub": True,
+            "Arcane Tunnels - Main Room -> Fire Keep - Hub": lambda state: True,
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Pipes": self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack,
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Center Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Arcane Tunnels - Main Room -> Crossroads - Main Area": lambda state: True,
@@ -46,7 +46,7 @@ class BluefireRules:
             "Crossroads - Left Area -> Crossroads - Main Area": self.hasWallClimb,
 
             # Stoneheart City
-            "Stoneheart City - Main Area -> Crossroads - Main Area": True,
+            "Stoneheart City - Main Area -> Crossroads - Main Area": lambda state: True,
             "Stoneheart City - Main Area -> Stoneheart City - Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Stoneheart City - Main Area -> Stoneheart City - Boy's Room": lambda state: True,
             "Stoneheart City - Main Area -> Stoneheart City - Bottom Corridor": self.hasWallClimb,

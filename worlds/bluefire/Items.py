@@ -27,13 +27,12 @@ emote_items: List["ItemDict"] = [
     {"name": "Techno Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Party Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Hello Emote", "count": 1, "classification": ItemClassification.progression},
-    # TODO: Verify if 'Empty Emote' exists in game; remove if not
-    {"name": "Empty Emote", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip the Empty emote
 ]
 
 
 weapon_items: List["ItemDict"] = [
-    None,  # Skip the Dual Blades
+    None, # Skip the Dual Blades
     {"name": "Bloodstorm Blades", "count": 1, "classification": ItemClassification.useful},
     {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
     {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},

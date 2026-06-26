@@ -1,12 +1,12 @@
 from typing import Dict, List, Any
+import pkgutil
 import yaml
 import os
 
-# Load regions from the unified YAML file
+# Load locations from the unified YAML file
 def _load_locations_yaml() -> Dict[str, Any]:
-    yaml_path = os.path.join(os.path.dirname(__file__), "Locations.yaml")
-    with open(yaml_path, 'r') as f:
-        return yaml.safe_load(f)
+    yaml_data = pkgutil.get_data(__name__, "Locations.yaml")
+    return yaml.safe_load(yaml_data)
 
 _locations_data: Dict[str, Any] = _load_locations_yaml()
 
