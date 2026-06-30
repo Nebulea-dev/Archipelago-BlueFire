@@ -20,10 +20,11 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Stoneheart City": {
-        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Forest Temple - High Level", "Abandoned Path - Entrance", "Temple Gardens - Middle Balcony"],
+        "Main Area": ["Crossroads - Main Area", "Stoneheart City - Top", "Stoneheart City - Boy's Room", "Stoneheart City - Bottom Corridor", "Stoneheart City - Breemur's Tavern", "Forest Temple - High Level", "Abandoned Path - Entrance", "Temple Gardens - Middle Balcony"],
         "Top": ["Stoneheart City - Main Area"],
 		"Boy's Room": ["Stoneheart City - Main Area"],
 		"Bottom Corridor": ["Stoneheart City - Main Area"],
+		"Breemur's Tavern": ["Stoneheart City - Main Area"],
     },
 
     "Water Ways": {
@@ -38,11 +39,14 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     "Forest Temple": {
         "High Level": ["Stoneheart City - Main Area", "Forest Temple - Middle Level"],
         "Middle Level": ["Forest Temple - High Level", "Forest Temple - Low Level", "Forest Temple - Ambush 1"],
-        "Low Level": ["Forest Temple - Middle Level", "Forest Temple - Center Room Trunk"],
-        "Ambush 1": ["Forest Temple - Middle Level", "Forest Temple - Ambush 2", "Forest Temple - Nuos Claw"],
+        "Low Level": ["Forest Temple - Middle Level", "Forest Temple - Center Room"],
+        "Ambush 1": ["Forest Temple - Middle Level", "Forest Temple - Ambush 2", "Forest Temple - Nuos Claw Room"],
         "Ambush 2": ["Forest Temple - Ambush 1"],
-        "Nuos Claw": ["Forest Temple - Ambush 1"],
-        "Center Room Trunk": ["Forest Temple - Low Level"],
+        "Nuos Claw Room": ["Forest Temple - Ambush 1"],
+        "Center Room": ["Forest Temple - Low Level", "Forest Temple - Center Room Trunk", "Forest Temple - Parkour Room", "Forest Temple - Boss Room"],
+        "Center Room Trunk": ["Forest Temple - Center Room"],
+		"Parkour Room": ["Forest Temple - Center Room"],
+		"Boss Room": ["Forest Temple - Center Room"],
     },
 
     "Abandoned Path": {
