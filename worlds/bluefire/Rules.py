@@ -52,7 +52,7 @@ class BluefireRules:
             "Stoneheart City - Main Area -> Stoneheart City - Bottom Corridor": self.hasWallClimb,
             "Stoneheart City - Main Area -> Stoneheart City - Breemur's Tavern": lambda state: state.has("Beat Gruh", self.player),
             "Stoneheart City - Main Area -> Forest Temple - High Level": lambda state: True, # TODO : add lever event
-            "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Key Graveyard", self.player, 1),
+            "Stoneheart City - Main Area -> Abandoned Path - Entrance": lambda state: state.has("Graveyard Key", self.player, 1),
             "Stoneheart City - Main Area -> Temple Gardens - Middle Balcony": lambda state: True,
             "Stoneheart City - Top -> Stoneheart City - Main Area": lambda state: True,
             "Stoneheart City - Boy's Room -> Stoneheart City - Main Area": lambda state: True,
@@ -83,12 +83,12 @@ class BluefireRules:
             "Forest Temple - Middle Level -> Forest Temple - Ambush 1": lambda state: state.has("Old Key", self.player, 2),
             "Forest Temple - Low Level -> Forest Temple - Middle Level": lambda state: True,
             "Forest Temple - Low Level -> Forest Temple - Center Room": self.hasWallClimb or self.hasDoubleJump,
-            "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": state.has("Old Key", self.player, 4),  # TODO : add lever event
+            "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": lambda state: state.has("Old Key", self.player, 4),  # TODO : add lever event
             "Forest Temple - Center Room -> Forest Temple - Parkour Room": self.hasWallClimb,
-            "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Key Holy Master", self.player, 2),
+            "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Holy Key", self.player, 2),
             "Forest Temple - Ambush 1 -> Forest Temple - Middle Level": lambda state: True,
             "Forest Temple - Ambush 1 -> Forest Temple - Ambush 2": lambda state: state.has("Old Key", self.player, 3),
-            "Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw Room": lambda state: state.has("Key Holy Master", self.player, 1),
+            "Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw Room": lambda state: state.has("Holy Key", self.player, 1),
             "Forest Temple - Ambush 2 -> Forest Temple - Ambush 1": lambda state: True,
             "Forest Temple - Nuos Claw Room -> Forest Temple - Ambush 1": lambda state: True,
             "Forest Temple - Center Room Trunk -> Forest Temple - Center Room": lambda state: True,
@@ -103,7 +103,7 @@ class BluefireRules:
             "Abandoned Path - Main Room -> Abandoned Path - Entrance Ravin": self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Main Room -> Abandoned Path - Graveyard Balcony": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Heights -> Abandoned Path - Beira's Room": self.hasAllBeiraShards,
-            "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Key Uthas Temple", self.player, 1),
+            "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Uthas Temple Key", self.player, 1),
             "Abandoned Path - Entrance Ravin -> Abandoned Path - Main Room": self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Graveyard Balcony -> Abandoned Path - Main Room": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Graveyard Balcony -> Water Ways - Abandoned Path Entrance": lambda state: True,
@@ -120,7 +120,7 @@ class BluefireRules:
             "Uthas Temple - Top of Entrance -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key", self.player, 6) and (self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack),
-            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Key Holy Master", self.player, 3),
+            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Holy Key", self.player, 3),
             "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key", self.player, 7) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
             "Uthas Temple - Ambush Room -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Holy Tower Chest -> Uthas Temple - Main Room": lambda state: True,
@@ -143,7 +143,7 @@ class BluefireRules:
             "Firefall River - Main Area -> Firefall River - Steam House": lambda state: state.has("Iron Justice", self.player), # TODO : set this condition for the events not the Steam House
             "Firefall River - Steam House -> Firefall River - Main Area": lambda state: True,
             "Firefall River - Steam House -> Rust Village - Main Area": self.allGeneratorsRepaired,
-            "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key Fire Master", self.player),
+            "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key of Ember", self.player),
             "Firefall River - Fire Boss Room -> Firefall River - Steam House": lambda state: True,
 
             # Rust Village
