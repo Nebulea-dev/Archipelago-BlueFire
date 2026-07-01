@@ -26,7 +26,7 @@ emote_items: List["ItemDict"] = [
     {"name": "Kung Fu Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Techno Emote", "count": 1, "classification": ItemClassification.progression},
     {"name": "Party Emote", "count": 1, "classification": ItemClassification.progression},
-    None, # Skip the Hello Emote # TODO : Remove Hello emote at start of game and randomize it
+    {"name": "Hello Emote", "count": 1, "classification": ItemClassification.progression},
     None, # Skip the Empty emote
 ]
 
