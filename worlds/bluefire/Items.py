@@ -133,6 +133,11 @@ ability_items: List["ItemDict"] = [
 ]
 
 
+progressive_items: List["ItemDict"] = [
+    {"name": "Progressive Pouch", "count": 2, "classification": ItemClassification.useful},
+]
+
+
 regular_items: List["ItemDict"] = [
     None,  # NewEnumerator0 (Large Pouch) = ID 0 | passive item
     None,  # NewEnumerator1 (SmallPouch) = ID 1
@@ -219,7 +224,7 @@ regular_items: List["ItemDict"] = [
 ]
 
 key_items: List["ItemDict"] = [
-    {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0 | passive item
+    None,  # NewEnumerator0 (Large Pouch) = ID 0 | passive item - moved to progressive_items
     None,  # NewEnumerator1 (SmallPouch) = ID 1
     {"name": "Old Key", "count": 8, "classification": ItemClassification.progression},  # NewEnumerator6 = ID 2
     None,  # NewEnumerator12 (----) = ID 3 - Padding separation
@@ -294,7 +299,7 @@ key_items: List["ItemDict"] = [
     None,  # NewEnumerator88 (BasicPouch) = ID 72 - Skip
     {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.useful},  # NewEnumerator89 = ID 73 | passive item
     None,  # NewEnumerator90 (Void Ore) = ID 74 | active item
-    {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator91 = ID 75 | passive item
+    None,  # NewEnumerator91 (Extra Large Pouch) = ID 75 | passive item - moved to progressive_items
     None,  # NewEnumerator92 (Mana) = ID 76 - Skip
     None,  # NewEnumerator93 (GuardianSoul) = ID 77 - Skip
     None,  # NewEnumerator94 (CovenantSoul) = ID 78 - Skip
@@ -311,5 +316,6 @@ all_items: List["ItemDict"] = (
     spirit_items +
     ability_items +
     regular_items +
-    key_items
+    key_items +
+    progressive_items
 )
