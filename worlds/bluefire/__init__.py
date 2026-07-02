@@ -4,7 +4,6 @@ from BaseClasses import Tutorial, ItemClassification
 from worlds.AutoWorld import World, WebWorld
 from .Connections import all_connections
 from .Items import (
-    all_items,
     base_id,
     emote_items,
     weapon_items,
@@ -12,8 +11,9 @@ from .Items import (
     spirit_items,
     ability_items,
     regular_items,
-    key_items,
-    progressive_items
+    get_key_items,
+    get_progressive_items,
+    get_all_items
 )
 from .Locations import all_locations, forced_locations, get_events_data
 from .Options import BluefireOptions
@@ -66,25 +66,7 @@ class BluefireWorld(World):
     # anything expensive (e.g. parsing non-python data files) will delay world loading.
     # They can include events, but don't have to since events will be placed manually.
 
-    emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
-    weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(weapon_items, base_id + ItemCategory.WEAPON) if item is not None}
-    tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
-    spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
-    ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
-    regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
-    key_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(key_items, base_id + ItemCategory.KEY) if item is not None}
-    progressive_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(progressive_items, base_id + ItemCategory.PROGRESSIVE) if item is not None}
-
-    item_name_to_id: dict[str, int] = {
-        **emote_item_name_to_id,
-        **weapon_item_name_to_id,
-        **tunic_item_name_to_id,
-        **spirit_item_name_to_id,
-        **ability_item_name_to_id,
-        **regular_item_name_to_id,
-        **key_item_name_to_id,
-        **progressive_item_name_to_id,
-    }
+    item_name_to_id: dict[str, int] = {}
 
     location_name_to_id: dict[str, int] = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
 
@@ -98,7 +80,6 @@ class BluefireWorld(World):
         "spirits": {item["name"] for item in spirit_items if item is not None},
         "abilities": {item["name"] for item in ability_items if item is not None},
     }
-
 
     def create_item(self, name: str) -> BluefireItem:
         item_id = self.item_name_to_id[name] - base_id
@@ -119,9 +100,9 @@ class BluefireWorld(World):
             case ItemCategory.REGULAR:
                 item_data = regular_items[item_id - item_category]
             case ItemCategory.KEY:
-                item_data = key_items[item_id - item_category]
+                item_data = self.key_items_list[item_id - item_category]
             case ItemCategory.PROGRESSIVE:
-                item_data = progressive_items[item_id - item_category]
+                item_data = self.progressive_items_list[item_id - item_category]
 
         if not item_data:
             raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")
@@ -129,10 +110,34 @@ class BluefireWorld(World):
         return BluefireItem(name, item_data["classification"], item_id + base_id, self.player)
 
     def create_items(self) -> None:
+        self.key_items_list = get_key_items(self.options.progressive_pouches.value)
+        self.progressive_items_list = get_progressive_items(self.options.progressive_pouches.value)
+
+        emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
+        weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(weapon_items, base_id + ItemCategory.WEAPON) if item is not None}
+        tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
+        spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
+        ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
+        regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
+        key_item_name_to_id = {item["name"]: i for i, item in enumerate(self.key_items_list, base_id + ItemCategory.KEY) if item is not None}
+        progressive_item_name_to_id = {item["name"]: i for i, item in enumerate(self.progressive_items_list, base_id + ItemCategory.PROGRESSIVE) if item is not None}
+
+        self.item_name_to_id = {
+            **emote_item_name_to_id,
+            **weapon_item_name_to_id,
+            **tunic_item_name_to_id,
+            **spirit_item_name_to_id,
+            **ability_item_name_to_id,
+            **regular_item_name_to_id,
+            **key_item_name_to_id,
+            **progressive_item_name_to_id,
+        }
+
         nb_items_added = 0
-        useful_items = all_items.copy()
-        unique_fillers_items = all_items.copy()
-        repeatable_fillers_items = all_items.copy()
+        items_to_use = get_all_items(self.options.progressive_pouches.value)
+        useful_items = items_to_use.copy()
+        unique_fillers_items = items_to_use.copy()
+        repeatable_fillers_items = items_to_use.copy()
 
         useful_items = [item for item in useful_items if item is not None and item["classification"] != ItemClassification.filler]
         unique_fillers_items = [item for item in unique_fillers_items if item is not None and item["classification"] == ItemClassification.filler and "repeatable" not in item]

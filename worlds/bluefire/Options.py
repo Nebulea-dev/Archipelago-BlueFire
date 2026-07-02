@@ -26,6 +26,15 @@ class StartingMoney(Range):
     default = 0
 """
 
+
+class ProgressivePouches(Toggle):
+    """Enable progressive pouch upgrades. When enabled, pouches are a progressive item in the item pool.
+    When disabled, pouches are added as separate items like before."""
+
+    display_name = "Progressive Pouches"
+    default = 1
+
+
 @dataclass
 class BluefireOptions(PerGameCommonOptions):
-    pass
+    progressive_pouches: ProgressivePouches
