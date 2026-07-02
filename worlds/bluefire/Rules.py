@@ -35,6 +35,12 @@ class BluefireRules:
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Center Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Arcane Tunnels - Main Room -> Crossroads - Main Area": lambda state: True,
             "Arcane Tunnels - Main Room -> Water Ways - Arcane Tunnels Main Entrance": lambda state: True,
+            "Arcane Tunnels - Main Room -> Arcane Tunnels - Guard Room": lambda state: True,
+            "Arcane Tunnels - Main Room -> Arcane Tunnels - Guard Armory": lambda state: True,
+            "Arcane Tunnels - Main Room -> Arcane Tunnels - Spirit Hunter Room": lambda state: True,
+            "Arcane Tunnels - Guard Room -> Arcane Tunnels - Main Room": lambda state: True,
+            "Arcane Tunnels - Guard Armory -> Arcane Tunnels - Main Room": lambda state: True,
+            "Arcane Tunnels - Spirit Hunter Room -> Arcane Tunnels - Main Room": lambda state: True,
             "Arcane Tunnels - Pipes -> Arcane Tunnels - Main Room": lambda state: True,
             "Arcane Tunnels - Pipes -> Water Ways - Arcane Tunnels Pipes Entrance": lambda state: True,
             "Arcane Tunnels - Center Top -> Arcane Tunnels - Main Room": lambda state: True,
@@ -132,6 +138,7 @@ class BluefireRules:
             "Temple Gardens - Entrance -> Firefall River - Main Area": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": self.hasDoubleJump or self.hasSpinAttack,
+            "Temple Gardens - Entrance -> Abandoned Path - Graveyard Balcony": lambda state: True,
             "Temple Gardens - Middle Balcony -> Temple Gardens - Entrance": self.hasDoubleJump or self.hasSpinAttack,
             "Temple Gardens - Middle Balcony -> Stoneheart City - Main Area": lambda state: True,
             "Temple Gardens - Temple of Gods -> Temple Gardens - Entrance": lambda state: True,
@@ -147,6 +154,7 @@ class BluefireRules:
             "Firefall River - Fire Boss Room -> Firefall River - Steam House": lambda state: True,
 
             # Rust Village
+            "Rust Village - Main Area -> Firefall River - Steam House": lambda state: True,
             "Rust Village - Main Area -> Firefall River - Main Area": lambda state: True,
         }
 

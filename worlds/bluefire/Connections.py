@@ -9,7 +9,10 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Arcane Tunnels": {
-        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Crossroads - Main Area", "Water Ways - Arcane Tunnels Main Entrance"],
+        "Main Room": ["Fire Keep - Hub", "Arcane Tunnels - Pipes", "Arcane Tunnels - Center Top", "Crossroads - Main Area", "Water Ways - Arcane Tunnels Main Entrance", "Arcane Tunnels - Guard Room", "Arcane Tunnels - Guard Armory", "Arcane Tunnels - Spirit Hunter Room"],
+		"Guard Room": ["Arcane Tunnels - Main Room"],
+		"Guard Armory": ["Arcane Tunnels - Main Room"],
+		"Spirit Hunter Room": ["Arcane Tunnels - Main Room"],
         "Pipes": ["Arcane Tunnels - Main Room", "Water Ways - Arcane Tunnels Pipes Entrance"],
         "Center Top": ["Arcane Tunnels - Main Room"],
     },
@@ -70,7 +73,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Temple Gardens": {
-        "Entrance": ["Temple Gardens - Middle Balcony", "Temple Gardens - Temple of Gods", "Firefall River - Main Area"],
+        "Entrance": ["Temple Gardens - Middle Balcony", "Temple Gardens - Temple of Gods", "Firefall River - Main Area", "Abandoned Path - Graveyard Balcony"],
 		"Middle Balcony": ["Temple Gardens - Entrance", "Stoneheart City - Main Area"],
 		"Temple of Gods": ["Temple Gardens - Entrance", "Victory - Victory"]
     },
@@ -82,7 +85,7 @@ all_connections: Dict[str, Dict[str, List[str]]] = {
     },
 
     "Rust Village": {
-        "Main Area": ["Firefall River - Main Area"],
+        "Main Area": ["Firefall River - Main Area", "Firefall River - Steam House"],
     },
 
     "Victory": {
