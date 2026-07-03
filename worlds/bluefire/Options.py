@@ -43,7 +43,17 @@ class ProgressiveWeapons(Toggle):
     default = 0
 
 
+class ItemPrice(Range):
+    """Sets the price of items in shops."""
+
+    display_name = "Item Price"
+    range_start = 0
+    range_end = 10000
+    default = 100
+
+
 @dataclass
 class BluefireOptions(PerGameCommonOptions):
     progressive_pouches: ProgressivePouches
     progressive_weapons: ProgressiveWeapons
+    item_price: ItemPrice

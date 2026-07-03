@@ -229,3 +229,8 @@ class BluefireWorld(World):
 
     def set_rules(self) -> None:
         BluefireRules(self).set_bluefire_rules()
+
+    def fill_slot_data(self) -> dict:
+        return {
+            "item_price": self.options.item_price.value,
+        }
