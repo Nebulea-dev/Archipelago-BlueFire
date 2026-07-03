@@ -6,11 +6,11 @@ from .Connections import all_connections
 from .Items import (
     base_id,
     emote_items,
-    weapon_items,
     tunic_items,
     spirit_items,
     ability_items,
     regular_items,
+    get_weapon_items,
     get_key_items,
     get_progressive_items,
     get_all_items
@@ -67,19 +67,8 @@ class BluefireWorld(World):
     # They can include events, but don't have to since events will be placed manually.
 
     item_name_to_id: dict[str, int] = {}
-
     location_name_to_id: dict[str, int] = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
 
-
-    # Items can be grouped using their names to allow easy checking if any item
-    # from that group has been collected. Group names can also be used for !hint
-    item_name_groups: dict[str, set[str]] = {
-        "emotes": {item["name"] for item in emote_items if item is not None},
-        "weapons": {item["name"] for item in weapon_items if item is not None},
-        "tunics": {item["name"] for item in tunic_items if item is not None},
-        "spirits": {item["name"] for item in spirit_items if item is not None},
-        "abilities": {item["name"] for item in ability_items if item is not None},
-    }
 
     def create_item(self, name: str) -> BluefireItem:
         item_id = self.item_name_to_id[name] - base_id
@@ -90,7 +79,7 @@ class BluefireWorld(World):
             case ItemCategory.EMOTE:
                 item_data = emote_items[item_id - item_category]
             case ItemCategory.WEAPON:
-                item_data = weapon_items[item_id - item_category]
+                item_data = self.weapon_items_list[item_id - item_category]
             case ItemCategory.TUNIC:
                 item_data = tunic_items[item_id - item_category]
             case ItemCategory.SPIRIT:
@@ -110,11 +99,12 @@ class BluefireWorld(World):
         return BluefireItem(name, item_data["classification"], item_id + base_id, self.player)
 
     def create_items(self) -> None:
+        self.weapon_items_list = get_weapon_items(self.options.progressive_weapons.value)
         self.key_items_list = get_key_items(self.options.progressive_pouches.value)
-        self.progressive_items_list = get_progressive_items(self.options.progressive_pouches.value)
+        self.progressive_items_list = get_progressive_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
 
         emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
-        weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(weapon_items, base_id + ItemCategory.WEAPON) if item is not None}
+        weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(self.weapon_items_list, base_id + ItemCategory.WEAPON) if item is not None}
         tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
         spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
         ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
@@ -134,7 +124,7 @@ class BluefireWorld(World):
         }
 
         nb_items_added = 0
-        items_to_use = get_all_items(self.options.progressive_pouches.value)
+        items_to_use = get_all_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
         useful_items = items_to_use.copy()
         unique_fillers_items = items_to_use.copy()
         repeatable_fillers_items = items_to_use.copy()

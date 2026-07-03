@@ -455,14 +455,8 @@ regions:
   - name: Steam House
     events:
     - name: Repair Generator 1
-      requiredItems:
-      - Iron Justice
     - name: Repair Generator 2
-      requiredItems:
-      - Iron Justice
     - name: Repair Generator 3
-      requiredItems:
-      - Iron Justice
   - name: Fire Boss Room
     events:
     - name: Beat Fire Boss

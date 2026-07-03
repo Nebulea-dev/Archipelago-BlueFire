@@ -147,7 +147,7 @@ class BluefireRules:
 
             # Firefall River
             "Firefall River - Main Area -> Water Ways - Firefall River Entrance": lambda state: True,
-            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: state.has("Iron Justice", self.player), # TODO : set this condition for the events not the Steam House
+            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: True,
             "Firefall River - Steam House -> Firefall River - Main Area": lambda state: True,
             "Firefall River - Steam House -> Rust Village - Main Area": self.allGeneratorsRepaired,
             "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key of Ember", self.player),
@@ -156,6 +156,12 @@ class BluefireRules:
             # Rust Village
             "Rust Village - Main Area -> Firefall River - Steam House": lambda state: True,
             "Rust Village - Main Area -> Firefall River - Main Area": lambda state: True,
+        }
+
+        self.event_rules = {
+            "Firefall River - Steam House - Repair Generator 1": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
+            "Firefall River - Steam House - Repair Generator 2": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
+            "Firefall River - Steam House - Repair Generator 3": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
         }
 
     def hasDoubleJump(self, state: CollectionState) -> bool:
@@ -176,6 +182,10 @@ class BluefireRules:
     # Set all rules in the multiworld
     def set_bluefire_rules(self) -> None:
         multiworld = self.world.multiworld
+
+        for event_name, rule in self.event_rules.items():
+            location = multiworld.get_location(event_name, self.player)
+            add_rule(location, rule)
 
         for entrance_name, rule in self.connection_rules.items():
             entrance = multiworld.get_entrance(entrance_name, self.player)
