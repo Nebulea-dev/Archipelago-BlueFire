@@ -30,27 +30,28 @@ emote_items: List["ItemDict"] = [
     None, # Skip the Empty emote
 ]
 
+weapon_items: List["ItemDict"] = [
+    None, # Skip the Dual Blades
+    {"name": "Bloodstorm Blades", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Ember Twins", "count": 1, "classification": ItemClassification.useful},
+    # Needed to repair the boilers
+    {"name": "Iron Justice", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Ice Destroyers", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Peace Keepers", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Steel Shanks", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Breemur Family Swords", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Silver Blades", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Kina Defenders", "count": 1, "classification": ItemClassification.useful},
+]
 
 def get_weapon_items(progressive_weapons: bool) -> List["ItemDict"]:
     """Build weapon items list conditionally based on progressive weapons option."""
     if progressive_weapons:
         return []
 
-    return [
-        None, # Skip the Dual Blades
-        {"name": "Bloodstorm Blades", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Diamond Wings", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Shadow Casters", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Ember Twins", "count": 1, "classification": ItemClassification.useful},
-        # Needed to repair the boilers
-        {"name": "Iron Justice", "count": 1, "classification": ItemClassification.progression},
-        {"name": "Ice Destroyers", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Peace Keepers", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Steel Shanks", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Breemur Family Swords", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Silver Blades", "count": 1, "classification": ItemClassification.useful},
-        {"name": "Kina Defenders", "count": 1, "classification": ItemClassification.useful},
-    ]
+    return weapon_items
 
 
 tunic_items: List["ItemDict"] = [
@@ -225,7 +226,6 @@ regular_items: List["ItemDict"] = [
 def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
     """Build key_items list conditionally based on progressive pouches option."""
     return [
-
         None if progressive_pouches else {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0
         None,  # NewEnumerator1 (SmallPouch) = ID 1
         {"name": "Old Key", "count": 8, "classification": ItemClassification.progression},  # NewEnumerator6 = ID 2
@@ -310,6 +310,8 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         None,  # NewEnumerator97 (RobiBadge) = ID 81 - Skip
     ]
 
+key_items: List["ItemDict"] = get_key_items(progressive_pouches=False)
+
 
 def get_progressive_items(progressive_pouches: bool, progressive_weapons: bool) -> List["ItemDict"]:
     """Build progressive items list conditionally based on progressive pouches and weapons options."""
@@ -317,6 +319,8 @@ def get_progressive_items(progressive_pouches: bool, progressive_weapons: bool) 
         {"name": "Progressive Pouch", "count": 2, "classification": ItemClassification.useful} if progressive_pouches else None,
         {"name": "Progressive Weapon", "count": 11, "classification": ItemClassification.progression} if progressive_weapons else None,
     ]
+
+progressive_items: List["ItemDict"] = get_progressive_items(progressive_pouches=True, progressive_weapons=True)
 
 
 def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) -> List["ItemDict"]:

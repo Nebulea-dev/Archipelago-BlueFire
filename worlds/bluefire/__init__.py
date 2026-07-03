@@ -6,10 +6,13 @@ from .Connections import all_connections
 from .Items import (
     base_id,
     emote_items,
+    weapon_items,
     tunic_items,
     spirit_items,
     ability_items,
     regular_items,
+    key_items,
+    progressive_items,
     get_weapon_items,
     get_key_items,
     get_progressive_items,
@@ -66,8 +69,27 @@ class BluefireWorld(World):
     # anything expensive (e.g. parsing non-python data files) will delay world loading.
     # They can include events, but don't have to since events will be placed manually.
 
-    item_name_to_id: dict[str, int] = {}
     location_name_to_id: dict[str, int] = {name: id for id, name in enumerate(all_locations, base_id) if name not in forced_locations}
+
+    emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
+    weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(weapon_items, base_id + ItemCategory.WEAPON) if item is not None}
+    tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
+    spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
+    ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
+    regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
+    key_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(key_items, base_id + ItemCategory.KEY) if item is not None}
+    progressive_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(progressive_items, base_id + ItemCategory.PROGRESSIVE) if item is not None}
+
+    item_name_to_id: dict[str, int] = {
+        **emote_item_name_to_id,
+        **weapon_item_name_to_id,
+        **tunic_item_name_to_id,
+        **spirit_item_name_to_id,
+        **ability_item_name_to_id,
+        **regular_item_name_to_id,
+        **key_item_name_to_id,
+        **progressive_item_name_to_id,
+    }
 
 
     def create_item(self, name: str) -> BluefireItem:
@@ -102,26 +124,6 @@ class BluefireWorld(World):
         self.weapon_items_list = get_weapon_items(self.options.progressive_weapons.value)
         self.key_items_list = get_key_items(self.options.progressive_pouches.value)
         self.progressive_items_list = get_progressive_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
-
-        emote_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(emote_items, base_id + ItemCategory.EMOTE) if item is not None}
-        weapon_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(self.weapon_items_list, base_id + ItemCategory.WEAPON) if item is not None}
-        tunic_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(tunic_items, base_id + ItemCategory.TUNIC) if item is not None}
-        spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
-        ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
-        regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
-        key_item_name_to_id = {item["name"]: i for i, item in enumerate(self.key_items_list, base_id + ItemCategory.KEY) if item is not None}
-        progressive_item_name_to_id = {item["name"]: i for i, item in enumerate(self.progressive_items_list, base_id + ItemCategory.PROGRESSIVE) if item is not None}
-
-        self.item_name_to_id = {
-            **emote_item_name_to_id,
-            **weapon_item_name_to_id,
-            **tunic_item_name_to_id,
-            **spirit_item_name_to_id,
-            **ability_item_name_to_id,
-            **regular_item_name_to_id,
-            **key_item_name_to_id,
-            **progressive_item_name_to_id,
-        }
 
         nb_items_added = 0
         items_to_use = get_all_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
