@@ -159,9 +159,9 @@ class BluefireRules:
         }
 
         self.event_rules = {
-            "Firefall River - Steam House - Repair Generator 1": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
-            "Firefall River - Steam House - Repair Generator 2": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
-            "Firefall River - Steam House - Repair Generator 3": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 5),
+            "Firefall River - Steam House - Repair Generator 1": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
+            "Firefall River - Steam House - Repair Generator 2": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
+            "Firefall River - Steam House - Repair Generator 3": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
         }
 
     def hasDoubleJump(self, state: CollectionState) -> bool:

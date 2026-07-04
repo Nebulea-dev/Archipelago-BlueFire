@@ -13,9 +13,6 @@ from .Items import (
     regular_items,
     key_items,
     progressive_items,
-    get_weapon_items,
-    get_key_items,
-    get_progressive_items,
     get_all_items
 )
 from .Locations import all_locations, forced_locations, get_events_data
@@ -101,7 +98,7 @@ class BluefireWorld(World):
             case ItemCategory.EMOTE:
                 item_data = emote_items[item_id - item_category]
             case ItemCategory.WEAPON:
-                item_data = self.weapon_items_list[item_id - item_category]
+                item_data = weapon_items[item_id - item_category]
             case ItemCategory.TUNIC:
                 item_data = tunic_items[item_id - item_category]
             case ItemCategory.SPIRIT:
@@ -111,9 +108,9 @@ class BluefireWorld(World):
             case ItemCategory.REGULAR:
                 item_data = regular_items[item_id - item_category]
             case ItemCategory.KEY:
-                item_data = self.key_items_list[item_id - item_category]
+                item_data = key_items[item_id - item_category]
             case ItemCategory.PROGRESSIVE:
-                item_data = self.progressive_items_list[item_id - item_category]
+                item_data = progressive_items[item_id - item_category]
 
         if not item_data:
             raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")
@@ -121,10 +118,6 @@ class BluefireWorld(World):
         return BluefireItem(name, item_data["classification"], item_id + base_id, self.player)
 
     def create_items(self) -> None:
-        self.weapon_items_list = get_weapon_items(self.options.progressive_weapons.value)
-        self.key_items_list = get_key_items(self.options.progressive_pouches.value)
-        self.progressive_items_list = get_progressive_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
-
         nb_items_added = 0
         items_to_use = get_all_items(self.options.progressive_pouches.value, self.options.progressive_weapons.value)
         useful_items = items_to_use.copy()

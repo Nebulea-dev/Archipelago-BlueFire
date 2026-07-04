@@ -44,6 +44,8 @@ weapon_items: List["ItemDict"] = [
     {"name": "Breemur Family Swords", "count": 1, "classification": ItemClassification.useful},
     {"name": "Silver Blades", "count": 1, "classification": ItemClassification.useful},
     {"name": "Kina Defenders", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip the Empty weapon
+    {"name": "Void Blades", "count": 1, "classification": ItemClassification.useful},
 ]
 
 def get_weapon_items(progressive_weapons: bool) -> List["ItemDict"]:
@@ -90,7 +92,6 @@ tunic_items: List["ItemDict"] = [
     {"name": "Discord Winner Contest Tunic", "count": 1, "classification": ItemClassification.filler},
 ]
 
-# TODO: Review and remove spirit items that no longer exist in the current game version
 spirit_items: List["ItemDict"] = [
     {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Hammer King Spirit", "count": 1, "classification": ItemClassification.useful},
