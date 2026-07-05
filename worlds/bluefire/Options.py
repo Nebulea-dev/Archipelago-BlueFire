@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Toggle, Range, Choice, PerGameCommonOptions
+from Options import Toggle, Range, Choice, DeathLink, PerGameCommonOptions
 
 """
 class StartWithFastTravel(Toggle):
@@ -57,3 +57,4 @@ class BluefireOptions(PerGameCommonOptions):
     progressive_pouches: ProgressivePouches
     progressive_weapons: ProgressiveWeapons
     item_price: ItemPrice
+    death_link: DeathLink

@@ -228,4 +228,5 @@ class BluefireWorld(World):
     def fill_slot_data(self) -> dict:
         return {
             "item_price": self.options.item_price.value,
+            "death_link": self.options.death_link.value,
         }
