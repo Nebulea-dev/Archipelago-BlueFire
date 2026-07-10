@@ -13,11 +13,12 @@ _locations_data: Dict[str, Any] = _load_locations_yaml()
 # Generate location IDs incrementally and build location name to ID mapping
 _location_id_counter: int = 0
 _location_name_to_id: Dict[str, int] = {}
+upgrade_current_count: int = 0
 
 # Convert JSON to the original format for backward compatibility
 regions_to_locations: Dict[str, Dict[str, List[str]]] = {}
 
-location_types: List[str] = ["chests", "statues", "pickups", "void_gates", "shops"]
+location_types: List[str] = ["chests", "statues", "pickups", "void_gates", "shops", "mana_upgrades"]
 
 # Map out the locations that need a dance as a rule
 dance_locations: Dict[str, str] = {}
@@ -46,6 +47,18 @@ for region in _locations_data.get("regions", []):
                     # Create a location for each shop item
                     for item_idx in range(num_items):
                         loc_name = f"{shop_name} - Item {item_idx + 1}"
+                        locations.append(loc_name)
+                        # Store the full location path and its ID
+                        full_path = f"{region_name} - {subregion_name} - {loc_name}"
+                        _location_name_to_id[full_path] = _location_id_counter
+                        _location_id_counter += 1
+            elif location_type == "mana_upgrades":
+                # For mana upgrades, each upgrade creates a separate location
+                for upgrade in subregion.get("mana_upgrades", []):
+                    upgrade_count = upgrade["number"]
+                    for _ in range(upgrade_count):
+                        loc_name = f"Mana Upgrade {upgrade_current_count + 1}"
+                        upgrade_current_count += 1
                         locations.append(loc_name)
                         # Store the full location path and its ID
                         full_path = f"{region_name} - {subregion_name} - {loc_name}"
