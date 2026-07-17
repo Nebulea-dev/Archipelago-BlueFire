@@ -12,7 +12,7 @@ from .Items import (
     ability_items,
     regular_items,
     key_items,
-    progressive_items,
+    custom_items,
     get_all_items
 )
 from .Locations import all_locations, forced_locations, get_events_data
@@ -75,7 +75,7 @@ class BluefireWorld(World):
     ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
     regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
     key_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(key_items, base_id + ItemCategory.KEY) if item is not None}
-    progressive_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(progressive_items, base_id + ItemCategory.PROGRESSIVE) if item is not None}
+    custom_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(custom_items, base_id + ItemCategory.PROGRESSIVE) if item is not None}
 
     item_name_to_id: dict[str, int] = {
         **emote_item_name_to_id,
@@ -85,7 +85,7 @@ class BluefireWorld(World):
         **ability_item_name_to_id,
         **regular_item_name_to_id,
         **key_item_name_to_id,
-        **progressive_item_name_to_id,
+        **custom_item_name_to_id,
     }
 
 
@@ -110,7 +110,7 @@ class BluefireWorld(World):
             case ItemCategory.KEY:
                 item_data = key_items[item_id - item_category]
             case ItemCategory.PROGRESSIVE:
-                item_data = progressive_items[item_id - item_category]
+                item_data = custom_items[item_id - item_category]
 
         if not item_data:
             raise ValueError(f"Item data not found for '{name}' in category {item_category.name}")

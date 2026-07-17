@@ -274,13 +274,13 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         None,  # NewEnumerator59 (PoisonedPlant) = ID 44 - Skip
         None,  # NewEnumerator60 (---------------) = ID 45 - Padding separation
         None,  # NewEnumerator61 (Dash) = ID 46 - Skip
-        None,  # NewEnumerator62 (DoubleJump) = ID 47 - Skip
-        None,  # NewEnumerator63 (SpinAttack) = ID 48 - Skip
-        None,  # NewEnumerator64 (WallRun) = ID 49 - Skip
-        None,  # NewEnumerator65 (FireBall) = ID 50 - Skip
+        None,  # NewEnumerator62 (DoubleJump) = ID 47 - Given in custom items
+        None,  # NewEnumerator63 (SpinAttack) = ID 48 - Given in custom items
+        None,  # NewEnumerator64 (WallRun) = ID 49 - Given in custom items
+        None,  # NewEnumerator65 (FireBall) = ID 50 - Given in custom items
         None,  # NewEnumerator66 (DownSmash) = ID 51 - Skip
-        None,  # NewEnumerator67 (Shield) = ID 52 - Skip
-        None,  # NewEnumerator68 (SpiritSlot) = ID 53 - Skip
+        None,  # NewEnumerator67 (Shield) = ID 52 - Given in custom items
+        None,  # NewEnumerator68 (SpiritSlot) = ID 53 - Given in custom items
         None,  # NewEnumerator69 (VoidKey) = ID 54 - Skip
         None,  # NewEnumerator70 (Necklace) = ID 55 - Skip
         {"name": "Key of Ember", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56 | passive item
@@ -300,7 +300,7 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         {"name": "Beira Vessel", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator86 = ID 70 | passive item
         None,  # NewEnumerator87 (BeiraShards) = ID 71 - Skip
         None,  # NewEnumerator88 (BasicPouch) = ID 72 - Skip
-        {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.useful},  # NewEnumerator89 = ID 73 | passive item
+        None,  # NewEnumerator89 (FireEssenceSlot) = ID 73 - Given in custom items
         None,  # NewEnumerator90 (Void Ore) = ID 74 | active item
         None if progressive_pouches else {"name": "Extra Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator91 = ID 75
         None,  # NewEnumerator92 (Mana) = ID 76 - Skip
@@ -314,21 +314,23 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
 key_items: List["ItemDict"] = get_key_items(progressive_pouches=False)
 
 
-def get_progressive_items(progressive_pouches: bool, progressive_weapons: bool) -> List["ItemDict"]:
-    """Build progressive items list conditionally based on progressive pouches and weapons options."""
+def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> List["ItemDict"]:
+    # Build custom items list (items requiring special handling logic).
     return [
         {"name": "Progressive Pouch", "count": 2, "classification": ItemClassification.useful} if progressive_pouches else None,
         {"name": "Progressive Weapon", "count": 11, "classification": ItemClassification.progression} if progressive_weapons else None,
+        {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.useful},
+        {"name": "Spirit Slot", "count": 8, "classification": ItemClassification.useful},
     ]
 
-progressive_items: List["ItemDict"] = get_progressive_items(progressive_pouches=True, progressive_weapons=True)
+custom_items: List["ItemDict"] = get_custom_items(progressive_pouches=True, progressive_weapons=True)
 
 
 def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) -> List["ItemDict"]:
     """Build the complete items list, conditionally including progressive or regular pouches and weapons."""
     weapon_items_list = get_weapon_items(progressive_weapons)
     key_items_list = get_key_items(progressive_pouches)
-    progressive_items_list = get_progressive_items(progressive_pouches, progressive_weapons)
+    custom_items_list = get_custom_items(progressive_pouches, progressive_weapons)
     return (
         emote_items +
         weapon_items_list +
@@ -337,6 +339,6 @@ def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) 
         ability_items +
         regular_items +
         key_items_list +
-        progressive_items_list
+        custom_items_list
     )
 
