@@ -321,6 +321,9 @@ def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> Li
         {"name": "Progressive Weapon", "count": 11, "classification": ItemClassification.progression} if progressive_weapons else None,
         {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.useful},
         {"name": "Spirit Slot", "count": 8, "classification": ItemClassification.useful},
+        {"name": "x1000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
+        {"name": "x2000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
+        {"name": "x3000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
     ]
 
 custom_items: List["ItemDict"] = get_custom_items(progressive_pouches=True, progressive_weapons=True)
