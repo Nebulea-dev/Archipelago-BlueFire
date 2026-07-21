@@ -94,16 +94,16 @@ tunic_items: List["ItemDict"] = [
 
 spirit_items: List["ItemDict"] = [
     {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Hammer King Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "River Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Hammer Himu Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Hammer Himu or Hammer King ?
+    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
+    {"name": "Fire Keep Tear Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Correct name ?
     {"name": "Angry Ambusher Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Secret Fruit Spirit
     None, # Skip Mind Controller Spirit
     {"name": "Frozen Soul Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Howling Tree Spirit
     {"name": "Love Flower Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
     {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Possessed Book Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Forest Guardian Spirit", "count": 1, "classification": ItemClassification.useful},
@@ -114,13 +114,13 @@ spirit_items: List["ItemDict"] = [
     {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Candle Onop Spirit
     None, # Skip Stone Warrior Spirit
-    {"name": "Toxic Rat Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Aerial Rat Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Summoned God Spirit
     None, # Skip Summoning Hand Spirit
     None, # Skip Betting Hand Spirit
     {"name": "Life Steal Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Shadow Demon Spirit
-    {"name": "Shadow Gru Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Shadow Gruh Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Flying Onop Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Toxic Water Spirit
 ]
