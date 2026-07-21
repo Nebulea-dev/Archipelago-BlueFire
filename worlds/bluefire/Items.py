@@ -285,10 +285,10 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         None,  # NewEnumerator70 (Necklace) = ID 55 - Skip
         {"name": "Key of Ember", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56 | passive item
         {"name": "Holy Key", "count": 3, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57 | passive item
-        {"name": "Key Ice Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator73 = ID 58 | passive item
-        {"name": "Key Death Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator74 = ID 59 | passive item
+        None,  # NewEnumerator73 (KeyIceMaster) = ID 58 | passive item
+        None   # NewEnumerator74 (KeyDeathMaster) = ID 59 | passive item
         {"name": "Uthas Temple Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60 | passive item
-        {"name": "Key God Master", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61 | passive item
+        {"name": "Temple of Gods Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61 | passive item
         {"name": "Steam Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62 | passive item
         {"name": "Graveyard Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator78 = ID 63 | passive item
         None,  # NewEnumerator79 (HouseContract) = ID 64 - Skip
