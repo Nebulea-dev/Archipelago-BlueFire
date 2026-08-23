@@ -27,6 +27,8 @@ class BluefireRules:
             "Fire Keep - Intro -> Fire Keep - High Spot": self.hasDoubleJump or self.hasWallClimb or self.hasSpinAttack,
             "Fire Keep - High Spot -> Fire Keep - Intro": lambda state: True,
             "Fire Keep - Hub -> Fire Keep - Intro": lambda state: True,
+            "Fire Keep - Hub -> Fire Keep - Top of Lula's Void Gate Room": lambda state:  self.hasDoubleJump and self.hasSpinAttack,
+            "Fire Keep - Top of Lula's Void Gate Room -> Fire Keep - Hub": lambda state: True,
             "Fire Keep - Hub -> Arcane Tunnels - Main Room": lambda state: True,
 
             # Arcane Tunnels
@@ -89,6 +91,7 @@ class BluefireRules:
             "Forest Temple - Middle Level -> Forest Temple - Ambush 1": lambda state: state.has("Old Key", self.player, 2),
             "Forest Temple - Low Level -> Forest Temple - Middle Level": lambda state: True,
             "Forest Temple - Low Level -> Forest Temple - Center Room": self.hasWallClimb or self.hasDoubleJump,
+            "Forest Temple - Low Level -> Forest Temple - Long Corridor": lambda state: self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack, # TODO : Need spirits to go here
             "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": lambda state: state.has("Old Key", self.player, 4),  # TODO : add lever event
             "Forest Temple - Center Room -> Forest Temple - Parkour Room": self.hasWallClimb,
             "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Holy Key", self.player, 2),
@@ -100,6 +103,7 @@ class BluefireRules:
             "Forest Temple - Center Room Trunk -> Forest Temple - Center Room": lambda state: True,
             "Forest Temple - Parkour Room -> Forest Temple - Center Room": self.hasWallClimb,
             "Forest Temple - Boss Room -> Forest Temple - Center Room": lambda state: True,
+            "Forest Temple - Long Corridor -> Forest Temple - Low Level": lambda state: True,
 
             # Abandoned Path
             "Abandoned Path - Entrance -> Stoneheart City - Main Area": lambda state: True,
@@ -108,6 +112,7 @@ class BluefireRules:
             "Abandoned Path - Main Room -> Abandoned Path - Heights": self.hasWallClimb,
             "Abandoned Path - Main Room -> Abandoned Path - Entrance Ravin": self.hasDoubleJump or self.hasSpinAttack,
             "Abandoned Path - Main Room -> Abandoned Path - Graveyard Balcony": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
+            "Abandoned Path - Main Room -> Abandoned Path - Right side of Tower": lambda state: True,
             "Abandoned Path - Heights -> Abandoned Path - Beira's Room": self.hasAllBeiraShards,
             "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Uthas Temple Key", self.player, 1),
             "Abandoned Path - Entrance Ravin -> Abandoned Path - Main Room": self.hasDoubleJump or self.hasSpinAttack,
@@ -118,6 +123,7 @@ class BluefireRules:
             "Abandoned Path - Main Room -> Abandoned Path - End of Main Room": lambda state: True, # TODO : Need spirits to go here
             "Abandoned Path - Beira's Room -> Abandoned Path - Heights": lambda state: True,
             "Abandoned Path - End of Main Room -> Abandoned Path - Main Room": self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack, # TODO : Need spirits to go here
+            "Abandoned Path - Right side of Tower -> Abandoned Path - Main Room": lambda state: True,
 
             # Uthas Temple
             "Uthas Temple - Entrance -> Abandoned Path - Entrance": lambda state: True,
@@ -139,19 +145,24 @@ class BluefireRules:
             "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": self.hasDoubleJump or self.hasSpinAttack,
             "Temple Gardens - Entrance -> Abandoned Path - Graveyard Balcony": lambda state: True,
+            "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods Bell Towers": lambda state: self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack,
+            "Temple Gardens - Entrance -> Temple Gardens - Top of Temple of Gods Door": lambda state: self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack,
             "Temple Gardens - Middle Balcony -> Temple Gardens - Entrance": self.hasDoubleJump or self.hasSpinAttack,
             "Temple Gardens - Middle Balcony -> Stoneheart City - Main Area": lambda state: True,
             "Temple Gardens - Temple of Gods -> Temple Gardens - Entrance": lambda state: True,
             "Temple Gardens - Temple of Gods -> Victory - Victory": lambda state: state.has("Beat Fire Boss", self.player) and state.has("Beat Samuel", self.player) and state.has("Beat Beira", self.player),
-
+            "Temple Gardens - Temple of Gods Bell Towers -> Temple Gardens - Entrance": lambda state: True,
+            "Temple Gardens - Top of Temple of Gods Door -> Temple Gardens - Entrance": lambda state: True,
 
             # Firefall River
-            "Firefall River - Main Area -> Water Ways - Firefall River Entrance": lambda state: True,
-            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: True,
+            "Firefall River - Main Area -> Water Ways - Firefall River Entrance": lambda state: self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack, # TODO : Need spirits to go here
+            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack, # TODO : Need spirits to go here,
+            "Firefall River - Main Area -> Firefall River - Entrance Left Side": lambda state: True,
             "Firefall River - Steam House -> Firefall River - Main Area": lambda state: True,
             "Firefall River - Steam House -> Rust Village - Main Area": self.allGeneratorsRepaired,
             "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key of Ember", self.player),
             "Firefall River - Fire Boss Room -> Firefall River - Steam House": lambda state: True,
+            "Firefall River - Entrance Left Side -> Firefall River - Main Area": lambda state: True,
 
             # Rust Village
             "Rust Village - Main Area -> Firefall River - Steam House": lambda state: True,
