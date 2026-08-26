@@ -23,7 +23,7 @@ class BluefireRules:
 
         self.connection_rules = {
             # Fire Keep
-            "Fire Keep - Intro -> Fire Keep - Hub": lambda state: state.has("Old Key", self.player, 1),
+            "Fire Keep - Intro -> Fire Keep - Hub": lambda state: state.has("Old Key - Fire Keep", self.player, 1),
             "Fire Keep - Intro -> Fire Keep - High Spot": self.hasDoubleJump or self.hasWallClimb or self.hasSpinAttack,
             "Fire Keep - High Spot -> Fire Keep - Intro": lambda state: True,
             "Fire Keep - Hub -> Fire Keep - Intro": lambda state: True,
@@ -88,16 +88,16 @@ class BluefireRules:
             "Forest Temple - High Level -> Forest Temple - Middle Level": lambda state: True, # TODO : add lever event
             "Forest Temple - Middle Level -> Forest Temple - High Level": lambda state: True,
             "Forest Temple - Middle Level -> Forest Temple - Low Level": self.hasWallClimb, # TODO : add lever event
-            "Forest Temple - Middle Level -> Forest Temple - Ambush 1": lambda state: state.has("Old Key", self.player, 2),
+            "Forest Temple - Middle Level -> Forest Temple - Ambush 1": lambda state: state.has("Old Key - Forest Temple Ambush", self.player, 1),
             "Forest Temple - Low Level -> Forest Temple - Middle Level": lambda state: True,
             "Forest Temple - Low Level -> Forest Temple - Center Room": self.hasWallClimb or self.hasDoubleJump,
             "Forest Temple - Low Level -> Forest Temple - Long Corridor": lambda state: self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack, # TODO : Need spirits to go here
-            "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": lambda state: state.has("Old Key", self.player, 4),  # TODO : add lever event
+            "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": lambda state: state.has("Old Key - Forest Temple Center Room", self.player, 1),  # TODO : add lever event
             "Forest Temple - Center Room -> Forest Temple - Parkour Room": self.hasWallClimb,
-            "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Holy Key", self.player, 2),
+            "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Holy Key - Forest Temple Boss", self.player, 1),
             "Forest Temple - Ambush 1 -> Forest Temple - Middle Level": lambda state: True,
-            "Forest Temple - Ambush 1 -> Forest Temple - Ambush 2": lambda state: state.has("Old Key", self.player, 3),
-            "Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw Room": lambda state: state.has("Holy Key", self.player, 1),
+            "Forest Temple - Ambush 1 -> Forest Temple - Ambush 2": lambda state: state.has("Old Key - Forest Temple Ambush 2", self.player, 1),
+            "Forest Temple - Ambush 1 -> Forest Temple - Nuos Claw Room": lambda state: state.has("Holy Key - Forest Temple Nuos Claw", self.player, 1),
             "Forest Temple - Ambush 2 -> Forest Temple - Ambush 1": lambda state: True,
             "Forest Temple - Nuos Claw Room -> Forest Temple - Ambush 1": lambda state: True,
             "Forest Temple - Center Room Trunk -> Forest Temple - Center Room": lambda state: True,
@@ -127,17 +127,17 @@ class BluefireRules:
 
             # Uthas Temple
             "Uthas Temple - Entrance -> Abandoned Path - Entrance": lambda state: True,
-            "Uthas Temple - Entrance -> Uthas Temple - Main Room": lambda state: state.has("Old Key", self.player, 5),
+            "Uthas Temple - Entrance -> Uthas Temple - Main Room": lambda state: state.has("Old Key - Uthas Temple Main Room", self.player, 1),
             "Uthas Temple - Entrance -> Uthas Temple - Top of Entrance": lambda state: self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
             "Uthas Temple - Top of Entrance -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Entrance": lambda state: True,
-            "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key", self.player, 6) and (self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack),
-            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Holy Key", self.player, 3),
-            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key", self.player, 7) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
+            "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key - Uthas Temple Ambush", self.player, 1) and (self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack),
+            "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Holy Key - Uthas Temple Holy Tower", self.player, 1),
+            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key - Uthas Temple 2nd Side", self.player, 1) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
             "Uthas Temple - Ambush Room -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Holy Tower Chest -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Main Room 2nd side -> Uthas Temple - Main Room": lambda state: True,
-            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: state.has("Old Key", self.player, 8) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
+            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: state.has("Old Key - Uthas Temple Final Floor", self.player, 1) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
             "Uthas Temple - Final Floor -> Uthas Temple - Main Room 2nd side": lambda state: True,
 
             # Temple Gardens

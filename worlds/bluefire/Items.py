@@ -229,7 +229,7 @@ def get_important_items(progressive_pouches: bool) -> List["ItemDict"]:
     return [
         None if progressive_pouches else {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0
         None,  # NewEnumerator1 (SmallPouch) = ID 1
-        {"name": "Old Key", "count": 8, "classification": ItemClassification.progression},  # NewEnumerator6 = ID 2
+        None,  # NewEnumerator6 (Old Key) = ID 2 - Moved to key_items
         None,  # NewEnumerator12 (----) = ID 3 - Padding separation
         None,  # NewEnumerator15 (KinbankDebitCard) = ID 4 - Skip
         {"name": "Sanctuary Stone", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator18 = ID 5
@@ -283,14 +283,14 @@ def get_important_items(progressive_pouches: bool) -> List["ItemDict"]:
         None,  # NewEnumerator68 (SpiritSlot) = ID 53 - Given in custom items
         None,  # NewEnumerator69 (VoidKey) = ID 54 - Skip
         None,  # NewEnumerator70 (Necklace) = ID 55 - Skip
-        {"name": "Key of Ember", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56 | passive item
-        {"name": "Holy Key", "count": 3, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57 | passive item
+        None,  # NewEnumerator71 (Key of Ember) = ID 56 - Moved to key_items
+        None,  # NewEnumerator72 (Holy Key) = ID 57 - Moved to key_items
         None,  # NewEnumerator73 (KeyIceMaster) = ID 58 | passive item
         None,  # NewEnumerator74 (KeyDeathMaster) = ID 59 | passive item
-        {"name": "Uthas Temple Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60 | passive item
-        {"name": "Temple of Gods Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61 | passive item
-        {"name": "Steam Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62 | passive item
-        {"name": "Graveyard Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator78 = ID 63 | passive item
+        None,  # NewEnumerator75 (Uthas Temple Key) = ID 60 - Moved to key_items
+        None,  # NewEnumerator76 (Temple of Gods Key) = ID 61 - Moved to key_items
+        None,  # NewEnumerator77 (Steam Key) = ID 62 - Moved to key_items
+        None,  # NewEnumerator78 (Graveyard Key) = ID 63 - Moved to key_items
         None,  # NewEnumerator79 (HouseContract) = ID 64 - Skip
         None,  # NewEnumerator80 (Mandoline) = ID 65 - Skip
         None,  # NewEnumerator81 (RareGlasses) = ID 66 - Skip
@@ -312,6 +312,26 @@ def get_important_items(progressive_pouches: bool) -> List["ItemDict"]:
     ]
 
 important_items: List["ItemDict"] = get_important_items(progressive_pouches=False)
+
+
+key_items: List["ItemDict"] = [
+    {"name": "Old Key - Fire Keep", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Forest Temple Ambush", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Forest Temple Center Room", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Forest Temple Ambush 2", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Uthas Temple Main Room", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Uthas Temple Ambush", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Uthas Temple 2nd Side", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Old Key - Uthas Temple Final Floor", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Holy Key - Forest Temple Boss", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Holy Key - Forest Temple Nuos Claw", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Holy Key - Uthas Temple Holy Tower", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Uthas Temple Key", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Temple of Gods Key", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Steam Key", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Key of Ember", "count": 1, "classification": ItemClassification.progression},
+    {"name": "Graveyard Key", "count": 1, "classification": ItemClassification.progression},
+]
 
 
 def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> List["ItemDict"]:
@@ -342,6 +362,7 @@ def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) 
         ability_items +
         regular_items +
         important_items_list +
+        key_items +
         custom_items_list
     )
 
