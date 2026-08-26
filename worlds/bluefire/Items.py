@@ -224,8 +224,8 @@ regular_items: List["ItemDict"] = [
     None,  # NewEnumerator97 (RobiBadge) = ID 81 - Skip
 ]
 
-def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
-    """Build key_items list conditionally based on progressive pouches option."""
+def get_important_items(progressive_pouches: bool) -> List["ItemDict"]:
+    """Build important_items list conditionally based on progressive pouches option."""
     return [
         None if progressive_pouches else {"name": "Large Pouch", "count": 1, "classification": ItemClassification.useful},  # NewEnumerator0 = ID 0
         None,  # NewEnumerator1 (SmallPouch) = ID 1
@@ -286,7 +286,7 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         {"name": "Key of Ember", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator71 = ID 56 | passive item
         {"name": "Holy Key", "count": 3, "classification": ItemClassification.progression},  # NewEnumerator72 = ID 57 | passive item
         None,  # NewEnumerator73 (KeyIceMaster) = ID 58 | passive item
-        None   # NewEnumerator74 (KeyDeathMaster) = ID 59 | passive item
+        None,  # NewEnumerator74 (KeyDeathMaster) = ID 59 | passive item
         {"name": "Uthas Temple Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator75 = ID 60 | passive item
         {"name": "Temple of Gods Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator76 = ID 61 | passive item
         {"name": "Steam Key", "count": 1, "classification": ItemClassification.progression},  # NewEnumerator77 = ID 62 | passive item
@@ -311,7 +311,7 @@ def get_key_items(progressive_pouches: bool) -> List["ItemDict"]:
         None,  # NewEnumerator97 (RobiBadge) = ID 81 - Skip
     ]
 
-key_items: List["ItemDict"] = get_key_items(progressive_pouches=False)
+important_items: List["ItemDict"] = get_important_items(progressive_pouches=False)
 
 
 def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> List["ItemDict"]:
@@ -332,7 +332,7 @@ custom_items: List["ItemDict"] = get_custom_items(progressive_pouches=True, prog
 def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) -> List["ItemDict"]:
     """Build the complete items list, conditionally including progressive or regular pouches and weapons."""
     weapon_items_list = get_weapon_items(progressive_weapons)
-    key_items_list = get_key_items(progressive_pouches)
+    important_items_list = get_important_items(progressive_pouches)
     custom_items_list = get_custom_items(progressive_pouches, progressive_weapons)
     return (
         emote_items +
@@ -341,7 +341,7 @@ def get_all_items(progressive_pouches: bool, progressive_weapons: bool = False) 
         spirit_items +
         ability_items +
         regular_items +
-        key_items_list +
+        important_items_list +
         custom_items_list
     )
 

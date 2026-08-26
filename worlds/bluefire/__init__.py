@@ -11,7 +11,7 @@ from .Items import (
     spirit_items,
     ability_items,
     regular_items,
-    key_items,
+    important_items,
     custom_items,
     get_all_items
 )
@@ -74,7 +74,7 @@ class BluefireWorld(World):
     spirit_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(spirit_items, base_id + ItemCategory.SPIRIT) if item is not None}
     ability_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(ability_items, base_id + ItemCategory.ABILITY) if item is not None}
     regular_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(regular_items, base_id + ItemCategory.REGULAR) if item is not None}
-    key_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(key_items, base_id + ItemCategory.KEY) if item is not None}
+    important_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(important_items, base_id + ItemCategory.KEY) if item is not None}
     custom_item_name_to_id: dict[str, int] = {item["name"]: i for i, item in enumerate(custom_items, base_id + ItemCategory.PROGRESSIVE) if item is not None}
 
     item_name_to_id: dict[str, int] = {
@@ -84,7 +84,7 @@ class BluefireWorld(World):
         **spirit_item_name_to_id,
         **ability_item_name_to_id,
         **regular_item_name_to_id,
-        **key_item_name_to_id,
+        **important_item_name_to_id,
         **custom_item_name_to_id,
     }
 
@@ -108,7 +108,7 @@ class BluefireWorld(World):
             case ItemCategory.REGULAR:
                 item_data = regular_items[item_id - item_category]
             case ItemCategory.KEY:
-                item_data = key_items[item_id - item_category]
+                item_data = important_items[item_id - item_category]
             case ItemCategory.PROGRESSIVE:
                 item_data = custom_items[item_id - item_category]
 
