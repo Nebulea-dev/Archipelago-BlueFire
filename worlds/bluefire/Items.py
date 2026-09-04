@@ -95,23 +95,23 @@ tunic_items: List["ItemDict"] = [
 spirit_items: List["ItemDict"] = [
     {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Hammer Himu Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Hammer Himu or Hammer King ?
-    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
-    {"name": "Fire Keep Tear Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Correct name ?
+    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.progression}, # TODO : Centry or Sentry ?
+    {"name": "Fire Keep Tear Spirit", "count": 1, "classification": ItemClassification.progression}, # TODO : Correct name ?
     {"name": "Angry Ambusher Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Secret Fruit Spirit
     None, # Skip Mind Controller Spirit
     {"name": "Frozen Soul Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Howling Tree Spirit
     {"name": "Love Flower Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
-    {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.progression}, # TODO : Centry or Sentry ?
+    {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.progression},
     {"name": "Possessed Book Spirit", "count": 1, "classification": ItemClassification.useful},
     {"name": "Forest Guardian Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Moi The Dreadful Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Moi The Dreadful Spirit", "count": 1, "classification": ItemClassification.progression},
     None, # Skip Stone Hunter Spirit
     {"name": "Golden Lust Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip the Spring Warrior Spirit
-    {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.useful},
+    {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.progression},
     None, # Skip Candle Onop Spirit
     None, # Skip Stone Warrior Spirit
     {"name": "Aerial Rat Spirit", "count": 1, "classification": ItemClassification.useful},
@@ -339,7 +339,7 @@ def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> Li
     return [
         {"name": "Progressive Pouch", "count": 2, "classification": ItemClassification.useful} if progressive_pouches else None,
         {"name": "Progressive Weapon", "count": 11, "classification": ItemClassification.progression} if progressive_weapons else None,
-        {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.useful},
+        {"name": "Fire Essence Slot", "count": 3, "classification": ItemClassification.progression},
         {"name": "Spirit Slot", "count": 8, "classification": ItemClassification.useful},
         {"name": "x1000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
         {"name": "x2000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
