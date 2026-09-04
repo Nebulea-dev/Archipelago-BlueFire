@@ -27,14 +27,14 @@ class BluefireRules:
             "Fire Keep - Intro -> Fire Keep - High Spot": self.hasDoubleJump or self.hasWallClimb or self.hasSpinAttack,
             "Fire Keep - High Spot -> Fire Keep - Intro": lambda state: True,
             "Fire Keep - Hub -> Fire Keep - Intro": lambda state: True,
-            "Fire Keep - Hub -> Fire Keep - Top of Lula's Void Gate Room": lambda state:  self.hasDoubleJump and self.hasSpinAttack,
+            "Fire Keep - Hub -> Fire Keep - Top of Lula's Void Gate Room": lambda state:  (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state),
             "Fire Keep - Top of Lula's Void Gate Room -> Fire Keep - Hub": lambda state: True,
             "Fire Keep - Hub -> Arcane Tunnels - Main Room": lambda state: True,
 
             # Arcane Tunnels
             "Arcane Tunnels - Main Room -> Fire Keep - Hub": lambda state: True,
-            "Arcane Tunnels - Main Room -> Arcane Tunnels - Pipes": self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack,
-            "Arcane Tunnels - Main Room -> Arcane Tunnels - Center Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
+            "Arcane Tunnels - Main Room -> Arcane Tunnels - Pipes": lambda state: (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasWallClimb and self.hasSpinAttack,
+            "Arcane Tunnels - Main Room -> Arcane Tunnels - Center Top":lambda state: self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state)),
             "Arcane Tunnels - Main Room -> Crossroads - Main Area": lambda state: True,
             "Arcane Tunnels - Main Room -> Water Ways - Arcane Tunnels Main Entrance": lambda state: True,
             "Arcane Tunnels - Main Room -> Arcane Tunnels - Guard Room": lambda state: True,
@@ -55,7 +55,7 @@ class BluefireRules:
 
             # Stoneheart City
             "Stoneheart City - Main Area -> Crossroads - Main Area": lambda state: True,
-            "Stoneheart City - Main Area -> Stoneheart City - Top": self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
+            "Stoneheart City - Main Area -> Stoneheart City - Top": lambda state: self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state)),
             "Stoneheart City - Main Area -> Stoneheart City - Boy's Room": lambda state: True,
             "Stoneheart City - Main Area -> Stoneheart City - Bottom Corridor": self.hasWallClimb,
             "Stoneheart City - Main Area -> Stoneheart City - Breemur's Tavern": lambda state: state.has("Beat Gruh", self.player),
@@ -87,11 +87,11 @@ class BluefireRules:
             "Forest Temple - High Level -> Stoneheart City - Main Area": lambda state: True,
             "Forest Temple - High Level -> Forest Temple - Middle Level": lambda state: True, # TODO : add lever event
             "Forest Temple - Middle Level -> Forest Temple - High Level": lambda state: True,
-            "Forest Temple - Middle Level -> Forest Temple - Low Level": self.hasWallClimb, # TODO : add lever event
+            "Forest Temple - Middle Level -> Forest Temple - Low Level": self.hasWallClimb or  self.has("Flying Onop Spirit") or self.has("Fire Keep Tear Spirit") or self.has("Holy Centry Spirit"), # TODO : add lever event
             "Forest Temple - Middle Level -> Forest Temple - Ambush 1": lambda state: state.has("Old Key - Forest Temple Ambush", self.player, 1),
             "Forest Temple - Low Level -> Forest Temple - Middle Level": lambda state: True,
-            "Forest Temple - Low Level -> Forest Temple - Center Room": self.hasWallClimb or self.hasDoubleJump,
-            "Forest Temple - Low Level -> Forest Temple - Long Corridor": lambda state: self.hasDoubleJump and self.hasWallClimb and self.hasSpinAttack, # TODO : Need spirits to go here
+            "Forest Temple - Low Level -> Forest Temple - Center Room": lambda state: self.hasWallClimb(state) or (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)), 
+            "Forest Temple - Low Level -> Forest Temple - Long Corridor": lambda state: ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasWallClimb(state) and self.hasSpinAttack(state)) or (self.hasDoubleJump(state) and state.has("Holy Centry Spirit", self.player) and self.hasWallClimb(state) and state.has("Fire Keep Tear Spirit", self.player)), # TODO : Need spirits to go here
             "Forest Temple - Center Room -> Forest Temple - Center Room Trunk": lambda state: state.has("Old Key - Forest Temple Center Room", self.player, 1),  # TODO : add lever event
             "Forest Temple - Center Room -> Forest Temple - Parkour Room": self.hasWallClimb,
             "Forest Temple - Center Room -> Forest Temple - Boss Room": lambda state: state.has("Holy Key - Forest Temple Boss", self.player, 1),
@@ -107,46 +107,46 @@ class BluefireRules:
 
             # Abandoned Path
             "Abandoned Path - Entrance -> Stoneheart City - Main Area": lambda state: True,
-            "Abandoned Path - Entrance -> Abandoned Path - Main Room": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
-            "Abandoned Path - Main Room -> Abandoned Path - Entrance": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
+            "Abandoned Path - Entrance -> Abandoned Path - Main Room": lambda state: self.hasWallClimb(state) or (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state) or state.has("Fire Keep Tear Spirit") or state.has("Flying Onop Spirit"),
+            "Abandoned Path - Main Room -> Abandoned Path - Entrance": lambda state: self.hasWallClimb(state) or (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state) or state.has("Fire Keep Tear Spirit") or state.has("Flying Onop Spirit"),
             "Abandoned Path - Main Room -> Abandoned Path - Heights": self.hasWallClimb,
-            "Abandoned Path - Main Room -> Abandoned Path - Entrance Ravin": self.hasDoubleJump or self.hasSpinAttack,
-            "Abandoned Path - Main Room -> Abandoned Path - Graveyard Balcony": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
+            "Abandoned Path - Main Room -> Abandoned Path - Entrance Ravin": lambda state: (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state),
+            "Abandoned Path - Main Room -> Abandoned Path - Graveyard Balcony": lambda state: self.hasWallClimb(state) or self.hasDoubleJump(state) or self.hasSpinAttack(state) or state.has("Holy Centry Spirit", self.player),
             "Abandoned Path - Main Room -> Abandoned Path - Right side of Tower": lambda state: True,
             "Abandoned Path - Heights -> Abandoned Path - Beira's Room": self.hasAllBeiraShards,
             "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Uthas Temple Key", self.player, 1),
             "Abandoned Path - Entrance Ravin -> Abandoned Path - Main Room": self.hasDoubleJump or self.hasSpinAttack,
-            "Abandoned Path - Graveyard Balcony -> Abandoned Path - Main Room": self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack,
+            "Abandoned Path - Graveyard Balcony -> Abandoned Path - Main Room":lambda state: self.hasWallClimb(state) or self.hasDoubleJump(state) or self.hasSpinAttack(state) or state.has("Holy Centry Spirit", self.player),
             "Abandoned Path - Graveyard Balcony -> Water Ways - Abandoned Path Entrance": lambda state: True,
             "Abandoned Path - Graveyard Balcony -> Temple Gardens - Entrance": lambda state: True,
             "Abandoned Path - Heights -> Abandoned Path - Main Room": lambda state: True,
             "Abandoned Path - Main Room -> Abandoned Path - End of Main Room": lambda state: True, # TODO : Need spirits to go here
             "Abandoned Path - Beira's Room -> Abandoned Path - Heights": lambda state: True,
-            "Abandoned Path - End of Main Room -> Abandoned Path - Main Room": self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack, # TODO : Need spirits to go here
+            "Abandoned Path - End of Main Room -> Abandoned Path - Main Room": lambda state: self.hasWallClimb(state) and (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state), # TODO : Need spirits to go here
             "Abandoned Path - Right side of Tower -> Abandoned Path - Main Room": lambda state: True,
 
             # Uthas Temple
             "Uthas Temple - Entrance -> Abandoned Path - Entrance": lambda state: True,
             "Uthas Temple - Entrance -> Uthas Temple - Main Room": lambda state: state.has("Old Key - Uthas Temple Main Room", self.player, 1),
-            "Uthas Temple - Entrance -> Uthas Temple - Top of Entrance": lambda state: self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack),
+            "Uthas Temple - Entrance -> Uthas Temple - Top of Entrance": lambda state: self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state)),
             "Uthas Temple - Top of Entrance -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key - Uthas Temple Ambush", self.player, 1) and (self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack),
             "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Holy Key - Uthas Temple Holy Tower", self.player, 1),
-            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key - Uthas Temple 2nd Side", self.player, 1) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
+            "Uthas Temple - Main Room -> Uthas Temple - Main Room 2nd side": lambda state: state.has("Old Key - Uthas Temple 2nd Side", self.player, 1) and ((self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state))) or ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state))),
             "Uthas Temple - Ambush Room -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Holy Tower Chest -> Uthas Temple - Main Room": lambda state: True,
             "Uthas Temple - Main Room 2nd side -> Uthas Temple - Main Room": lambda state: True,
-            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: state.has("Old Key - Uthas Temple Final Floor", self.player, 1) and ((self.hasWallClimb and (self.hasDoubleJump or self.hasSpinAttack)) or (self.hasDoubleJump and self.hasSpinAttack)),
+            "Uthas Temple - Main Room 2nd side -> Uthas Temple - Final Floor": lambda state: state.has("Old Key - Uthas Temple Final Floor", self.player, 1) and ((self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state))) or ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state))),
             "Uthas Temple - Final Floor -> Uthas Temple - Main Room 2nd side": lambda state: True,
 
             # Temple Gardens
             "Temple Gardens - Entrance -> Firefall River - Main Area": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods": lambda state: True,
-            "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": self.hasDoubleJump or self.hasSpinAttack,
+            "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": lambda state: self.hasDoubleJump(state) or self.hasSpinAttack(state) or state.has("Holy Centry Spirit", self.player),
             "Temple Gardens - Entrance -> Abandoned Path - Graveyard Balcony": lambda state: True,
-            "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods Bell Towers": lambda state: self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack,
-            "Temple Gardens - Entrance -> Temple Gardens - Top of Temple of Gods Door": lambda state: self.hasWallClimb and self.hasDoubleJump and self.hasSpinAttack,
+            "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods Bell Towers": lambda state: self.hasWallClimb(state) and (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state),
+            "Temple Gardens - Entrance -> Temple Gardens - Top of Temple of Gods Door": lambda state: self.hasWallClimb(state) and (self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) and self.hasSpinAttack(state),
             "Temple Gardens - Middle Balcony -> Temple Gardens - Entrance": self.hasDoubleJump or self.hasSpinAttack,
             "Temple Gardens - Middle Balcony -> Stoneheart City - Main Area": lambda state: True,
             "Temple Gardens - Temple of Gods -> Temple Gardens - Entrance": lambda state: True,
@@ -156,13 +156,16 @@ class BluefireRules:
 
             # Firefall River
             "Firefall River - Main Area -> Water Ways - Firefall River Entrance": lambda state: self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack, # TODO : Need spirits to go here
-            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: self.hasWallClimb or self.hasDoubleJump or self.hasSpinAttack, # TODO : Need spirits to go here,
+            "Firefall River - Main Area -> Firefall River - Steam House": lambda state: self.hasWallClimb(state) or self.hasDoubleJump(state) or self.hasSpinAttack(state) or state.has("Holy Centry Spirit", self.player), # TODO : Need spirits to go here,
             "Firefall River - Main Area -> Firefall River - Entrance Left Side": lambda state: True,
             "Firefall River - Steam House -> Firefall River - Main Area": lambda state: True,
             "Firefall River - Steam House -> Rust Village - Main Area": self.allGeneratorsRepaired,
             "Firefall River - Steam House -> Firefall River - Fire Boss Room": lambda state: state.has("Key of Ember", self.player),
             "Firefall River - Fire Boss Room -> Firefall River - Steam House": lambda state: True,
             "Firefall River - Entrance Left Side -> Firefall River - Main Area": lambda state: True,
+      
+
+
 
             # Rust Village
             "Rust Village - Main Area -> Firefall River - Steam House": lambda state: True,
@@ -173,6 +176,24 @@ class BluefireRules:
             "Firefall River - Steam House - Repair Generator 1": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
             "Firefall River - Steam House - Repair Generator 2": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
             "Firefall River - Steam House - Repair Generator 3": lambda state: state.has("Iron Justice", self.player) or state.has("Progressive Weapon", self.player, 8),
+        }
+        self.location_rules = {
+            "Fire Keep - Top of Lula's Void Gate Room - Spirit": lambda state: self.hasDoubleJump(state) and self.hasSpinAttack(state), 
+            "Firefall River - Main Area - The Alchemist Void Gate Chest 2": self.hasWallClimb,
+            "Firefall River - Main Area - The Alchemist Void Gate Chest 1": lambda state: self.hasWallClimb(state) and self.hasDoubleJump(state) and state.has("Fire Keep Tear Spirit", self.player) and state.has("Holy Centry Spirit", self.player),
+            "Firefall River - Main Area - Fury of Heraldo Void Gate": self.hasWallClimb, 
+            "Stoneheart City - Main Area - Top Chest": lambda state: self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player),
+            "Stoneheart City - Main Area - Top of Lever Chest": lambda state: self.hasDoubleJump(state) and state.has("Fire Keep Tear Spirit", self.player) and state.has("Holy Centry Spirit", self.player) or self.hasDoubleJump(state) and self.hasSpinAttack(state) and self.hasWallClimb(state),
+            "Temple Gardens - Entrance - Fourth Floor Left Chest": lambda state: state.has("Fire Keep Tear Spirit", self.player),
+            "Arcane Tunnels - Center Top - Spirit": lambda state: self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state)),
+            "Arcane Tunnels - Center Top - Chest": lambda state: self.hasWallClimb(state) and ((self.hasDoubleJump(state) or state.has("Holy Centry Spirit", self.player)) or self.hasSpinAttack(state)),
+            "Forest Temple - Low Level - Spirit": self.hasWallClimb,
+            "Forest Temple - Low Level - Void chest": self.hasWallClimb,
+            "Forest Temple - Low Level - Argio's Challenge Void Gate": self.hasWallClimb,
+            "Forest Temple - Parkour Room - Entrance Chest": self.hasWallClimb,
+            "Forest Temple - Parkour Room - End of Parkour Chest": self.hasWallClimb,
+            "Forest Temple - Parkour Room - Wave Emote Statue": self.hasWallClimb,  # didnt send out when i tested the location but happens sometimes on other checks that i know work and no errors showed up in the client
+            "Forest Temple - Low Level - Hello Emote Chest": self.hasWallClimb,
         }
 
     def hasDoubleJump(self, state: CollectionState) -> bool:
@@ -201,6 +222,10 @@ class BluefireRules:
         for entrance_name, rule in self.connection_rules.items():
             entrance = multiworld.get_entrance(entrance_name, self.player)
             add_rule(entrance, rule)
+
+        for location_name, rule in self.location_rules.items():
+            location = multiworld.get_location(location_name, self.player)
+            add_rule(location, rule)
 
         for location, dance in chest_dance_rules:
             add_rule(location, lambda state, d=dance: state.has(f"{d} Emote", self.player))
