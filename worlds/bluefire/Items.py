@@ -93,25 +93,25 @@ tunic_items: List["ItemDict"] = [
 ]
 
 spirit_items: List["ItemDict"] = [
-    {"name": "Faras Grace Spirit", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Faras Grace Spirit (now Progressive Jump)
     {"name": "Hammer Himu Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Hammer Himu or Hammer King ?
-    {"name": "Holy Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
-    {"name": "Fire Keep Tear Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Correct name ?
+    None, # Skip Holy Centry Spirit (now Progressive Jump)
+    None, # Skip Fire Keep Tear Spirit (now Progressive Dash)
     {"name": "Angry Ambusher Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Secret Fruit Spirit
     None, # Skip Mind Controller Spirit
     {"name": "Frozen Soul Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Howling Tree Spirit
     {"name": "Love Flower Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Storm Centry Spirit", "count": 1, "classification": ItemClassification.useful}, # TODO : Centry or Sentry ?
+    None, # Skip Storm Centry Spirit (now Progressive Dash)
     {"name": "Blood Phantom Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Possessed Book Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Forest Guardian Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Moi The Dreadful Spirit", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Possessed Book Spirit (now Progressive Spin Attack)
+    None, # Skip Forest Guardian Spirit (now Progressive Running)
+    None, # Skip Moi The Dreadful Spirit (now Progressive Spin Attack)
     None, # Skip Stone Hunter Spirit
     {"name": "Golden Lust Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip the Spring Warrior Spirit
-    {"name": "Onop Siblings Spirit", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Onop Siblings Spirit (now Progressive Wall Climb)
     None, # Skip Candle Onop Spirit
     None, # Skip Stone Warrior Spirit
     {"name": "Aerial Rat Spirit", "count": 1, "classification": ItemClassification.useful},
@@ -121,7 +121,7 @@ spirit_items: List["ItemDict"] = [
     {"name": "Life Steal Spirit", "count": 1, "classification": ItemClassification.useful},
     None, # Skip Shadow Demon Spirit
     {"name": "Shadow Gruh Spirit", "count": 1, "classification": ItemClassification.useful},
-    {"name": "Flying Onop Spirit", "count": 1, "classification": ItemClassification.useful},
+    None, # Skip Flying Onop Spirit (now Progressive Jump)
     None, # Skip Toxic Water Spirit
 ]
 
@@ -129,14 +129,14 @@ spirit_items: List["ItemDict"] = [
 ability_items: List["ItemDict"] = [
     None, # Skip the Attack
     None, # Skip the Dash
-    {"name": "Double Jump Ability", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Wall Run Ability", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Sprint Ability", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip Double Jump Ability (now Progressive Jump)
+    None, # Skip Wall Run Ability (now Progressive Wall Climb)
+    None, # Skip Sprint Ability (now Progressive Running)
     None, # Skip the Down Smash
     {"name": "Spell Ability", "count": 1, "classification": ItemClassification.progression},
     None, # Skip the Grind Ability
     {"name": "Block Ability", "count": 1, "classification": ItemClassification.progression},
-    {"name": "Spin Attack Ability", "count": 1, "classification": ItemClassification.progression},
+    None, # Skip Spin Attack Ability (now Progressive Spin Attack)
 ]
 
 regular_items: List["ItemDict"] = [
@@ -344,6 +344,11 @@ def get_custom_items(progressive_pouches: bool, progressive_weapons: bool) -> Li
         {"name": "x1000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
         {"name": "x2000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
         {"name": "x3000 Currency", "count": 1, "repeatable": True, "classification": ItemClassification.filler},
+        {"name": "Progressive Jump", "count": 4, "classification": ItemClassification.progression},
+        {"name": "Progressive Dash", "count": 2, "classification": ItemClassification.progression},
+        {"name": "Progressive Wall Climb", "count": 2, "classification": ItemClassification.progression},
+        {"name": "Progressive Spin Attack", "count": 3, "classification": ItemClassification.progression},
+        {"name": "Progressive Running", "count": 2, "classification": ItemClassification.progression},
     ]
 
 custom_items: List["ItemDict"] = get_custom_items(progressive_pouches=True, progressive_weapons=True)
