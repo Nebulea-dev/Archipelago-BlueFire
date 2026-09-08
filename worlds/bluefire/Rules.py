@@ -57,7 +57,7 @@ class BluefireRules:
             # Fire Keep
             "Fire Keep - Intro -> Fire Keep - Hub": lambda state: state.has("Old Key - Fire Keep", self.player, 1),
             "Fire Keep - Intro -> Fire Keep - High Spot": self._check_movement(MovementRule([
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(wall_climb=1),
                 MovementInventory(spin_attack=1),
             ])),
@@ -148,7 +148,7 @@ class BluefireRules:
             "Forest Temple - Low Level -> Forest Temple - Middle Level": lambda state: True,
             "Forest Temple - Low Level -> Forest Temple - Center Room": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
             ])),
             "Forest Temple - Low Level -> Forest Temple - Long Corridor": self._check_movement(MovementRule([
                 MovementInventory(jump=1, wall_climb=1, spin_attack=1),
@@ -174,36 +174,36 @@ class BluefireRules:
             "Abandoned Path - Entrance -> Stoneheart City - Main Area": lambda state: True,
             "Abandoned Path - Entrance -> Abandoned Path - Main Room": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Main Room -> Abandoned Path - Entrance": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Main Room -> Abandoned Path - Heights": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
             ])),
             "Abandoned Path - Main Room -> Abandoned Path - Entrance Ravin": self._check_movement(MovementRule([
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Main Room -> Abandoned Path - Graveyard Balcony": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Main Room -> Abandoned Path - Right side of Tower": lambda state: True,
             "Abandoned Path - Heights -> Abandoned Path - Beira's Room": self.hasAllBeiraShards,
             "Abandoned Path - Main Room -> Uthas Temple - Entrance": lambda state: state.has("Uthas Temple Key", self.player, 1),
             "Abandoned Path - Entrance Ravin -> Abandoned Path - Main Room": self._check_movement(MovementRule([
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Graveyard Balcony -> Abandoned Path - Main Room": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Abandoned Path - Graveyard Balcony -> Water Ways - Abandoned Path Entrance": lambda state: True,
@@ -227,7 +227,7 @@ class BluefireRules:
             "Uthas Temple - Main Room -> Uthas Temple - Entrance": lambda state: True,
             "Uthas Temple - Main Room -> Uthas Temple - Ambush Room": lambda state: state.has("Old Key - Uthas Temple Ambush", self.player, 1) and self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ]))(state),
             "Uthas Temple - Main Room -> Uthas Temple - Holy Tower Chest": lambda state: state.has("Holy Key - Uthas Temple Holy Tower", self.player, 1),
@@ -250,7 +250,7 @@ class BluefireRules:
             "Temple Gardens - Entrance -> Firefall River - Main Area": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Temple of Gods": lambda state: True,
             "Temple Gardens - Entrance -> Temple Gardens - Middle Balcony": self._check_movement(MovementRule([
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Temple Gardens - Entrance -> Abandoned Path - Graveyard Balcony": lambda state: True,
@@ -261,7 +261,7 @@ class BluefireRules:
                 MovementInventory(wall_climb=1, jump=1, spin_attack=1),
             ])),
             "Temple Gardens - Middle Balcony -> Temple Gardens - Entrance": self._check_movement(MovementRule([
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])),
             "Temple Gardens - Middle Balcony -> Stoneheart City - Main Area": lambda state: True,
@@ -273,12 +273,12 @@ class BluefireRules:
             # Firefall River
             "Firefall River - Main Area -> Water Ways - Firefall River Entrance": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])), # TODO : Need spirits to go here
             "Firefall River - Main Area -> Firefall River - Steam House": self._check_movement(MovementRule([
                 MovementInventory(wall_climb=1),
-                MovementInventory(jump=1),
+                MovementInventory(jump=3),
                 MovementInventory(spin_attack=1),
             ])), # TODO : Need spirits to go here
             "Firefall River - Main Area -> Firefall River - Entrance Left Side": lambda state: True,
