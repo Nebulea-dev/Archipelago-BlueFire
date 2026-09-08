@@ -18,7 +18,7 @@ upgrade_current_count: int = 0
 # Convert JSON to the original format for backward compatibility
 regions_to_locations: Dict[str, Dict[str, List[str]]] = {}
 
-location_types: List[str] = ["chests", "statues", "pickups", "void_gates", "shops", "mana_upgrades"]
+location_types: List[str] = ["chests", "statues", "pickups", "void_gates", "shops", "spiritslotshop", "mana_upgrades"]
 
 # Map out the locations that need a dance as a rule
 dance_locations: Dict[str, str] = {}
@@ -52,6 +52,15 @@ for region in _locations_data.get("regions", []):
                         full_path = f"{region_name} - {subregion_name} - {loc_name}"
                         _location_name_to_id[full_path] = _location_id_counter
                         _location_id_counter += 1
+            elif location_type == "spiritslotshop":
+                # For spirit slot shop, each slot creates a separate location
+                for slot in subregion.get("spiritslotshop", []):
+                    slot_name = slot["name"]
+                    locations.append(slot_name)
+                    # Store the full location path and its ID
+                    full_path = f"{region_name} - {subregion_name} - {slot_name}"
+                    _location_name_to_id[full_path] = _location_id_counter
+                    _location_id_counter += 1
             elif location_type == "mana_upgrades":
                 # For mana upgrades, each upgrade creates a separate location
                 for upgrade in subregion.get("mana_upgrades", []):
